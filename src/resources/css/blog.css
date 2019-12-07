@@ -1,0 +1,83 @@
+.blog-write-page {
+    height: 100%;
+    overflow: hidden;
+}
+
+.page-header {
+    width: 100%;
+    height: 5rem;
+    background-color: #274c5e;
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.page-header .title {
+    padding-right: 1rem;
+}
+
+.page-header .buttons i {
+    margin-right: 1rem;
+}
+
+.input-wrap {
+    width: 100%;
+    height: 4rem;
+    margin-bottom: 1px;
+}
+
+.input-wrap input {
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ced4da;
+    padding-left: 1rem;
+}
+
+.separator {
+    border-left: 1px solid #ced4da;
+}
+.page-content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - ( 9rem + 2px ));
+}
+
+.blog-preview {
+    flex: 1 1;
+    padding: 1rem 1rem 0 1rem;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.editor-wrap {
+    flex: 1 1;
+    height: 100%;
+}
+
+.editor-wrap .editor-buttons {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: 3rem;
+    padding-left: 1rem;
+    border-bottom: 1px solid #ced4da;
+}
+
+.editor-wrap .editor-buttons i {
+    cursor: pointer;
+    color: #90A4AE;
+    margin-right: 1rem;
+}
+
+.editor-wrap .editor-buttons i:hover {
+    color: #274c5e;
+}
+
+.CodeMirror {
+    height: 100%!important;
+}
+.CodeMirror-lines {
+    padding: 1rem 1rem 0 1rem!important;
+}
