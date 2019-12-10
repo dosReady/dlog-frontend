@@ -1,0 +1,39 @@
+.slide-area {
+    height: 30rem;
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.slide-area img {
+    height: 100%;
+}
+
+.prod-list-wrap {
+    padding: 2.5rem 20rem 10rem 20rem;
+}
+
+.tag-area {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+}
+
+.tag-area .tag-item {
+    margin-right: 1rem;
+}
+
+.prod-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.prod-item {
+    width: 30%;
+    height: 20rem;
+    background-color: rgb(245, 245, 245);
+    margin: 5px;
+}
