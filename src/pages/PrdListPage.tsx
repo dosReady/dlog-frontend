@@ -8,7 +8,7 @@ class PrdListPage extends React.Component {
                 <div className="page-header">청송목조각 나무조각들</div>
                 <div className="page-content">
                     <div className="slide-area">
-                        <img src="http://demoapus-wp.com/maison/wp-content/uploads/2017/07/Layer-24.png" alt="aaa"/>
+                        <img src="http://demoapus-wp.com/maison/wp-content/uploads/2017/07/Layer-24.png" alt="메인 이미지"/>
                     </div>
                     <div className="prod-list-wrap">
                         <div className="tag-area">
