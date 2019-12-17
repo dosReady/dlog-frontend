@@ -3,7 +3,6 @@
     overflow: hidden;
 }
 
-
 .blog-write-page .page-header .title {
     padding-right: 1rem;
 }
@@ -69,4 +68,43 @@
 }
 .CodeMirror-lines {
     padding: 1rem 1rem 0 1rem!important;
+}
+
+
+/* BLOG COMMON */
+
+.blog-container {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-container .header-wrap {
+    width: 100%;
+    height: 5rem;
+    background-color: #274c5e;
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    padding-left: 10rem;
+    padding-right: 10rem;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.blog-container .blog-content {
+    display: flex;
+    justify-content: center;
+    padding: 5rem 0;
+    overflow-y: scroll;
+}
+
+.blog-container .blog-content .blog-list-wrap {
+    width: 70%;
+    padding: 5rem .75rem;
 }
