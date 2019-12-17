@@ -1,10 +1,10 @@
 import React from 'react';
-import Editor from '../components/Editor';
-import Preview from '../components/Preview';
+import Editor from '../../components/Editor';
+import Preview from '../../components/Preview';
 import {Dispatch, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {RootState, editorActions} from '../modules';
-import '../resources/css/index.css';
+import {RootState, editorActions} from '../../modules';
+import '../../resources/css/index.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/nord.css';
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
