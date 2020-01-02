@@ -1,5 +1,6 @@
 @import './blog.css';
 @import './prod.css';
+@import './player.css';
 
 html, body, #root, #app {
     height: 100%;

@@ -1,5 +1,6 @@
 import React from 'react';
 import BlogTemplate from '../../components/templates/BlogTemplate';
+import PostPlayer from '../../components/PostPlayer';
 import '../../resources/css/index.css';
 
 class BlogListPage extends React.Component {
@@ -8,9 +9,7 @@ class BlogListPage extends React.Component {
        return (
            <BlogTemplate title="DOS">
                <section className="blog-content">
-                   <div className="blog-list-wrap">
-                        목록
-                   </div>
+                   <PostPlayer/>
                </section>
            </BlogTemplate>
        )
