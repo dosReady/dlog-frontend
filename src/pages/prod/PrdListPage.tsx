@@ -1,5 +1,5 @@
 import React from 'react'
-import ProdGrid from '../components/ProdGrid';
+import ProdGrid from '../../components/ProdGrid';
 
 class PrdListPage extends React.Component {
     render = (): JSX.Element => {

@@ -1,6 +1,6 @@
 import React from 'react'
-import QuickBlogWidget from '../components/widgets/QuickBlogWidget';
-import NoticeBoardWidget from '../components/widgets/NoticeBoardWidget';
+import QuickBlogWidget from '../../components/widgets/QuickBlogWidget';
+import NoticeBoardWidget from '../../components/widgets/NoticeBoardWidget';
 class PrdMainPage extends React.Component {
     render = (): JSX.Element => {
         return (
