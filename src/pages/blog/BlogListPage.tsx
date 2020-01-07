@@ -7,7 +7,7 @@ class BlogListPage extends React.Component {
 
    render = ():JSX.Element => {
        return (
-           <BlogTemplate title="DOS">
+           <BlogTemplate title="DOS BLOG">
                <section className="blog-content">
                    <PostPlayer/>
                </section>

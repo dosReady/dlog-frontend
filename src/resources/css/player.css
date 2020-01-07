@@ -1,15 +1,20 @@
 .player-container {
     width:100%;
     height: 100%;
+    position: relative;
+    border: 1px solid white;
+}
+
+.player-container .player-content {
     display: flex;
 }
 
-.player-container .player-left {
+.player-container .player-content .player-left {
     margin-right: 1rem;
     flex: 1;
 }
 
-.player-container .player-left .thumbnail-wrap {
+.player-container .player-content .player-left .thumbnail-wrap {
     position: relative;
     width: 100%;
     height: 100%;
@@ -18,32 +23,38 @@
     padding: 2rem;
 }
 
-.player-container .player-left .thumbnail-wrap .post-title{
+.player-container .player-content .player-left .thumbnail-wrap .post-title{
     font-size: 2rem;
 }
 
-.player-container .player-left .thumbnail-wrap .control-panel {
+.player-container .player-content .player-left .thumbnail-wrap .control-panel {
     width: calc(100% - 4rem);
     position: absolute;
     bottom: 2rem;
 }
-.player-container .player-left .thumbnail-wrap .control-panel .post-progress{
+.player-container .player-content .player-left .thumbnail-wrap .control-panel .post-progress{
     border: 2px solid red;
     width: 100%;
     height: 1px;
     margin-bottom: 1rem;
 }
 
-.player-container .player-right {
+.player-container .player-content .player-right {
     flex: 1;
 }
 
-.player-container .player-right .player-item {
+.player-container .player-content .player-right .player-item {
     border-top: 1px solid black;
-    padding: 1rem 0;
+    padding: 1rem ;
 }
 
-.player-container .player-right .player-item .post-info {
+.player-container .player-content .player-right .player-item .post-info {
     display: flex;
     justify-content: space-between;
+}
+
+.player-container .player-bottom {
+    position: absolute;
+    right: 0;
+    bottom: -2rem;
 }
