@@ -81,15 +81,20 @@ body {
 
 /* 2. CONTENT */
 .content-container {
-  padding: 2.5rem
+  padding: 2.5rem;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 /* 3. TAG */
-
+.tag-list-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .tag-list-wrap .tag-item-wrap {
   background-color: #D3E2D7;
   width: 20rem;
-  height: 4rem;
+  height: 3rem;
   border-radius: 0.7rem;
   color: black;
   display: flex;
@@ -97,7 +102,7 @@ body {
   justify-content: center;
   padding-left: .75rem;
   cursor: pointer;
-  margin-bottom: .75rem;
+  margin: .75rem;
 }
 .tag-list-wrap .tag-item-wrap:hover {
   background-color: #024770;
@@ -116,7 +121,7 @@ body {
   margin-right: 1rem;
 }
 
-.tag-list-wrap .search-bar-wrap {
+.tag-container .search-bar-wrap {
   display: flex;
   align-items: center;
   width: 30rem;
@@ -124,11 +129,11 @@ body {
   position: relative;
   color: #fff;
 }
-.tag-list-wrap .search-bar-wrap i {
+.tag-container .search-bar-wrap i {
   position: absolute;
   left: 28rem;
 }
-.tag-list-wrap .search-bar-wrap input {
+.tag-container .search-bar-wrap input {
   background-color: #024770;
   border-style: solid;
   border-color: #024770;
@@ -140,6 +145,6 @@ body {
   font-size: 1rem;
   font-weight: bold;
 }
-.tag-list-wrap .search-bar-wrap input::placeholder {
+.tag-container .search-bar-wrap input::placeholder {
   color: #fff;
 }
