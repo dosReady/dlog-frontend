@@ -1,6 +1,11 @@
 @import './blog.css';
 @import './prod.css';
 @import './player.css';
+@font-face{
+  font-family: 'NanumGothic';
+  src: url('../font/NanumGothic-Regular.ttf') format('truetype')
+} 
+
 
 html, body, #root, #app {
     height: 100%;
@@ -8,83 +13,133 @@ html, body, #root, #app {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #1d1f21;
-    color: #c9cacc;
+    font-family: 'NanumGothic';
 }
 
-
-input {
-  width: inherit;
-  height: inherit;
-  font-family: inherit;
-  border: none;
-  outline: 0;
-  padding: 0;
-  margin: 0;
+.page-conatiner {
+    display: flex;
+    height: 100%;
 }
 
-button {
-  border: none;
-  overflow: visible;
-  text-transform: none;
-  font-family: inherit;
-  margin: 0;
-  height: inherit;
-  color: #fff;
-  vertical-align: middle;
-  font-size: 1rem;
-  border-radius: .25rem;
-  font-weight: 500;
-  padding: 0 .75rem;
-}
-.btn-success {
-  color: #fff;
-  background-color: #3ac569;
-  border-color: #3ac569;
-}
-.btn-success:focus {
-  outline: 2px solid #3ac569;
-}
-
-*, ::after, ::before {
-  box-sizing: border-box;
-}
-
-.page-container {
-  height: 100%;
-}
-.page-header {
-  width: 100%;
-  height: 5rem;
-  background-color: #274c5e;
-  color: #fff;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  padding-left: 20rem;
-  padding-right: 1rem;
-}
-
-.page-content {
+.page-conatiner .menu-container {
+   flex-basis: 20rem;
+  background: #024770;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
 }
 
-.img-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.page-conatiner .content-container {
+  flex-basis: calc(100% - 20rem);
 }
 
-.img-container img {
-  width: 100%;
-  height: 100%;
+/* 1. MENU */
+.menu-container .site-title {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.menu-container .site-title span {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+}
+
+
+.menu-container .site-link-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10rem;
+}
+
+.menu-container .site-link-wrap .site-link {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.menu-container .site-link-wrap .site-link:last-child {
+  margin-bottom: 0;
+}
+
+.menu-container .site-link-wrap .site-link i {
+  margin-right: 1rem;
+}
+
+.menu-container .site-footer {
+  margin-top: auto;
+  padding: 5rem;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+}
+
+/* 2. CONTENT */
+.content-container {
+  padding: 2.5rem
+}
+
+/* 3. TAG */
+
+.tag-list-wrap .tag-item-wrap {
+  background-color: #D3E2D7;
+  width: 20rem;
+  height: 4rem;
+  border-radius: 0.7rem;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: .75rem;
+  cursor: pointer;
+  margin-bottom: .75rem;
+}
+.tag-list-wrap .tag-item-wrap:hover {
+  background-color: #024770;
+  color: #fff;
+}
+.tag-list-wrap .tag-item-wrap .tag-content {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.tag-list-wrap .tag-item-wrap .tag-content i{
+  margin-right: 1rem;
+}
+.tag-list-wrap .tag-item-wrap .tag-content .tag-info{
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.tag-list-wrap .search-bar-wrap {
+  display: flex;
+  align-items: center;
+  width: 30rem;
+  margin-bottom: 2rem;
+  position: relative;
+  color: #fff;
+}
+.tag-list-wrap .search-bar-wrap i {
+  position: absolute;
+  left: 28rem;
+}
+.tag-list-wrap .search-bar-wrap input {
+  background-color: #024770;
+  border-style: solid;
+  border-color: #024770;
+  width: inherit;
+  padding: .75rem;
+  border-radius: .75rem;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.tag-list-wrap .search-bar-wrap input::placeholder {
+  color: #fff;
 }

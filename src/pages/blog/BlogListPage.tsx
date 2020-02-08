@@ -1,17 +1,15 @@
 import React from 'react';
-import BlogTemplate from '../../components/templates/BlogTemplate';
-import PostPlayer from '../../components/PostPlayer';
-import '../../resources/css/index.css';
+import 'resources/css/index.css';
+import Tag from 'components/Tag';
+import DefaultTemplate from 'components/templates/DefaultTemplate';
 
 class BlogListPage extends React.Component {
 
    render = ():JSX.Element => {
        return (
-           <BlogTemplate title="DOS BLOG">
-               <section className="blog-content">
-                   <PostPlayer/>
-               </section>
-           </BlogTemplate>
+           <DefaultTemplate>
+               <Tag/>
+           </DefaultTemplate>
        )
    }
 }
