@@ -1,14 +1,14 @@
 import React from 'react';
 import 'resources/css/index.css';
+import Tag from 'components/Tag';
 import DefaultTemplate from 'components/templates/DefaultTemplate';
-import PostList from 'components/PostList';
 
 class BlogListPage extends React.Component {
 
    render = ():JSX.Element => {
        return (
            <DefaultTemplate>
-                <PostList/>
+               <Tag/>
            </DefaultTemplate>
        )
    }

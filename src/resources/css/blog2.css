@@ -1,0 +1,88 @@
+/* 3. TAG */
+.tag-list-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tag-list-wrap .tag-item-wrap {
+    background-color: #D3E2D7;
+    width: 20rem;
+    height: 3rem;
+    border-radius: 0.7rem;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: .75rem;
+    cursor: pointer;
+    margin: .75rem;
+  }
+  .tag-list-wrap .tag-item-wrap:hover {
+    background-color: #024770;
+    color: #fff;
+  }
+  .tag-list-wrap .tag-item-wrap .tag-content {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+  .tag-list-wrap .tag-item-wrap .tag-content i{
+    margin-right: 1rem;
+  }
+  .tag-list-wrap .tag-item-wrap .tag-content .tag-info{
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+  
+  .tag-container .search-bar-wrap {
+    display: flex;
+    align-items: center;
+    width: 30rem;
+    margin-bottom: 2rem;
+    position: relative;
+    color: #fff;
+  }
+  .tag-container .search-bar-wrap i {
+    position: absolute;
+    left: 28rem;
+  }
+  .tag-container .search-bar-wrap input {
+    background-color: #024770;
+    border-style: solid;
+    border-color: #024770;
+    width: inherit;
+    padding: .75rem;
+    border-radius: .75rem;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .tag-container .search-bar-wrap input::placeholder {
+    color: #fff;
+  }
+  
+  
+  /* POST */
+  .post-item-wrap {
+    box-shadow: 0 4px rgba(0,0,0,.05);
+    margin: 2rem 0;
+    padding: 2rem 0.5rem;
+  }
+  .post-list-title {
+    display: flex;
+    flex-direction: column;
+  }
+  .post-list-title i {
+    font-size: 2rem;
+    margin-bottom: .75rem;
+    color: #024770;
+  }
+  .post-list-title i:hover {
+    color: #026B99;
+  }
+  .post-list-title span {
+    border-left: solid 10px #024770;
+    font-size: 3rem;
+    font-weight: bold;
+    padding-left: 10px;
+  }
