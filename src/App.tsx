@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import './resources/css/index.css';
-import BlogWritePage from './pages/blog/BlogWritePage';
+import 'resources/css/index.css';
+import BlogWritePage from 'pages/blog/BlogWritePage';
 import BlogListPage from 'pages/blog/BlogListPage';
 const App: React.FC = () => {
  
