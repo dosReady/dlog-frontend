@@ -11,7 +11,7 @@ class TopMenuTemplate extends React.Component<Props> {
        return (
            <div className="page-conatiner">
                <div className="menu-container">
-                    <div className="site-title">DLOG</div>
+                    <div className="site-title">D.log</div>
                </div>
                {this.props.children}
            </div>

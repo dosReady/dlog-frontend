@@ -33,14 +33,13 @@ body {
   height: calc( 100% - 3.5rem);
 }
 
-
 .tag-page {
   display: flex;
-  padding: 4rem;
+  flex-direction: column;
+  padding: 3rem 25rem;
 }
 .tag-page .tag-list-wrap {
-  margin-right: 10rem;
-  flex: 0 0 30%;
+  margin-bottom: 5rem;
 }
 
 .tag-page  .tag-list-wrap .tag-search-bar {
@@ -76,6 +75,7 @@ body {
 .tag-page .tag-list-wrap .tag-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .tag-page .tag-list-wrap .tag-list .tag-item {
   font-size: .85rem;
@@ -84,10 +84,6 @@ body {
   padding: .75rem 1rem;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
   margin: .25rem;
-}
-
-.tag-page .tag-response-wrap {
-  flex: 0 0 70%;
 }
 .tag-page .tag-response-wrap .tag-response-title {
   display: flex;
@@ -105,11 +101,11 @@ body {
 }
 .tag-page .tag-response-wrap .tag-response-content .post-list {
   padding-top: 4rem;
-  padding-left: .75rem;
 }
 .tag-page .tag-response-wrap .tag-response-content .post-item-wrap {
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
   padding: 1rem 1rem 1rem .5rem;
+  margin-bottom: 3rem;
 }
 .tag-page .tag-response-wrap .tag-response-content .post-item {
   border-left: solid 5px #024770;

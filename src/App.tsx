@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './resources/css/index.css';
 import BlogWritePage from './pages/blog/BlogWritePage';
-import MainPage from './pages/main/MainPage';
-import BlogTagPage from './pages/blog/BlogTagPage';
 import BlogListPage from 'pages/blog/BlogListPage';
 const App: React.FC = () => {
  
@@ -11,8 +9,8 @@ const App: React.FC = () => {
       <div id="app">
         <Router>
           <Switch>
-            <Route path="/" exact component={MainPage} />
-            <Route path="/blog/list" exact component={BlogTagPage} />
+            <Route path="/" exact component={BlogListPage} />
+            <Route path="/blog/list" exact component={BlogListPage} />
             <Route path="/blog/list/post" exact component={BlogListPage} />
             <Route path="/blog/write" exact component={BlogWritePage} />
           </Switch>
