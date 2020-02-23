@@ -6,6 +6,7 @@ import '../resources/css/index.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
 import {PostInfo} from 'modules/Types';
+import axios from 'axios';
 
 // quil
 interface Props {
@@ -53,6 +54,23 @@ class Editor extends React.Component<Props, State> {
         return postInfo;
     }
 
+    getPostInfo = (): PostInfo => {
+        return this.setPostInfo({});
+    }
+
+    fnProcMngPost = async () => {
+        await this.callApiPost('', this.getPostInfo());
+    }
+
+    callApiPost = async (type:string, obj:PostInfo) => {
+        try {
+            await axios.post(`http://127.0.0.1:8080/api/inst/post`, obj);
+        } catch (error) {
+            console.error(error);
+        }
+        
+    }
+
     componentDidMount = (): void => {
        this.initialize();
     }
@@ -95,6 +113,7 @@ class Editor extends React.Component<Props, State> {
                         <i className="fas fa-code"></i>
                         <i className="fas fa-table"></i>
                         <i className="fas fa-palette"></i>
+                        <button onClick={this.fnProcMngPost}>등록</button>
                     </div>
                     <div className="content-textarea">
                          <textarea ref={this.textArea}></textarea>
