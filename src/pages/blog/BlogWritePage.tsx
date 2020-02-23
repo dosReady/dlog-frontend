@@ -1,57 +1,44 @@
 import React from 'react';
 import Editor from '../../components/Editor';
 import Preview from '../../components/Preview';
-import {Dispatch, bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {RootState, editorActions} from '../../modules';
 import '../../resources/css/index.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/nord.css';
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/regular.css';
+import TopMenuTemplate from 'components/templates/TopMenuTemplate';
+import {PostInfo} from 'modules/Types';
 
-interface StateProps {
-    title: string;
-    html: string;
+interface State {
+    info: PostInfo
 }
-interface DispatchProps {
-    EditorActions: typeof editorActions
-}
-interface OwnProps {}
 
-type BlogWriteConatinerPrps = StateProps & DispatchProps & OwnProps;
+interface Props {}
 
-class BlogWritePage extends React.Component<BlogWriteConatinerPrps> {
+class BlogWritePage extends React.Component<Props, State> {
+    readonly state = {
+        info: {
+            mainTitle: '',
+            alisTxt: '',
+            html: ''
+        }
+    }
 
-    public onChange = (html:string) => {
-        this.props.EditorActions.write(html);
+
+    public onChange = (rtn:PostInfo) => {
+        this.setState({info: rtn});
     }
 
     public render() {
         return (
+            <TopMenuTemplate>
             <div className ="blog-write-page">
-                <div className="page-header">
-                    <span className="title">글 입력하기</span>
-                    <div className="buttons">
-                    </div>
-                </div>
-                <div className="input-wrap">
-                    <input type="text" placeholder= "제목을 입력하세요."/>
-                </div>
-                <div className="page-content">
-                    <Editor onChange={this.onChange}/>
-                    <div className="separator"></div>
-                    <Preview title={this.props.title} html={this.props.html}/>
-                </div>
+                <Editor onChange={this.onChange}/>
+                <Preview info={this.state.info}/>
             </div>
+            </TopMenuTemplate>
         )
     }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-    ({editor}) => ({
-       title: editor.title,
-       html: editor.html 
-    }),
-    (dispatch: Dispatch) => ({ EditorActions : bindActionCreators(editorActions, dispatch)})
-)(BlogWritePage);
+export default BlogWritePage;

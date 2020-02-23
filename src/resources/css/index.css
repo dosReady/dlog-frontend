@@ -13,6 +13,24 @@ body {
     font-family: 'NanumGothic';
 }
 
+a:link {text-decoration: none; color: gray;}
+a:visited {text-decoration: none; color: gray;}
+a:active {text-decoration: none; color: gray;}
+a:hover {text-decoration: none; color: #024770;}
+
+
+input {
+  outline: none;
+  border: none;
+  font-size: inherit;
+  font-weight: initial;
+  width: 100%;
+}
+
+input::placeholder{
+  color: lightslategray;
+}
+
 .page-conatiner {
     height: 100%;
 }
@@ -118,4 +136,117 @@ body {
 .tag-page .tag-response-wrap .tag-response-content .post-item p{
   margin-top: 1rem;
   margin-bottom: 0;
+}
+
+
+/* detail*/
+
+.post-page {
+  display: flex;
+  padding: 5rem 3rem;
+}
+
+.left-wrap, .right-wrap {
+  flex: 1;
+}
+.content-wrap {
+  flex: 3;
+}
+
+.post-page .tag-title {
+  display: flex;
+  flex-direction: column;
+  border-left: solid 5px #024770;
+  padding-left: 1rem;
+}
+.post-page .tag-title .main {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.post-page .tag-title .sub {
+  padding-left: 4rem;
+}
+
+
+/* write */
+
+.blog-write-page {
+  display: flex;
+  height: calc(100% - 3.5rem);
+}
+
+.editor-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 2rem 2rem 0 2rem;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
+}
+
+.editor-wrap .title-form,
+.blog-preview .title-form {
+  border-left: solid 5px #024770;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+.editor-wrap .title-form .main-wrap,
+.blog-preview .title-form .main-wrap {
+  font-size: 3rem;
+}
+.editor-wrap .title-form .alis-wrap,
+.blog-preview .title-form .alis-wrap {
+  font-size: 1.5rem;
+}
+
+.editor-wrap .contents-form, 
+.editor-wrap .content-textarea {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+.CodeMirror {
+  flex: 1;
+  font-size: 1.2rem;
+  font-family: inherit!important;
+}
+.CodeMirror-lines {
+  padding: 1rem 1rem 0 1rem!important;
+} 
+
+.editor-wrap .editor-buttons {
+  display: flex;
+  align-items: center;
+  width: inherit;
+  height: 3rem;
+  padding-left: 1.5rem;
+  border-bottom: 1px solid #ced4da;
+}
+
+.editor-wrap .editor-buttons i {
+  cursor: pointer;
+  color: #90A4AE;
+  margin-right: 1rem;
+}
+
+.editor-wrap .editor-buttons i:hover {
+  color: #274c5e;
+}
+
+.blog-preview {
+  flex: 1;
+  padding: 1rem 2rem 0 2rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.blog-preview .tag-title .main {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.markdown-body {
+  font-size: 1.2rem!important;
 }
