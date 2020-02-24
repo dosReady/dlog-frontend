@@ -5,12 +5,24 @@ import { TbPost } from 'modules/Types'
 import Marked from 'marked';
 import 'github-markdown-css';
 
-interface Props { }
+
 interface State {
     post: TbPost
 }
+interface Props {}
 
 class BlogPostPage extends React.Component<Props, State>{
+    readonly state = {
+        post: {
+            Content:'',
+            MainTitle:'',
+            PostID: -1,
+            SubTitle: '',
+            TagID: -1,
+            CreatedAt: new Date(),
+            UpdatedAt: new Date()
+        }
+    }
     callPostInfo = async () => {
         try {
             const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { post_id: 2 })
@@ -26,7 +38,7 @@ class BlogPostPage extends React.Component<Props, State>{
     }
 
     render = (): JSX.Element => {
-        const sHtml = this.state === null ? '' : this.state.post.Content
+        const sHtml = this.state.post.Content
         const str = {
             __html: Marked(sHtml)
         }
@@ -39,7 +51,14 @@ class BlogPostPage extends React.Component<Props, State>{
                             <span className="sub">관련글 6개</span>
                         </div>
                     </div>
-                    <div className="content-wrap" dangerouslySetInnerHTML={str}></div>
+                    <div className="content-wrap">
+                        <div className="title-form">
+                            <div className="main-wrap">{this.state.post.MainTitle}</div>
+                            <div className="alis-wrap"></div>
+                            <div className="tag-wrap"></div>
+                        </div>
+                        <div className="content" dangerouslySetInnerHTML={str}></div>
+                    </div>
                     <div className="right-wrap">
                         <div>
                             <div><a href="/blog/list">1. 더 나은 검색</a></div>

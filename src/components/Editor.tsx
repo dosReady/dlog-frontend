@@ -1,6 +1,7 @@
 import React from 'react';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/display/placeholder';
 import '../resources/css/index.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css';

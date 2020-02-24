@@ -57,7 +57,7 @@ input::placeholder{
   padding: 3rem 25rem;
 }
 .tag-page .tag-list-wrap {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .tag-page  .tag-list-wrap .tag-search-bar {
@@ -117,9 +117,6 @@ input::placeholder{
 .tag-page .tag-response-wrap .tag-response-title .sub {
   padding-left: 4rem;
 }
-.tag-page .tag-response-wrap .tag-response-content .post-list {
-  padding-top: 4rem;
-}
 .tag-page .tag-response-wrap .tag-response-content .post-item-wrap {
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
   padding: 1rem 1rem 1rem .5rem;
@@ -143,7 +140,7 @@ input::placeholder{
 
 .post-page {
   display: flex;
-  padding: 5rem 3rem;
+  padding: 3rem;
 }
 
 .left-wrap, .right-wrap {
@@ -184,16 +181,21 @@ input::placeholder{
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
 }
 
+.content-wrap .title-form,
 .editor-wrap .title-form,
 .blog-preview .title-form {
   border-left: solid 5px #024770;
   padding-left: 1rem;
   margin-bottom: 1rem;
 }
+
+.content-wrap .title-form .main-wrap,
 .editor-wrap .title-form .main-wrap,
 .blog-preview .title-form .main-wrap {
   font-size: 3rem;
 }
+
+.content-wrap .title-form .alis-wrap,
 .editor-wrap .title-form .alis-wrap,
 .blog-preview .title-form .alis-wrap {
   font-size: 1.5rem;
@@ -249,4 +251,11 @@ input::placeholder{
 
 .markdown-body {
   font-size: 1.2rem!important;
+}
+
+.content-wrap {
+  padding: 0 5rem;
+}
+.content-wrap .content {
+  margin-top: 3rem;
 }

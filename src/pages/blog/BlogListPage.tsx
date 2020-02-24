@@ -3,27 +3,30 @@ import TopMenuTemplate from 'components/templates/TopMenuTemplate';
 import TagComp from 'components/TagComp';
 import PostList from 'components/PostList';
 import { Link } from 'react-router-dom';
+import { TagInfo } from 'modules/Types'
 
 interface Props{}
 interface State{
-    selectedText:string;
+    selectedText:string
+    selectedCount:Number
 }
 
 class BlogListPage extends React.Component<Props,State> {
-
-    state : State = {
-        selectedText: ""
-    }
-    handleSelectedTag = (text:string) => {
-        this.setState({selectedText: text});
+    readonly state : State = {
+        selectedText: "",
+        selectedCount: 0
     }
 
+    handleSelectedTag = (tag:TagInfo) => {
+        this.setState({selectedText: tag.TagTitle, selectedCount: tag.TagCount});
+    }
+    
     render = ():JSX.Element => {
 
         const renderSelectedTag  = (
             <div className="tag-response-title">
                 <span className="main">{this.state.selectedText}</span>
-                <span className="sub">관련글 6개</span>
+                <span className="sub">{this.state.selectedCount} 건</span>
             </div>
         )
 

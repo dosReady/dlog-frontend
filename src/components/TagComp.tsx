@@ -1,27 +1,45 @@
-import React from 'react';
-import SearchBar from 'components/SearchBar';
+import React from 'react'
+import SearchBar from 'components/SearchBar'
+import {TagInfo} from 'modules/Types'
+import axios from 'axios'
 
 interface Props {
-    onSelectedTag(text:string):void;
+    onSelectedTag(tag:TagInfo):void;
 }
 interface State {
-    srchText:string;
+    list: TagInfo[]
 }
 class TagComp extends React.Component<Props, State> {
-
-    handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({srchText: e.target.value});
+    readonly state = {
+        list: []
     }
 
-    onItemClick = (title:string) => {
-        this.props.onSelectedTag(title);
+    handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        this.getTagList(e.target.value)
+    }
+
+    getTagList = async (value:string) => {
+        try {
+            const {data} = await axios.post('http://127.0.0.1:8080/api/get/taglist', {tag_title: value})
+            this.setState({list: data.list})
+        } catch (error) {
+            
+        }
+    }
+
+    onItemClick = (tag:TagInfo) => {
+        this.props.onSelectedTag(tag)
+    }
+
+    UNSAFE_componentWillMount = (): void => {
+        this.getTagList("")
     }
 
     render = (): JSX.Element => {
-        const arrTitle  = ["자바스크립트", "자바", "파이썬", "스프링프레임워크", "전자정부프레임워크"];
-        const titleList = arrTitle.map(
-            (title, i) => (
-                <div key = {i} className="tag-item" onClick={() => this.onItemClick(title)}>{title}</div>
+        const list:TagInfo[]  = this.state.list;
+        const titleList = list.map(
+            (tag, i) => (
+                <div key = {i} className="tag-item" onClick={() => this.onItemClick(tag)}>{tag.TagTitle}</div>
             )
         );
 

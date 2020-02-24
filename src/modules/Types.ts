@@ -14,3 +14,10 @@ export interface TbPost {
     CreatedAt:Date,
     UpdatedAt:Date
 }
+
+export interface TagInfo {
+	TagID:Number,
+	TagTitle:string,
+	TagAlias:string,
+    TagCount:Number
+}
