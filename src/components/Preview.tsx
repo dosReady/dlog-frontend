@@ -2,17 +2,18 @@
 import React from 'react';
 import Marked from 'marked';
 import 'github-markdown-css';
-import {PostInfo} from 'modules/Types';
+import {TbPost} from 'modules/Types';
+
 interface Props {
-    info: PostInfo
+    info: TbPost
 }
 interface State {}
 
 class Preview extends React.Component<Props, State> {
 
     render() {
-        const sHtml = this.props.info.html === '' ? '' : this.props.info.html;
-        const sMainTitle = this.props.info.mainTitle === '' ? '' : `${this.props.info.mainTitle}`;
+        const sHtml = this.props.info.Content
+        const sMainTitle = this.props.info.MainTitle
 
         const rpsn = `${sHtml}`;
         const str = {
@@ -31,4 +32,4 @@ class Preview extends React.Component<Props, State> {
     }
 }
 
-export default Preview;
+export default Preview

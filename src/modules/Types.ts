@@ -6,13 +6,13 @@ export interface PostInfo {
 }
 
 export interface TbPost {
-    Content:string,
-    MainTitle:string
-    PostID:Number,
-    SubTitle:string,
-    TagID:Number,
-    CreatedAt:Date,
-    UpdatedAt:Date
+    Content?:string,
+    MainTitle?:string
+    PostID?:Number,
+    SubTitle?:string,
+    TagID?:Number,
+    CreatedAt?:Date,
+    UpdatedAt?:Date
 }
 
 export interface TagInfo {

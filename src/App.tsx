@@ -12,8 +12,9 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" exact component={BlogListPage} />
             <Route path="/blog/list" exact component={BlogListPage} />
-            <Route path="/blog/post" exact component={BlogPostPage} />
+            <Route path="/blog/post/:post_id" exact component={BlogPostPage} />
             <Route path="/blog/write" exact component={BlogWritePage} />
+            <Route path="/blog/write/:post_id" exact component={BlogWritePage} />
           </Switch>
         </Router>
       </div>

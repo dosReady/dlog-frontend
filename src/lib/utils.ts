@@ -1,13 +1,12 @@
-export type Handlers<T> = {
-    [type: string]: (state: T, action: any) => T;
+export type Handlers<S extends any, A extends any> = {
+    [type: string]: (state: S, action: A) => S;
 };
 
-export function createReducer<S>(handlers: Handlers<S>, initialState: S) {
-    return (state: S = initialState, action: any) => {
-        const handler = handlers[action.type];
-        if (!handler) return state;
-        return handler(state, action);
-    };
+export const createReducer = <S extends any, A extends any> (initialState: S, handlers: Handlers<S,A>) => 
+    (state: S = initialState, action: A) => {
+    const handler = handlers[action.type]
+    if(!handler) return state
+    return handler(state, action)
 }
 
 export function updateKey<S, K extends keyof S>(
@@ -15,7 +14,6 @@ export function updateKey<S, K extends keyof S>(
     key: K,
     value: S[K],
 ): S {
-    console.log("여기오냐");
     return {
         ...state,
         [key]: value,

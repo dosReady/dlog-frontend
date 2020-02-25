@@ -3,78 +3,76 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/display/placeholder';
-import '../resources/css/index.css'
+import 'resources/css/index.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
-import {PostInfo} from 'modules/Types';
+import {TbPost} from 'modules/Types';
 import axios from 'axios';
 
-// quil
 interface Props {
-    onChange: (info:PostInfo) => void,
-}
-interface State {
-    mainTitle:string,
-    alisTxt: string,
-    html:string
+    onChange: (info:TbPost) => void,
+    postID:Number,
+    info: TbPost
 }
 
-class Editor extends React.Component<Props, State> {
-    readonly state = {
-        mainTitle: '',
-        alisTxt: '',
-        html: ''
-    }
+class Editor extends React.Component<Props> {
     private textArea= React.createRef<HTMLTextAreaElement>();
     private editor:CodeMirror.EditorFromTextArea | null = null;
 
+    // EVENT FUNCTION
+    componentDidMount = (): void => {
+        this.initialize()
+        this.callPostInfo()
+    }
+
     onEditorChange = (cm: CodeMirror.Editor) => {
-        this.setState({html: cm.getValue()});
-        const postInfo = this.setPostInfo({html: cm.getValue()});
-        this.props.onChange(postInfo);
+        this.props.onChange({
+            ...this.props.info,
+            Content: cm.getValue()
+        });
     }
 
     onMainTitleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({mainTitle: e.target.value});
-        const postInfo = this.setPostInfo({mainTitle: e.target.value});
-        this.props.onChange(postInfo);
+        this.props.onChange({
+            ...this.props.info,
+            MainTitle: e.target.value
+        });
     }
 
-    setPostInfo = (info:PostInfo): PostInfo => {
-
-        const html = info.html === undefined ? this.state.html : info.html;
-        const alisTxt = info.alisTxt === undefined ?  this.state.alisTxt : info.alisTxt;
-        const mainTitle = info.mainTitle === undefined ? this.state.mainTitle : info.mainTitle;
-
-        const postInfo:PostInfo = {
-            mainTitle: mainTitle,
-            alisTxt: alisTxt,
-            html: html
-        }
-
-        return postInfo;
+    onBtnRegClick = () => {
+        let sType = "I"
+        if( this.props.postID > 0) sType = "U"
+        this.callApiPost(sType, this.props.info)
     }
 
-    getPostInfo = (): PostInfo => {
-        return this.setPostInfo({});
-    }
-
-    fnProcMngPost = async () => {
-        await this.callApiPost('', this.getPostInfo());
-    }
-
-    callApiPost = async (type:string, obj:PostInfo) => {
+    // BIZ FUNCTION
+    callApiPost = async (sType:string, obj:TbPost) => {
         try {
-            await axios.post(`http://127.0.0.1:8080/api/inst/post`, obj);
+            const parmas = {type: sType, info: obj}
+            await axios.post(`http://127.0.0.1:8080/api/inst/post`, parmas);
         } catch (error) {
             console.error(error);
         }
         
     }
 
-    componentDidMount = (): void => {
-       this.initialize();
+    callPostInfo = async () => {
+        if(this.props.postID > 0) {
+            try {
+                const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { post_id: Number(this.props.postID) })
+                const tbPost: TbPost = data.info
+                this.props.onChange(tbPost);
+
+                if( this.editor != null ) {
+                    const content = this.props.info.Content === undefined ? '' : this.props.info.Content
+                    this.editor.setValue(content)
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
+
     initialize = (): void => {
         if (!this.textArea.current) return;
 
@@ -86,7 +84,7 @@ class Editor extends React.Component<Props, State> {
             lineWrapping: true,
         });
 
-        this.editor.on('change', this.onEditorChange);
+        this.editor.on('change', this.onEditorChange)
     }
 
     render = (): JSX.Element => {
@@ -94,7 +92,7 @@ class Editor extends React.Component<Props, State> {
             <div className="editor-wrap">
                 <div className="title-form">
                     <div className="main-wrap">
-                        <input type="text" placeholder="제목을 입력하세요." onChange={this.onMainTitleChange}/>
+                        <input type="text" placeholder="제목을 입력하세요."  value={this.props.info.MainTitle} onChange={(e:React.ChangeEvent<HTMLInputElement>) => this.onMainTitleChange(e)}/>
                     </div>
                     <div className="alis-wrap">
                         <input type="text" placeholder="간략한 설명을 입력하세요."/>
@@ -114,7 +112,7 @@ class Editor extends React.Component<Props, State> {
                         <i className="fas fa-code"></i>
                         <i className="fas fa-table"></i>
                         <i className="fas fa-palette"></i>
-                        <button onClick={this.fnProcMngPost}>등록</button>
+                        <button onClick={this.onBtnRegClick}>등록</button>
                     </div>
                     <div className="content-textarea">
                          <textarea ref={this.textArea}></textarea>
@@ -126,4 +124,4 @@ class Editor extends React.Component<Props, State> {
 }
 
 
-export default Editor;
+export default Editor

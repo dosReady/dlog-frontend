@@ -17,7 +17,7 @@ class PostList extends React.Component<Props, State> {
 
     getPostList = async (tag_id:Number) => {
         try {
-            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {tag_id: tag_id})
+            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {info: {TagID: tag_id}})
             this.setState({list: data.list})
         } catch (error) {
             console.error(error)
@@ -37,7 +37,7 @@ class PostList extends React.Component<Props, State> {
             (post, i) => (
                 <div key={i} className="post-item-wrap">
                     <div className="post-item">
-                        <Link to="/blog/post"><span>{post.MainTitle}</span></Link>
+                        <Link to={`/blog/post/${post.PostID}`}><span>{post.MainTitle}</span></Link>
                         <p>{post.SubTitle}</p>
                     </div>
                 </div>
