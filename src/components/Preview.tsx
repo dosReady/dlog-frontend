@@ -14,6 +14,7 @@ class Preview extends React.Component<Props, State> {
     render() {
         const sHtml = this.props.info.Content
         const sMainTitle = this.props.info.MainTitle
+        const sSubTitle = this.props.info.SubTitle
 
         const rpsn = `${sHtml}`;
         const str = {
@@ -23,7 +24,7 @@ class Preview extends React.Component<Props, State> {
             <div className="blog-preview">
                 <div className="title-form">
                     <div className="main-wrap">{sMainTitle}</div>
-                    <div className="alis-wrap"></div>
+                    <div className="alis-wrap">{sSubTitle}</div>
                     <div className="tag-wrap"></div>
                 </div>
                 <div className="markdown-body" dangerouslySetInnerHTML ={str}></div>

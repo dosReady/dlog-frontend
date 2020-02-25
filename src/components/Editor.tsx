@@ -38,6 +38,12 @@ class Editor extends React.Component<Props> {
             MainTitle: e.target.value
         });
     }
+    onSubTitleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        this.props.onChange({
+            ...this.props.info,
+            SubTitle: e.target.value
+        });
+    }
 
     onBtnRegClick = () => {
         let sType = "I"
@@ -57,10 +63,17 @@ class Editor extends React.Component<Props> {
     }
 
     callPostInfo = async () => {
+        let tbPost: TbPost = {
+            PostID: 0,
+            MainTitle: '',
+            SubTitle: '',
+            Content: '',
+            TagID: 0
+        }
         if(this.props.postID > 0) {
             try {
-                const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { post_id: Number(this.props.postID) })
-                const tbPost: TbPost = data.info
+                const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { info:{PostID: Number(this.props.postID) }})
+                tbPost = data.info
                 this.props.onChange(tbPost);
 
                 if( this.editor != null ) {
@@ -70,6 +83,9 @@ class Editor extends React.Component<Props> {
             } catch (error) {
                 console.error(error)
             }
+        } else {
+            
+            this.props.onChange(tbPost);
         }
     }
 
@@ -92,12 +108,14 @@ class Editor extends React.Component<Props> {
             <div className="editor-wrap">
                 <div className="title-form">
                     <div className="main-wrap">
-                        <input type="text" placeholder="제목을 입력하세요."  value={this.props.info.MainTitle} onChange={(e:React.ChangeEvent<HTMLInputElement>) => this.onMainTitleChange(e)}/>
+                        <input type="text" placeholder="제목을 입력하세요."  value={this.props.info.MainTitle} onChange={this.onMainTitleChange}/>
                     </div>
                     <div className="alis-wrap">
-                        <input type="text" placeholder="간략한 설명을 입력하세요."/>
+                        <input type="text" placeholder="간략한 설명을 입력하세요." value={this.props.info.SubTitle} onChange={this.onSubTitleChange}/>
                     </div>
                     <div className="tag-wrap">
+                        <div className="tag-item">tag</div>
+                        <div className="tag-item">tag</div>
                         <input type="text" placeholder="태그를 입력하세요."/>
                     </div>
                 </div>

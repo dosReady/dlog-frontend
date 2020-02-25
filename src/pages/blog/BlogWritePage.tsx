@@ -34,6 +34,7 @@ class BlogWritePage extends React.Component<Props> {
                 <div className ="blog-write-page">
                     <Editor  info={this.props.info} onChange={this.onChange} postID={this.props.match.params.post_id}/>
                     <Preview info={this.props.info}/>
+                    
                 </div>
             </TopMenuTemplate>
         )
