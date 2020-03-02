@@ -1,15 +1,20 @@
 import React from 'react';
 import TopMenuTemplate from 'components/templates/TopMenuTemplate';
-import TagComp from 'components/TagComp';
+import PostList from 'components/PostList';
+import styled from 'styled-components';
 
 interface Props{}
 interface State{}
+
+const TagsTemplate = styled.div``
 
 class BlogListPage extends React.Component<Props,State> {
     render = ():JSX.Element => {
         return (
             <TopMenuTemplate>
-                <TagComp/>
+                <TagsTemplate>
+                    <PostList />
+                </TagsTemplate>
             </TopMenuTemplate>
         )
    }

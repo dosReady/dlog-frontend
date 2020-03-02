@@ -1,21 +1,25 @@
-import React from 'react';
-import CodeMirror from 'codemirror';
-import 'codemirror/mode/markdown/markdown';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/display/placeholder';
-import 'resources/css/index.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css';
 import '@fortawesome/fontawesome-free/css/solid.css';
-import {TbPost} from 'modules/Types';
 import axios from 'axios';
+import CodeMirror from 'codemirror';
+import 'codemirror/addon/display/placeholder';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/markdown/markdown';
+import { TbPost } from 'modules/Types';
+import React from 'react';
+import 'resources/css/index.css';
+
 
 interface Props {
     onChange: (info:TbPost) => void,
-    postID:Number,
-    info: TbPost
+    postID:string,
+    info: TbPost,
+    goBlogList: () => void
 }
 
-class Editor extends React.Component<Props> {
+interface State {}
+
+class Editor extends React.Component<Props, State> {
     private textArea= React.createRef<HTMLTextAreaElement>();
     private editor:CodeMirror.EditorFromTextArea | null = null;
 
@@ -47,15 +51,18 @@ class Editor extends React.Component<Props> {
 
     onBtnRegClick = () => {
         let sType = "I"
-        if( this.props.postID > 0) sType = "U"
-        this.callApiPost(sType, this.props.info)
+        if( Number(this.props.postID) > 0) sType = "U"
+        if( window.confirm("저장하시겠습니까?") ) {
+            this.callPostinsert(sType)
+        }
     }
 
     // BIZ FUNCTION
-    callApiPost = async (sType:string, obj:TbPost) => {
+    callPostinsert = async (sType:string) => {
         try {
-            const parmas = {type: sType, info: obj}
+            const parmas = {type: sType, info: this.props.info}
             await axios.post(`http://127.0.0.1:8080/api/inst/post`, parmas);
+            this.props.goBlogList()
         } catch (error) {
             console.error(error);
         }
@@ -70,7 +77,7 @@ class Editor extends React.Component<Props> {
             Content: '',
             TagID: 0
         }
-        if(this.props.postID > 0) {
+        if(Number(this.props.postID) > 0) {
             try {
                 const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { info:{PostID: Number(this.props.postID) }})
                 tbPost = data.info
@@ -89,6 +96,14 @@ class Editor extends React.Component<Props> {
         }
     }
 
+    callChckPrsnTag = async(strTagTitle:string) => {
+        try {
+            const {data} = await axios.post(`http://127.0.0.1:8080/api/chk/tag`, { post_id: this.props.postID, tag_title: strTagTitle})
+            this.setState({isPrsn: data.isPrsn})
+        } catch (error) {
+            console.error(error)
+        }
+    }
     initialize = (): void => {
         if (!this.textArea.current) return;
 
@@ -108,15 +123,10 @@ class Editor extends React.Component<Props> {
             <div className="editor-wrap">
                 <div className="title-form">
                     <div className="main-wrap">
-                        <input type="text" placeholder="제목을 입력하세요."  value={this.props.info.MainTitle} onChange={this.onMainTitleChange}/>
+                        <input type="text" placeholder="제목을 입력하세요." maxLength={100} value={this.props.info.MainTitle} onChange={this.onMainTitleChange}/>
                     </div>
                     <div className="alis-wrap">
-                        <input type="text" placeholder="간략한 설명을 입력하세요." value={this.props.info.SubTitle} onChange={this.onSubTitleChange}/>
-                    </div>
-                    <div className="tag-wrap">
-                        <div className="tag-item">tag</div>
-                        <div className="tag-item">tag</div>
-                        <input type="text" placeholder="태그를 입력하세요."/>
+                        <input type="text" placeholder="간략한 설명을 입력하세요." maxLength={100} value={this.props.info.SubTitle} onChange={this.onSubTitleChange}/>
                     </div>
                 </div>
                 <div className="contents-form">

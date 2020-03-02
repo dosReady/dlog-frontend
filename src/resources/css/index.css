@@ -25,7 +25,7 @@ input {
   border: none;
   font-size: inherit;
   font-weight: initial;
-  width: 100%;
+  width: inherit;
 }
 
 input::placeholder{
@@ -53,104 +53,6 @@ input::placeholder{
   height: calc( 100% - 3.5rem);
 }
 
-.tag-page {
-  display: flex;
-  flex-direction: column;
-  padding: 3rem 25rem;
-  animation: loadanime 0.5s 1;
-}
-.tag-page .tag-list-wrap {
-  margin-bottom: 3rem;
-}
-
-.tag-page  .tag-list-wrap .tag-search-bar {
-  display: flex;
-  align-items: center;
-  position: relative;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
-  margin-bottom: 2rem;
-}
-.tag-page  .tag-list-wrap .tag-search-bar i{
-  position: absolute;
-  left: .75rem;
-  color: #fff;
-}
-.tag-page  .tag-list-wrap .tag-search-bar input{
-  background-color: #024770;
-  border-style: solid;
-  border-color: #024770;
-  padding: .5rem 1rem .5rem 2rem;
-  outline: none;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
-  width: 100%;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
-}
-
-.tag-page  .tag-list-wrap .tag-search-bar input::placeholder{
-  color: #fff;
-  font-weight: 400;
-}
-
-.tag-page .tag-list-wrap .tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 48px;
-}
-.tag-page .tag-list-wrap .tag-list .tag-item {
-  font-size: .85rem;
-  background-color: #F4F1F3;
-  padding: .75rem 1rem;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
-  margin: .25rem;
-  border-radius: 0.5rem;
-  color: #024770;
-  font-weight: 900;
-  cursor: pointer;
-}
-.tag-page .tag-list-wrap .tag-list .tag-item:hover {
-  background-color: #FFFCFE;
-}
-.tag-page .tag-response-wrap .tag-response-title {
-  display: flex;
-  flex-direction: column;
-  border-left: solid 5px #024770;
-  padding-left: 1rem;
-  margin-bottom: 3rem;
-}
-.tag-page .tag-response-wrap .tag-response-title .main {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-.tag-page .tag-response-wrap .tag-response-title .sub {
-  padding-left: 4rem;
-}
-.tag-page .tag-response-wrap .tag-response-content .post-item-wrap {
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
-  padding: 1rem 1rem 1rem .5rem;
-  margin-bottom: 3rem;
-  animation: loadanime 0.5s 1;
-}
-
-
-
-.tag-page .tag-response-wrap .tag-response-content .post-item {
-  border-left: solid 5px #024770;
-  padding-left: 1rem;
-}
-.tag-page .tag-response-wrap .tag-response-content .post-item span{
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-.tag-page .tag-response-wrap .tag-response-content .post-item p{
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-
-
 /* detail*/
 
 .post-page {
@@ -164,21 +66,6 @@ input::placeholder{
 }
 .content-wrap {
   flex: 3;
-}
-
-.post-page .tag-title {
-  display: flex;
-  flex-direction: column;
-  border-left: solid 5px #024770;
-  padding-left: 1rem;
-}
-.post-page .tag-title .main {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-.post-page .tag-title .sub {
-  padding-left: 4rem;
 }
 
 
@@ -217,18 +104,10 @@ input::placeholder{
 .blog-preview .title-form .alis-wrap {
   font-size: 1.5rem;
 }
-
-.editor-wrap .title-form .tag-wrap {
+.editor-wrap .title-form .alis-wrap {
   display: flex;
-}
-.tag-wrap .tag-item {
-  background-color: #F4F1F3;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.5rem;
-  color: #024770;
-  font-weight: 900;
-  margin-right: .75rem;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .editor-wrap .contents-form, 
@@ -272,12 +151,6 @@ input::placeholder{
   padding: 1rem 2rem 0 2rem;
   overflow-x: hidden;
   overflow-y: scroll;
-}
-
-.blog-preview .tag-title .main {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
 }
 
 .markdown-body {

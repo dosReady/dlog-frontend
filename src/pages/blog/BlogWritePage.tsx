@@ -12,15 +12,14 @@ import {bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { postActions } from 'modules/redux/PostRedux';
 import { RootState } from 'modules/redux';
+import { RouteComponentProps } from 'react-router-dom'
 
-interface Props {
-    match: {
-        params: {
-            post_id:Number
-        }
-    }
-    info: TbPost
-    PostActions: typeof postActions;
+interface MatchParams {
+    post_id:string
+}
+interface Props extends RouteComponentProps<MatchParams>  {
+    info: TbPost,
+    PostActions: typeof postActions
 }
 
 class BlogWritePage extends React.Component<Props> {
@@ -28,13 +27,17 @@ class BlogWritePage extends React.Component<Props> {
         this.props.PostActions.setPost(rtn)
     }
 
+    public goBlogList = () => {
+        this.props.history.push("/")
+    }
+
     public render() {
+        console.log(typeof this.props.history)
         return (
             <TopMenuTemplate>
                 <div className ="blog-write-page">
-                    <Editor  info={this.props.info} onChange={this.onChange} postID={this.props.match.params.post_id}/>
+                    <Editor  info={this.props.info} postID={this.props.match.params.post_id} onChange={this.onChange} goBlogList={this.goBlogList} />
                     <Preview info={this.props.info}/>
-                    
                 </div>
             </TopMenuTemplate>
         )
@@ -48,3 +51,4 @@ export default connect(
       PostActions: bindActionCreators(postActions, dispatch),
     })
   )(BlogWritePage);
+  

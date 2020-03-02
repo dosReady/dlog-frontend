@@ -1,10 +1,9 @@
+import axios from 'axios'
+import { TbPost } from 'modules/Types'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {TbPost} from 'modules/Types'
-import axios from 'axios'
 
 interface Props {
-    tag_id:Number
 }
 interface State {
     list: TbPost[]
@@ -15,20 +14,20 @@ class PostList extends React.Component<Props, State> {
         list: []
     }
 
-    getPostList = async (tag_id:Number) => {
+    getPostList = async () => {
         try {
-            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {info: {TagID: tag_id}})
+            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {info: {post_id: 0}})
             this.setState({list: data.list})
         } catch (error) {
             console.error(error)
         }
     }
     UNSAFE_componentWillMount = (): void => {
-        this.getPostList(this.props.tag_id)
+        this.getPostList()
     }
 
     UNSAFE_componentWillReceiveProps = (p:Props): void => {
-        this.getPostList(p.tag_id);
+        this.getPostList();
     }
 
     render = (): JSX.Element => {

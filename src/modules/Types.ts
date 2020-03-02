@@ -15,9 +15,8 @@ export interface TbPost {
     UpdatedAt?:Date
 }
 
-export interface TagInfo {
+export interface TbTag {
 	TagID:Number,
 	TagTitle:string,
-	TagAlias:string,
-    TagCount:Number
+	TagAlias:string
 }

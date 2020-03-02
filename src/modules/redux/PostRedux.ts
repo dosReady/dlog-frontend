@@ -4,7 +4,7 @@ import { createReducer } from 'lib/utils'
 const SETPOST = 'post/SET'
 
 export const postActions = {
-    setPost: (post: TbPost) => ( {type: SETPOST, paylod: post})
+    setPost: (post: TbPost) => ( {type: SETPOST, paylod: post}),
 }
 
 type SetPostAction = ReturnType<typeof postActions.setPost>
@@ -19,9 +19,7 @@ const initialState: TbPost = {
 }
 
 const post = createReducer<TbPost, Actions>(initialState, {
-    [SETPOST]: (state, action) => ({
-        ...action.paylod
-    })
+    [SETPOST]: (state, action) => ({...action.paylod}),
 })
 
 export default post
