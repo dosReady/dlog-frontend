@@ -1,5 +1,4 @@
 import React from 'react'
-import TopMenuTemplate from 'components/templates/TopMenuTemplate'
 import axios from 'axios'
 import { TbPost } from 'modules/Types'
 import Marked from 'marked';

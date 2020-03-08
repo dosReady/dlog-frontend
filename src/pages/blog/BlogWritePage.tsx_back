@@ -6,7 +6,6 @@ import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/nord.css'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import '@fortawesome/fontawesome-free/css/regular.css'
-import TopMenuTemplate from 'components/templates/TopMenuTemplate'
 import {TbPost} from 'modules/Types'
 import {bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -34,12 +33,10 @@ class BlogWritePage extends React.Component<Props> {
     public render() {
         console.log(typeof this.props.history)
         return (
-            <TopMenuTemplate>
                 <div className ="blog-write-page">
                     <Editor  info={this.props.info} postID={this.props.match.params.post_id} onChange={this.onChange} goBlogList={this.goBlogList} />
                     <Preview info={this.props.info}/>
                 </div>
-            </TopMenuTemplate>
         )
     }
 }

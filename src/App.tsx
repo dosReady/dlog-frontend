@@ -1,20 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import 'resources/css/index.css';
-import BlogWritePage from 'pages/blog/BlogWritePage';
-import BlogListPage from 'pages/blog/BlogListPage';
-import BlogPostPage from 'pages/blog/BlogPostPage';
+import BlogMainPage from 'pages/blog/BlogMainPage';
 const App: React.FC = () => {
  
   return (
       <div id="app">
         <Router>
           <Switch>
-            <Route path="/" exact component={BlogListPage} />
-            <Route path="/blog/list" exact component={BlogListPage} />
-            <Route path="/blog/post/:post_id" exact component={BlogPostPage} />
-            <Route path="/blog/write" exact component={BlogWritePage} />
-            <Route path="/blog/write/:post_id" exact component={BlogWritePage} />
+            <Route path="/" exact component={BlogMainPage} />
           </Switch>
         </Router>
       </div>

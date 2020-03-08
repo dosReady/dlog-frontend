@@ -2,6 +2,18 @@ import axios from 'axios'
 import { TbPost } from 'modules/Types'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components';
+
+const PostSection = styled.section`
+    padding: 1rem;
+`
+
+const PostWrap = styled.div``
+const PostItem = styled.div`
+    border-left: solid 5px #024770;
+    padding: 1rem;
+    margin-bottom: 1rem;
+`
 
 interface Props {
 }
@@ -34,19 +46,19 @@ class PostList extends React.Component<Props, State> {
         let postInfos:TbPost[] = this.state.list
         const postItems = postInfos.map(
             (post, i) => (
-                <div key={i} className="post-item-wrap">
-                    <div className="post-item">
+                <PostWrap key={i}>
+                    <PostItem>
                         <Link to={`/blog/post/${post.PostID}`}><span>{post.MainTitle}</span></Link>
                         <p>{post.SubTitle}</p>
-                    </div>
-                </div>
+                    </PostItem>
+                </PostWrap>
             )
         );
 
         return (
-            <div className="post-list">
+            <PostSection>
                 {postItems}
-            </div>
+            </PostSection>
         )
     }
 
