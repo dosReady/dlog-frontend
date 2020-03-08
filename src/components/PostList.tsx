@@ -13,6 +13,7 @@ const PostItem = styled.div`
     border-left: solid 5px #024770;
     padding: 1rem;
     margin-bottom: 1rem;
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
 `
 
 interface Props {

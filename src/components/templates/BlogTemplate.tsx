@@ -41,12 +41,36 @@ const MenuWrap = styled.div`
     }
 `
 
+const FiexdHeader = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding: 1rem 10rem;
+    @media (max-width: 1200px) {
+        padding: 1rem 3rem;
+    }
+`
+const HeaderLeft = styled.div`
+    flex: 1;
+    font-size: 1.7rem;
+    font-weight: 700;
+
+`
+
+const HeaderRight = styled.div`
+    flex:1;
+`
 
 class BlogTemplate extends React.Component<Props> {
 
    render = ():JSX.Element => {
        return (
             <Layout>
+                <FiexdHeader>
+                    <HeaderLeft>Dlog</HeaderLeft>
+                    <HeaderRight></HeaderRight>
+                </FiexdHeader>
                 <SecProfile>
                     <DivInfoWrap>
                         <DivInfoThumb><img src="/profile.jpg" alt="도오성"/></DivInfoThumb>
