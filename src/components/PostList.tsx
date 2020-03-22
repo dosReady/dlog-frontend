@@ -1,23 +1,55 @@
 import axios from 'axios'
 import { TbPost } from 'modules/Types'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 
-const PostSection = styled.section`
-    padding: 1rem;
-`
 
-const PostWrap = styled.div``
-const PostItem = styled.div`
-    border-left: solid 5px #024770;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px 0 rgba(0,0,0,.15);
+const PostContainer = styled.div`
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+margin-top: 1.5rem;
 `
-
-interface Props {
+const PostWrap = styled.div`
+width: 20rem;
+background: white;
+border-radius: 4px;
+box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
+margin: 1rem;
+overflow: hidden;
+transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+&:hover {
+    transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 40px 16px 0;
+    transform: translateY(-10px)
 }
+border-top: 10px solid rgb(0, 61, 84);
+padding:1rem;
+cursor:pointer;
+`
+const PostTop = styled.div`
+display:flex;
+`
+const PostTag = styled.div`
+font-size: 0.5rem;
+padding: 0.2rem 0.5rem;
+margin-left: auto;
+align-self: center;
+background-color: rgb(0, 61, 84);
+border-radius: 4px;
+color: white
+`
+const PostTitle= styled.div`
+font-size: 1rem;
+font-weight: bold
+`
+const PostCtt = styled.div`
+margin-top: 0.5rem;
+font-size: 0.85rem;
+line-height: 1.5rem
+`
+
+interface Props {}
 interface State {
     list: TbPost[]
 }
@@ -25,6 +57,10 @@ interface State {
 class PostList extends React.Component<Props, State> {
     readonly state = {
         list: []
+    }
+
+    onPostWrapClick = (PostID:number|undefined) => {
+        window.location.assign("/blog/"+PostID);
     }
 
     getPostList = async () => {
@@ -47,19 +83,20 @@ class PostList extends React.Component<Props, State> {
         let postInfos:TbPost[] = this.state.list
         const postItems = postInfos.map(
             (post, i) => (
-                <PostWrap key={i}>
-                    <PostItem>
-                        <Link to={`/blog/post/${post.PostID}`}><span>{post.MainTitle}</span></Link>
-                        <p>{post.SubTitle}</p>
-                    </PostItem>
+                <PostWrap key={i} onClick={() => this.onPostWrapClick(post.PostID)}>
+                    <PostTop>
+                        <PostTitle>{post.MainTitle}</PostTitle>
+                        <PostTag>자바스크립트</PostTag>
+                    </PostTop>
+                    <PostCtt>{post.SubTitle}</PostCtt>
                 </PostWrap>
             )
         );
 
         return (
-            <PostSection>
+            <PostContainer>
                 {postItems}
-            </PostSection>
+            </PostContainer>
         )
     }
 

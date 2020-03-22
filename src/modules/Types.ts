@@ -8,15 +8,15 @@ export interface PostInfo {
 export interface TbPost {
     Content?:string,
     MainTitle?:string
-    PostID?:Number,
+    PostID?:number,
     SubTitle?:string,
-    TagID?:Number,
+    TagID?:number,
     CreatedAt?:Date,
     UpdatedAt?:Date
 }
 
 export interface TbTag {
-	TagID:Number,
+	TagID:number,
 	TagTitle:string,
 	TagAlias:string
 }
