@@ -25,7 +25,7 @@ const App: React.FC = () => {
       <GlobalStyle />
         <Router>
           <Switch>
-            <Route exact path="/blog " component={BlogMainPage} />
+            <Route exact path="/blog" component={BlogMainPage} />
             <Route exact path="/blog/write" component={BlogWritePage} />
             <Route exact path="/blog/:postid" component={BlogDetailPage} />
           </Switch>

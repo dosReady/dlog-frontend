@@ -1,9 +1,11 @@
-import React from 'react';
-import { TbPost } from 'modules/Types';
 import toastui from '@toast-ui/editor';
-import 'codemirror/lib/codemirror.css';
+import 'github-markdown-css';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import 'codemirror/lib/codemirror.css';
+import React from 'react';
 import styled from 'styled-components';
+import { TbPost } from 'modules/Types';
+import axios from 'axios';
 
 const EditorContainer = styled.div`
 margin-top: 1.5rem;
@@ -51,34 +53,83 @@ cursor: pointer;
 `
 
 interface Props {
-    onChange: (info:TbPost) => void,
     postID:string,
-    info: TbPost,
-    goBlogList: () => void
 }
 
-interface State {}
+interface State {
+    type:string,
+    post:TbPost
+}
 
 class Editor extends React.Component<Props, State> {
     private editorEl = React.createRef<HTMLDivElement>();
-    private editor: toastui | null = null;
+    private editorComp: toastui | null = null;
+
+    constructor(props: Props) {
+        super(props);
     
+        this.state = {
+            type: "I",
+            post: {
+                MainTitle: "",
+                Content: ""
+            }
+        };
+    }
+
     initialize = (): void => {
 
         const target = this.editorEl.current;
         if(target !== null)  {
-            this.editor = new toastui({
+            this.editorComp = new toastui({
                 el: target,
                 placeholder: "오늘 기록할 내용을 적어봐요 ~",
                 previewStyle: 'vertical',
                 initialEditType: 'markdown',
                 height: 'inherit',
+                events: {
+                    "change": this.onContentsChange
+                }
                 // events: {
                 //     "changeMode": () => { console.log("!!!!")}
                 // }
             })
         }
-        console.log(this.editor);
+      
+    }
+
+    onPostSave = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+        this.saveProcess();
+    }
+
+    onTitleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        this.setState({
+            post:{
+                ...this.state.post,
+                MainTitle: event.currentTarget.value
+            }
+        })
+    }
+
+    onContentsChange = (): void => {
+        if(this.editorComp != null) {
+            this.setState({
+                post: {
+                    ...this.state.post,
+                    Content:this.editorComp.getMarkdown()
+                }
+            })
+        }
+    }
+
+    saveProcess = async () => {        
+        try {
+            const parmas = {type: this.state.type, info: this.state.post}
+            await axios.post(`http://127.0.0.1:8080/api/inst/post`, parmas);
+            window.location.assign('/blog');
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     // EVENT FUNCTION
@@ -90,12 +141,12 @@ class Editor extends React.Component<Props, State> {
         return (
             <EditorContainer>
             <EditorTitleWrap>
-                <input type="text" placeholder="제목을 입력하세요"/>
+                <input type="text" placeholder="제목을 입력하세요" value={this.state.post.MainTitle || ""} onChange={this.onTitleChange}/>
             </EditorTitleWrap>
             <EditorWrap>
                 <div ref={this.editorEl} ></div>
                 <ButtonWrap>
-                    <InputButton>기록하기</InputButton>
+                    <InputButton onClick={this.onPostSave}>기록하기</InputButton>
                 </ButtonWrap>
             </EditorWrap>
             </EditorContainer>
