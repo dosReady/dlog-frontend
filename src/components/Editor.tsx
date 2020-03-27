@@ -57,7 +57,6 @@ interface Props {
 }
 
 interface State {
-    type:string,
     post:TbPost
 }
 
@@ -69,7 +68,6 @@ class Editor extends React.Component<Props, State> {
         super(props);
     
         this.state = {
-            type: "I",
             post: {
                 MainTitle: "",
                 Content: ""
@@ -122,9 +120,24 @@ class Editor extends React.Component<Props, State> {
         }
     }
 
+    srchPostProcess = async () => {
+        try {
+            const { data } = await axios.post(`http://127.0.0.1:8080/api/get/post`, { info:{PostID: Number(this.props.postID)} })
+            const tbPost: TbPost = data.info;
+            this.setState({ post: tbPost });
+            if(this.editorComp != null) {
+                this.editorComp.setMarkdown(tbPost.Content !== undefined ? tbPost.Content : '');
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+    }   
+
+
     saveProcess = async () => {        
         try {
-            const parmas = {type: this.state.type, info: this.state.post}
+            const parmas = {info: this.state.post}
             await axios.post(`http://127.0.0.1:8080/api/inst/post`, parmas);
             window.location.assign('/blog');
         } catch (error) {
@@ -135,6 +148,7 @@ class Editor extends React.Component<Props, State> {
     // EVENT FUNCTION
     componentDidMount = (): void => {
         this.initialize();
+        this.srchPostProcess();
     }
 
     render = (): JSX.Element => {

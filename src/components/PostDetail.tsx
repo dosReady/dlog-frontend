@@ -7,16 +7,32 @@ import Marked from 'marked';
 
 const PostContainer = styled.div`
 margin-top: 5rem;
-width: 750px;  
+margin-bottom: 5rem;
+`
+
+const PostWrap = styled.div`
+width: 850px;  
 box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 border-top: 10px solid rgb(0, 61, 84);
 border-radius: 4px;
 background: white;
+padding: 2rem;
 `
 
-const PostWrap = styled.div`
-    padding: 2rem;
+const InputButton = styled.div`
+margin-bottom: 1.5rem;
+padding: 0.6rem 1rem;
+box-shadow: rgba(0,0,0,0.04) 0px 4px 16px 0px;
+border-radius: 4px;
+background-color: rgb(0,61,84);
+color: white;
+cursor: pointer;
+
+&:hover {
+    background-color:rgba(0, 61, 84, 0.72);
+}
 `
+
 interface State {
     post: TbPost
 }
@@ -29,9 +45,8 @@ class PostDetail extends React.Component<Props, State> {
         post: {
             Content:'',
             MainTitle:'',
-            PostID: -1,
+            PostID: 0,
             SubTitle: '',
-            TagID: -1,
             CreatedAt: new Date(),
             UpdatedAt: new Date()
         }
@@ -48,6 +63,10 @@ class PostDetail extends React.Component<Props, State> {
 
     }
 
+    goEditPage = ():void => {
+        window.location.assign(`/blog/write/${this.props.postId}`);
+    }
+
     UNSAFE_componentWillMount = (): void => {
         this.getPostInfo()
     }
@@ -61,6 +80,7 @@ class PostDetail extends React.Component<Props, State> {
 
         return(
             <PostContainer>
+                <InputButton onClick={this.goEditPage}>수정 하기</InputButton>
                 <PostWrap>
                 <div className="markdown-body content" dangerouslySetInnerHTML={str}></div>
                 </PostWrap>

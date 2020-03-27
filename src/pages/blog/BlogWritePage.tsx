@@ -4,10 +4,8 @@ import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 
-interface MatchParams {
-    post_id:string
-}
-interface Props extends RouteComponentProps<MatchParams>  {
+
+interface Props extends RouteComponentProps<{ postid:string}>  {
 }
 
 class BlogWritePage extends React.Component<Props> {
@@ -19,7 +17,7 @@ class BlogWritePage extends React.Component<Props> {
     public render() {
         return (
                 <BasicTemplate>
-                    <Editor  postID={this.props.match.params.post_id} />
+                    <Editor  postID={this.props.match.params.postid} />
                 </BasicTemplate>
         )
     }

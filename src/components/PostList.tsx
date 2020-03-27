@@ -2,6 +2,7 @@ import axios from 'axios'
 import { TbPost } from 'modules/Types'
 import React from 'react'
 import styled from 'styled-components';
+import moment from 'moment';
 
 
 const PostContainer = styled.div`
@@ -26,9 +27,12 @@ transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
 border-top: 10px solid rgb(0, 61, 84);
 padding:1rem;
 cursor:pointer;
+display: flex;
+flex-direction: column;;
 `
 const PostTop = styled.div`
 display:flex;
+flex: 4;
 `
 const PostTag = styled.div`
 font-size: 0.5rem;
@@ -37,16 +41,24 @@ margin-left: auto;
 align-self: center;
 background-color: rgb(0, 61, 84);
 border-radius: 4px;
-color: white
+color: white;
+flex: 1;
+align-self: flex-start
 `
 const PostTitle= styled.div`
 font-size: 1rem;
-font-weight: bold
+font-weight: bold;
+flex: 3;
+word-break: break-word;
+text-align: left;
+padding-right: 2rem;
 `
-const PostCtt = styled.div`
-margin-top: 0.5rem;
-font-size: 0.85rem;
-line-height: 1.5rem
+
+const PostBottom = styled.div`
+align-self: flex-end;
+font-size: 14px;
+flex: 1;
+margin-top: 1rem;
 `
 
 interface Props {}
@@ -88,7 +100,7 @@ class PostList extends React.Component<Props, State> {
                         <PostTitle>{post.MainTitle}</PostTitle>
                         <PostTag>자바스크립트</PostTag>
                     </PostTop>
-                    <PostCtt>{post.SubTitle}</PostCtt>
+                    <PostBottom>{moment(post.CreatedAt).format('YYYY년 MM월 DD일 HH:mm:ss')}</PostBottom>
                 </PostWrap>
             )
         );
