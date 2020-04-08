@@ -11,7 +11,7 @@ margin-bottom: 5rem;
 `
 
 const PostWrap = styled.div`
-width: 850px;  
+width: 1000px;  
 box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 border-top: 10px solid rgb(0, 61, 84);
 border-radius: 4px;
@@ -72,9 +72,12 @@ class PostDetail extends React.Component<Props, State> {
     }
 
     render = ():JSX.Element => {
-        const sHtml = this.state.post.Content
+
+        const sTitle = `# ${this.state.post.MainTitle}\n`;
+        const sHtml = this.state.post.Content;
+
         const str = {
-            __html: Marked(sHtml)
+            __html: Marked( sTitle + sHtml)
         }
 
 

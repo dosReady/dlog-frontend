@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { TbPost } from 'modules/Types'
+import { TbPost, TbCategory } from 'modules/Types'
 import React from 'react'
 import styled from 'styled-components';
 import moment from 'moment';
@@ -12,7 +12,7 @@ justify-content: flex-start;
 margin-top: 1.5rem;
 `
 const PostWrap = styled.div`
-width: 20rem;
+width: 17rem;
 background: white;
 border-radius: 4px;
 box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -61,9 +61,16 @@ flex: 1;
 margin-top: 1rem;
 `
 
-interface Props {}
+interface Response {
+    post:TbPost,
+    ctg:TbCategory
+}
+
+interface Props {
+    selectedCtgID?:number
+}
 interface State {
-    list: TbPost[]
+    list:Response[]
 }
 
 class PostList extends React.Component<Props, State> {
@@ -75,9 +82,10 @@ class PostList extends React.Component<Props, State> {
         window.location.assign("/blog/"+PostID);
     }
 
-    getPostList = async () => {
+    getPostList = async (ctgID?:number) => {
         try {
-            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {info: {post_id: 0}})
+            const {data} = await axios.post('http://127.0.0.1:8080/api/get/postlist', {category: {CtgID: ctgID}})
+            console.log(data.list)
             this.setState({list: data.list})
         } catch (error) {
             console.error(error)
@@ -88,19 +96,19 @@ class PostList extends React.Component<Props, State> {
     }
 
     UNSAFE_componentWillReceiveProps = (p:Props): void => {
-        this.getPostList();
+        this.getPostList(p.selectedCtgID);
     }
 
     render = (): JSX.Element => {
-        let postInfos:TbPost[] = this.state.list
+        let postInfos:Response[] = this.state.list
         const postItems = postInfos.map(
-            (post, i) => (
-                <PostWrap key={i} onClick={() => this.onPostWrapClick(post.PostID)}>
+            (data, i) => (
+                <PostWrap key={i} onClick={() => this.onPostWrapClick(data.post.PostID)}>
                     <PostTop>
-                        <PostTitle>{post.MainTitle}</PostTitle>
-                        <PostTag>자바스크립트</PostTag>
+                        <PostTitle>{data.post.MainTitle}</PostTitle>
+                        <PostTag>{data.ctg.CtgTitle.length > 0 ? data.ctg.CtgTitle : '없음'}</PostTag>
                     </PostTop>
-                    <PostBottom>{moment(post.CreatedAt).format('YYYY년 MM월 DD일 HH:mm:ss')}</PostBottom>
+                    <PostBottom>{moment(data.post.UpdatedAt).format('YYYY년 MM월 DD일 HH:mm:ss')}</PostBottom>
                 </PostWrap>
             )
         );

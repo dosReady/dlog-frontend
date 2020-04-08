@@ -9,6 +9,7 @@ const PageContainer = styled.section`
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
+    z-index: 1;
     animation: fadeIn 2.5s ease-in-out 0s 1;
     @keyframes fadeIn {
         from {

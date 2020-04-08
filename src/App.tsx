@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import BlogMainPage from 'pages/blog/BlogMainPage';
+import BlogListPage from 'pages/blog/BlogListPage';
 import BlogDetailPage from 'pages/blog/BlogDetailPage';
 import BlogWritePage from 'pages/blog/BlogWritePage';
-import IntroPage from 'pages/intro/IntroPage';
 import {createGlobalStyle} from 'styled-components';
 
 const GlobalStyle  = createGlobalStyle`
@@ -33,8 +32,8 @@ const App: React.FC = () => {
       <GlobalStyle />
         <Router>
           <Switch>
-            <Route exact path="/intro" component={IntroPage} />
-            <Route exact path="/blog" component={BlogMainPage} />
+            <Route exact path="/" component={BlogListPage} />
+            <Route exact path="/blog" component={BlogListPage} />
             <Route exact path="/blog/write" component={BlogWritePage} />
             <Route exact path="/blog/write/:postid" component={BlogWritePage} />
             <Route exact path="/blog/:postid" component={BlogDetailPage} />

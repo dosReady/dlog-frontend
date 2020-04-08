@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import {rootReducer} from 'modules/redux'
+import {rootReducer} from 'modules/Redux'
 
 const store = createStore(rootReducer,
      (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
