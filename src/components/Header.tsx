@@ -96,7 +96,7 @@ class Header extends React.Component<Props, State> {
         const path:string = this.props.match.path;
         if(this.elRef2.current != null) {
             this.elRef2.current.classList.remove("selected");
-            if(path.indexOf("/blog") > -1 ) this.elRef2.current.classList.add("selected");
+            if(path === "/" || path.indexOf("/blog") > -1 ) this.elRef2.current.classList.add("selected");
         }
     }
 

@@ -2,13 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { TbCategory } from 'modules/Types';
+import { getScrollTop } from 'lib/utils';
 // import { RootState, postActions } from 'modules/Redux';
 // import { connect } from 'react-redux';
 // import {bindActionCreators } from 'redux';
 
-const CtgContainer = styled.div`
-margin-top:1.5rem;
+const CtgContainer = styled.div<{isFiexd:boolean}>`
+${props => {
+    if(!props.isFiexd) 
+    return `
+        margin-top:1.5rem;
+        min-width: 14rem;
+    `
+    else return `
+        position: fixed;
+        top: 2rem;
+        left: 8.7rem;
+        min-width: 14rem;
+    `
+}}
 `
+
 const CtgTitle = styled.div`
 font-size: 1.5rem;
 font-weight: bold;
@@ -46,12 +60,14 @@ interface Props {
 interface State {
     tgtCtgID: number,
     list: TbCategory[]
+    isFiexd: boolean;
 }
 
 class CategoryList extends React.Component<Props, State> {
     readonly state = {
         tgtCtgID: 0,
-        list: []
+        list: [],
+        isFiexd: false
     }
 
     getCtgList = async () => {
@@ -68,10 +84,25 @@ class CategoryList extends React.Component<Props, State> {
     // EVENT FUNCTION
     componentDidMount = (): void => {
         this.initialize();
+        window.addEventListener('scroll', this.onScroll);
+    }
+    
+    componentWillUnmount = (): void => {
+        window.removeEventListener('scroll', this.onScroll);
     }
 
     initialize = (): void => {
         this.getCtgList();
+    }
+
+    onScroll = (e:Event): void => {
+        const nTop = getScrollTop();
+
+        if( nTop > 75) {
+            this.setState({isFiexd: true});
+        } else {
+            this.setState({isFiexd: false});
+        }
     }
 
     onCtgClick = (ctgID:number): void => {
@@ -94,7 +125,7 @@ class CategoryList extends React.Component<Props, State> {
         );
 
         return (
-            <CtgContainer>
+            <CtgContainer isFiexd={this.state.isFiexd}>
                 <CtgTitle># TAG</CtgTitle>
                 {this.state.tgtCtgID === 0 && <CtgWrap onClick={() => this.onCtgClick(0)}>전체({this.state.list.length})</CtgWrap>}
                 {this.state.tgtCtgID !== 0 && <CtgWrapNoSelected onClick={() => this.onCtgClick(0)}>전체({this.state.list.length})</CtgWrapNoSelected>}
