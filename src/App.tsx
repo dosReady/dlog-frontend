@@ -4,6 +4,7 @@ import BlogListPage from 'pages/blog/BlogListPage';
 import BlogDetailPage from 'pages/blog/BlogDetailPage';
 import BlogWritePage from 'pages/blog/BlogWritePage';
 import {createGlobalStyle} from 'styled-components';
+import TodoListPage from 'pages/todo/TodoListPage';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
@@ -32,7 +33,8 @@ const App: React.FC = () => {
       <GlobalStyle />
         <Router>
           <Switch>
-            <Route exact path="/" component={BlogListPage} />
+            <Route exact path="/" component={TodoListPage} />
+            <Route exact path="/project" component={TodoListPage} />
             <Route exact path="/blog" component={BlogListPage} />
             <Route exact path="/blog/write" component={BlogWritePage} />
             <Route exact path="/blog/write/:postid" component={BlogWritePage} />

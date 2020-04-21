@@ -94,10 +94,14 @@ class Header extends React.Component<Props, State> {
 
     componentDidMount = (): void => {
         const path:string = this.props.match.path;
-        if(this.elRef2.current != null) {
-            this.elRef2.current.classList.remove("selected");
-            if(path === "/" || path.indexOf("/blog") > -1 ) this.elRef2.current.classList.add("selected");
-        }
+        const projectELF = this.elRef1.current;
+        const blogELF = this.elRef2.current;
+
+        projectELF?.classList.remove("selected");
+        blogELF?.classList.remove("selected");
+        
+        if(path === "/" || path.indexOf("/project") > -1) projectELF?.classList.add("selected");
+        if(path.indexOf("/blog") > -1 ) blogELF?.classList.add("selected");
     }
 
     onMenuClick = ():void => {
@@ -113,6 +117,7 @@ class Header extends React.Component<Props, State> {
                 <TitleDiv><a href="/blog">오늘도.log</a></TitleDiv>
                 <nav>
                     <MenuList>
+                        <li ref={this.elRef1}><Link to="/project">Project</Link></li>
                         <li ref={this.elRef2}><Link to="/blog">BLOG</Link></li>
                     </MenuList>
                 </nav>
