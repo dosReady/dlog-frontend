@@ -27,9 +27,12 @@ const HeaderContainer = styled.header`
             transform: translateY(0);
         }
     }
-
     nav {
         flex: 2;
+    }
+
+    @media screen and (max-width: 1390px) {
+        max-width: 1200px;
     }
 `
 

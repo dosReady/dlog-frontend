@@ -12,13 +12,12 @@ ${props => {
     if(!props.isFiexd) 
     return `
         margin-top:1.5rem;
-        min-width: 14rem;
+        width: 14rem;
     `
     else return `
         position: fixed;
         top: 2rem;
-        left: 8.7rem;
-        min-width: 14rem;
+        width: 14rem;
     `
 }}
 `

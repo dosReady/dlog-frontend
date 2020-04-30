@@ -19,6 +19,10 @@ const PageContainer = styled.section`
             opacity: 1;
         }
     }
+
+    @media screen and (max-width: 1390px) {
+        max-width: 1200px;
+    }
 `
 
 

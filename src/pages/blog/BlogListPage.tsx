@@ -8,10 +8,10 @@ const BlogContainer = styled.div`
 display: flex;
 `
 const LeftArea = styled.div`
-flex:1;
+width: 14rem;
 `
 const RightArea = styled.div`
-flex:6;
+flex: 1 1 0%;
 `
 
 interface Props{}

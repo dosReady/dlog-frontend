@@ -28,7 +28,11 @@ border-top: 10px solid rgb(0, 61, 84);
 padding:1rem;
 cursor:pointer;
 display: flex;
-flex-direction: column;;
+flex-direction: column;
+
+@media screen and (max-width: 1390px) {
+    width: 26rem;
+}
 `
 const PostTop = styled.div`
 display:flex;
