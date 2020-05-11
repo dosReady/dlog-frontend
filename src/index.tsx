@@ -1,17 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './App'
-import * as serviceWorker from './serviceWorker'
-import {rootReducer} from 'modules/Redux'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import {Provider} from 'mobx-react';
+import RootStore from 'modules/stores';
 
-const store = createStore(rootReducer,
-     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
 
+const stores = new RootStore();
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider {...stores}>
         <App />
     </Provider>
     , document.getElementById('root'));

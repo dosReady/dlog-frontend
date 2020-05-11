@@ -3,6 +3,7 @@ import { TbPost, TbCategory } from 'modules/Types'
 import React from 'react'
 import styled from 'styled-components';
 import moment from 'moment';
+import { RouteComponentProps } from 'react-router-dom';
 
 
 const PostContainer = styled.div`
@@ -77,13 +78,13 @@ interface State {
     list:Response[]
 }
 
-class PostList extends React.Component<Props, State> {
+class PostList extends React.Component<RouteComponentProps & Props, State> {
     readonly state = {
         list: []
     }
 
     onPostWrapClick = (PostID:number|undefined) => {
-        window.location.assign("/blog/"+PostID);
+        this.props.history.push(`/blog/${PostID}`);
     }
 
     getPostList = async (ctgID?:number) => {
@@ -95,15 +96,15 @@ class PostList extends React.Component<Props, State> {
             console.error(error)
         }
     }
-    UNSAFE_componentWillMount = (): void => {
-        this.getPostList()
+    componentDidMount = (): void => {
+        this.getPostList();
     }
 
     UNSAFE_componentWillReceiveProps = (p:Props): void => {
         this.getPostList(p.selectedCtgID);
     }
 
-    render = (): JSX.Element => {
+    render(): JSX.Element {
         let postInfos:Response[] = this.state.list
         const postItems = postInfos.map(
             (data, i) => (

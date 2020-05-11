@@ -25,10 +25,9 @@ const PageContainer = styled.section`
     }
 `
 
-
 class BasicTemplate extends React.Component<Props> {
     
-    render = (): JSX.Element => {
+    render(): JSX.Element {
         return (
             <div>
                 <Header/>

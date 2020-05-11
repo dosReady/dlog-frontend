@@ -113,7 +113,7 @@ class Header extends React.Component<Props, State> {
         })
     }
 
-    render = ():JSX.Element => {
+    render():JSX.Element {
         //const path:string = this.props.match.path;
         return (
             <HeaderContainer>

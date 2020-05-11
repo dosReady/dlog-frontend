@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { TbCategory } from 'modules/Types';
 import { getScrollTop } from 'lib/utils';
-// import { RootState, postActions } from 'modules/Redux';
-// import { connect } from 'react-redux';
-// import {bindActionCreators } from 'redux';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+import { TbCategory } from 'modules/Types';
+import React from 'react';
+import ctgRepo from 'repository/CategoryRepo';
+import styled from 'styled-components';
 
 const CtgContainer = styled.div<{isFiexd:boolean}>`
 ${props => {
@@ -56,25 +55,17 @@ margin-bottom:0.5rem;
 interface Props {
     onGate: (tgtCtgID:number) => void
 }
-interface State {
-    tgtCtgID: number,
-    list: TbCategory[]
-    isFiexd: boolean;
-}
 
-class CategoryList extends React.Component<Props, State> {
-    readonly state = {
-        tgtCtgID: 0,
-        list: [],
-        isFiexd: false
-    }
+@observer
+class CategoryList extends React.Component<Props, {}> {
+    @observable tgtCtgID:number = 0;
+    @observable list:TbCategory[] = [];
+    @observable isFiexd:boolean = false;
 
     getCtgList = async () => {
         try {
-            const { data } = await axios.post(`http://127.0.0.1:8080/api/get/categorylist`);
-            this.setState({
-                list: data.list
-            });
+            const ctgList:TbCategory[] = await ctgRepo.getAll();
+            this.list = ctgList;
         } catch (error) {
             console.error(error)
         }
@@ -97,37 +88,34 @@ class CategoryList extends React.Component<Props, State> {
     onScroll = (e:Event): void => {
         const nTop = getScrollTop();
 
-        if( nTop > 75) {
-            this.setState({isFiexd: true});
+        if (nTop > 75) {
+            this.isFiexd = true;
         } else {
-            this.setState({isFiexd: false});
+            this.isFiexd = false;
         }
     }
 
     onCtgClick = (ctgID:number): void => {
-        this.setState({
-            tgtCtgID: ctgID
-        });
-
+        this.tgtCtgID = ctgID;
         this.props.onGate(ctgID);
     }
 
-    render = (): JSX.Element => {
-        const ctgList:TbCategory[] = this.state.list
+    render(): JSX.Element { 
+        const ctgList:TbCategory[] = this.list
         const items = ctgList.map(
             (ctg, i) => (
                 <CtgList  key={i}>
-                    {this.state.tgtCtgID === ctg.CtgID && <CtgWrap onClick={() => this.onCtgClick(ctg.CtgID)}>{ctg.CtgTitle}({ctg.CtgCnt})</CtgWrap>}
-                    {this.state.tgtCtgID !== ctg.CtgID && <CtgWrapNoSelected onClick={() => this.onCtgClick(ctg.CtgID)}>{ctg.CtgTitle}({ctg.CtgCnt})</CtgWrapNoSelected>}
+                    {this.tgtCtgID === ctg.CtgID && <CtgWrap onClick={() => this.onCtgClick(ctg.CtgID)}>{ctg.CtgTitle}({ctg.CtgCnt})</CtgWrap>}
+                    {this.tgtCtgID !== ctg.CtgID && <CtgWrapNoSelected onClick={() => this.onCtgClick(ctg.CtgID)}>{ctg.CtgTitle}({ctg.CtgCnt})</CtgWrapNoSelected>}
                 </CtgList>
             )
         );
 
         return (
-            <CtgContainer isFiexd={this.state.isFiexd}>
+            <CtgContainer isFiexd={this.isFiexd}>
                 <CtgTitle># TAG</CtgTitle>
-                {this.state.tgtCtgID === 0 && <CtgWrap onClick={() => this.onCtgClick(0)}>전체({this.state.list.length})</CtgWrap>}
-                {this.state.tgtCtgID !== 0 && <CtgWrapNoSelected onClick={() => this.onCtgClick(0)}>전체({this.state.list.length})</CtgWrapNoSelected>}
+                {this.tgtCtgID === 0 && <CtgWrap onClick={() => this.onCtgClick(0)}>전체({this.list.length})</CtgWrap>}
+                {this.tgtCtgID !== 0 && <CtgWrapNoSelected onClick={() => this.onCtgClick(0)}>전체({this.list.length})</CtgWrapNoSelected>}
                 {items}
             </CtgContainer>
         )
