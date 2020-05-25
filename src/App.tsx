@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {createGlobalStyle} from 'styled-components';
 import BlogListComp from 'org/dlog/blog/BlogListComp';
 import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
