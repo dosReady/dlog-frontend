@@ -8,7 +8,7 @@ class CategoryRepo {
         let rtn:TbCategory[] = [];
 
         try {
-            const {data}:AxiosResponse = await axios.post(`http://127.0.0.1:8080/api/get/categorylist`);
+            const {data}:AxiosResponse<{list:TbCategory[]}> = await axios.post(`http://127.0.0.1:8080/api/get/categorylist`);
             rtn = data.list;
         } catch (error) {
             console.error("조회되지 않았습니다.");

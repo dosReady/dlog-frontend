@@ -1,11 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import BlogListPage from 'pages/blog/BlogListPage';
-import BlogDetailPage from 'pages/blog/BlogDetailPage';
-import BlogWritePage from 'pages/blog/BlogWritePage';
 import {createGlobalStyle} from 'styled-components';
-import TodoListPage from 'pages/todo/TodoListPage';
-import LoginPage from 'pages/common/LoginPage';
+import BlogListComp from 'org/dlog/blog/BlogListComp';
+import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
@@ -14,9 +11,9 @@ html, body, #root, #app {
 
 body {
   margin: 0;
-  font-family: 'NanumGothic';
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', '돋움', 'dotum', 'sans-serif';
   user-select: none;
-  background-color: #f1f3f6;
+  background-color: #F1F2F4;
 }
 
 a {
@@ -27,24 +24,22 @@ a {
 }
 `
 
-const App: React.FC = () => {
- 
-  return (
-    <div id="app">
-      <GlobalStyle />
-        <Router>
-          <Switch>
-            <Route exact path="/" component={TodoListPage} />
-            <Route exact path="/project" component={TodoListPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/blog" component={BlogListPage} />
-            <Route exact path="/blog/write" component={BlogWritePage} />
-            <Route exact path="/blog/write/:postid" component={BlogWritePage} />
-            <Route exact path="/blog/:postid" component={BlogDetailPage} />
-          </Switch>
-        </Router>
+class App extends React.Component {
+
+  render():JSX.Element {
+    return (
+      <div id="app">
+        <GlobalStyle />
+          <Router>
+            <Switch>
+              <Route exact path="/" component={BlogListComp} />
+              <Route exact path="/blog" component={BlogListComp} />
+              <Route exact path="/blog/:postid" component={BlogViewComp} />
+            </Switch>
+          </Router>
       </div>
-  );
+    )
+  }
 }
 
 export default App;

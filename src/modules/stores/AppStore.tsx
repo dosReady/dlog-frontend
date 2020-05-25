@@ -1,7 +1,7 @@
 import {observable, action, computed} from 'mobx';
-import { User } from 'modules/Model';
 import RootStore from 'modules/stores';
 import {persist} from 'mobx-persist';
+import { User } from '@types';
 
 class AppStore {
     public root:RootStore;
@@ -32,6 +32,11 @@ class AppStore {
     @action
     public getPwd(): string {
         return this._user.Password;
+    }
+
+    @action
+    public getUser():User {
+        return this._user;
     }
 }
 
