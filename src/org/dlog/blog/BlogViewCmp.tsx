@@ -1,5 +1,5 @@
 import React from 'react';
-import ConatinerComp from 'org/dlog/comn/tmpl/ContainerComp';
+import ConatinerComp from 'org/dlog/comn/ContainerComp';
 import { RouteComponentProps } from 'react-router-dom';
 import BlogRepo from 'org/dlog/blog/BlogRepo';
 import { Post } from '@types';

@@ -1,6 +1,6 @@
 import {User} from "@types"
 import { AxiosResponse } from "axios";
-import LoginSrvc from "org/dlog/comn/login/LoginSrvc";
+import LoginSrvc from "org/dlog/comn/LoginSrvc";
 import { sec } from "lib";
 
 interface ApiReponse {

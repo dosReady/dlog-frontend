@@ -1,6 +1,6 @@
 import React from 'react';
-import ConatinerComp from '../comn/tmpl/ContainerComp';
-import BlogListComp from '../blog/BlogListComp';
+import ConatinerComp from 'org/dlog/comn/ContainerComp';
+import BlogListComp from 'org/dlog/blog/BlogListComp';
 
 class BlogListView extends React.Component<{}, {}>{
     render():JSX.Element {

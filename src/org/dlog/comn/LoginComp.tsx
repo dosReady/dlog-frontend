@@ -3,9 +3,9 @@ import autobind from 'autobind-decorator';
 import { sec } from 'lib';
 import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import LoginRepo from 'org/dlog/comn/login/LoginRepo';
+import LoginRepo from 'org/dlog/comn/LoginRepo';
 import React from 'react';
-import ConatinerComp from '../tmpl/ContainerComp';
+import ConatinerComp from 'org/dlog/comn/ContainerComp';
 
 
 @inject('appStore') 

@@ -1,6 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
-import LoginComp from 'org/dlog/comn/login/LoginComp';
+import LoginComp from 'org/dlog/comn/LoginComp';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';

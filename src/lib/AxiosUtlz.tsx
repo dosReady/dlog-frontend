@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
-import LoginSrvc from "org/dlog/comn/login/LoginSrvc";
+import LoginSrvc from "org/dlog/comn/LoginSrvc";
 import { User } from "@types";
 
 enum HttpStatusCode {

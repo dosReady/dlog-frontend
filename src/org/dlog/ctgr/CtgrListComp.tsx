@@ -1,5 +1,5 @@
 import React from 'react';
-import { CtgList, CtgContainer, CtgTitle, CtgWrap, CtgWrapNoSelected } from 'org/dlog/ctgr/list/CtgrStyledComp';
+import { CtgList, CtgContainer, CtgTitle, CtgWrap, CtgWrapNoSelected } from 'org/dlog/ctgr/CtgrStyledComp';
 import { TbCategory } from 'modules/Types';
 import { observer } from 'mobx-react';
 import { observable, toJS} from 'mobx';
