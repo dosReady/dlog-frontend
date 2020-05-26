@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import {createGlobalStyle} from 'styled-components';
-import BlogListComp from 'org/dlog/blog/BlogListComp';
-import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
 import '@fortawesome/fontawesome-free/css/all.css';
+import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
 import LoginComp from 'org/dlog/comn/login/LoginComp';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import {BlogListView} from 'org/dlog/view';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
@@ -34,9 +34,9 @@ class App extends React.Component {
         <GlobalStyle />
           <Router>
             <Switch>
-              <Route exact path="/" component={BlogListComp} />
+              <Route exact path="/" component={BlogListView} />
               <Route exact path="/login" component={LoginComp} />
-              <Route exact path="/blog" component={BlogListComp} />
+              <Route exact path="/blog" component={BlogListView} />
               <Route exact path="/blog/:postid" component={BlogViewComp} />
             </Switch>
           </Router>

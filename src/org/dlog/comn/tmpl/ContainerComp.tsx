@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderTop, HeaderTopLogo, HTSrchBarWrap, HTSrchInput, ContentsWrap } from 'org/dlog/comn/tmpl/styled';
+import { HeaderTop, HeaderTopLogo, HTSrchBarWrap, HTSrchInput, ContentsWrap } from 'org/dlog/comn/tmpl/ContainerStyledComp';
 
 class ConatinerComp extends React.Component {
     render():JSX.Element {

@@ -1,10 +1,11 @@
 import { AppStore, User } from '@types';
 import autobind from 'autobind-decorator';
-import { inject, observer } from 'mobx-react';
-import React from 'react';
-import LoginRepo from 'org/dlog/comn/login/LoginRepo';
 import { sec } from 'lib';
 import { toJS } from 'mobx';
+import { inject, observer } from 'mobx-react';
+import LoginRepo from 'org/dlog/comn/login/LoginRepo';
+import React from 'react';
+import ConatinerComp from '../tmpl/ContainerComp';
 
 
 @inject('appStore') 
@@ -76,12 +77,12 @@ class LoginComp extends React.Component<{appStore?:AppStore}, {}> {
 
     public render():JSX.Element {
         return (
-            <div>
+            <ConatinerComp>
                 <div><input type="text" placeholder="사용자 ID" onChange={this.onChangeID} /></div>
                 <div><input type="password" placeholder="패스워든" onChange={this.onChangePWD}/></div>
                 <div><button onClick={this.onLoginBtnClick}>로그인</button></div>
                 <div><button onClick={this.onClickTest}>테스트</button></div>
-            </div>
+            </ConatinerComp>
         )
     }
 }
