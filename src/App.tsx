@@ -4,6 +4,7 @@ import {createGlobalStyle} from 'styled-components';
 import BlogListComp from 'org/dlog/blog/BlogListComp';
 import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
 import '@fortawesome/fontawesome-free/css/all.css';
+import LoginComp from 'org/dlog/comn/login/LoginComp';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
@@ -34,6 +35,7 @@ class App extends React.Component {
           <Router>
             <Switch>
               <Route exact path="/" component={BlogListComp} />
+              <Route exact path="/login" component={LoginComp} />
               <Route exact path="/blog" component={BlogListComp} />
               <Route exact path="/blog/:postid" component={BlogViewComp} />
             </Switch>

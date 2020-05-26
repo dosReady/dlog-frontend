@@ -29,7 +29,7 @@ class BlogListComp extends React.Component<{}, {}> {
                     <BlogListWrap>
                         {
                             blogList.map(
-                                (data, i) => (
+                                (data:BlogOutDTO, i:any) => (
                                     <li key={i}>
                                         <Link to={`blog/${data.post.PostID}`}>
                                             <strong>{data.post.MainTitle}</strong>
