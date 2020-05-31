@@ -4,7 +4,7 @@ import LoginComp from 'org/dlog/comn/LoginComp';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
-import {BlogListView} from 'org/dlog/view';
+import {BlogWriteView, BlogListView} from 'org/dlog/view';
 
 const GlobalStyle  = createGlobalStyle`
 html, body, #root, #app {
@@ -37,6 +37,7 @@ class App extends React.Component {
               <Route exact path="/" component={BlogListView} />
               <Route exact path="/login" component={LoginComp} />
               <Route exact path="/blog" component={BlogListView} />
+              <Route exact path="/blog/write" component={BlogWriteView} />
               <Route exact path="/blog/:postid" component={BlogViewComp} />
             </Switch>
           </Router>

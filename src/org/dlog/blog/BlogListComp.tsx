@@ -7,8 +7,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import BlogSrvc from './BlogSrvc';
 
+
+
 @observer
-class BlogListComp extends React.Component<{}, {}> {
+class BlogListComp extends React.Component<{id?:string}, {}> {
     @observable list:BlogOutDTO[] = []; 
 
     private async loadList():Promise<void> {
@@ -22,8 +24,7 @@ class BlogListComp extends React.Component<{}, {}> {
         const blogList = toJS(this.list)
         console.log(blogList)
         return (
-            <div>
-                <h4>최근글</h4>
+            <div id={this.props.id}>
                 <BlogListWrap>
                     {
                         blogList.map(

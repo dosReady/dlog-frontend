@@ -49,7 +49,7 @@ class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>
 
     render():JSX.Element {
         return (
-            <ConatinerComp>
+            <ConatinerComp width="1000">
                 <div ref={this.viewerEl}></div>
             </ConatinerComp>
         )

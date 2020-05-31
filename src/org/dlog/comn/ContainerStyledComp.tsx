@@ -1,27 +1,33 @@
 import styled from "styled-components";
 
 export const HeaderTop = styled.div`
-background-color: #2F4F4F;
+background-color: #2A3D4E;
 height: 65px;
 display: flex;
-justify-content: space-between;
 align-items: center;
 padding: 0 400px;
-`
+    .logo div{
+        cursor:pointer;
+        width: 70px;
+        height: 40px;
+        svg {
+            width: 100%;
+            height: 100%;
+            background-color: #2A3D4E;
+            border-radius: 5px;
+            path {
+                fill: white
+            }    
+        }
+    }
 
-export const HeaderTopLogo = styled.div`
-font-size: 30px;
-font-weight: bold;
-background-color: #fff;
-width: 40px;
-height: 36px;
-text-align: center;
+
 `
 
 export const HTSrchBarWrap = styled.div`
 background-color: #fff;
-width: 300px;
-height: 30px;
+width: 500px;
+height: 40px;
 display: flex;
 align-items: center;
 position: relative;
@@ -40,9 +46,9 @@ padding: 0 0.3rem 0 2rem;
 `
 
 
-export const ContentsWrap = styled.div`
+export const ContentsWrap = styled.div<{width: string}>`
 box-sizing: border-box;
-max-width: 1000px;
+max-width: ${props => props.width}px;
 margin-left: auto;
 margin-right: auto;
 margin-top: 30px;
