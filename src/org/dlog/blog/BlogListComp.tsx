@@ -1,4 +1,4 @@
-import { BlogOutDTO } from '@types';
+import { Post } from '@types';
 import { observable, toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import moment from 'moment';
@@ -11,32 +11,31 @@ import BlogSrvc from './BlogSrvc';
 
 @observer
 class BlogListComp extends React.Component<{id?:string}, {}> {
-    @observable list:BlogOutDTO[] = []; 
+    @observable list:Post[] = []; 
 
     private async loadList():Promise<void> {
-        this.list = await BlogSrvc.srchList();
+        const postList = await BlogSrvc.srchList();
+        if(postList.length > 0 ) this.list = toJS(postList);
     }
+
     public componentDidMount():void {
         this.loadList();
     }
 
     render():JSX.Element {
         const blogList = toJS(this.list)
-        console.log(blogList)
         return (
             <div id={this.props.id}>
                 <BlogListWrap>
                     {
                         blogList.map(
-                            (data:BlogOutDTO, i:any) => (
+                            (data:Post, i:any) => (
                                 <li key={i}>
-                                    <Link to={`blog/${data.post.PostID}`}>
-                                        <strong>{data.post.MainTitle}</strong>
-                                        <span>{moment(data.post.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
-                                        <p>내용내용</p>
-                                        <div>썸네일</div>
+                                    <Link to={`blog/${data.PostID}`}>
+                                        <strong>{data.MainTitle}</strong>
+                                        <span>{moment(data.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
+                                        <p>{data.SubTitle}</p>
                                     </Link>
-                                    <div>#jwt</div>
                                 </li>
                             )
                         )

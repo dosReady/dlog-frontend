@@ -1,20 +1,21 @@
-import React from 'react';
-import ConatinerComp from 'org/dlog/comn/ContainerComp';
-import { RouteComponentProps } from 'react-router-dom';
-import BlogRepo from 'org/dlog/blog/BlogRepo';
-import { Post } from '@types';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Post, PostDTO } from '@types';
+import 'github-markdown-css';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import 'github-markdown-css';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import BlogRepo from 'org/dlog/blog/BlogRepo';
+import ConatinerComp from 'org/dlog/comn/ContainerComp';
+import React from 'react';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 @observer
 class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>, {}> {
     private viewerEl = React.createRef<HTMLDivElement>();
     @observable private post:Post = {
-        PostID: 0,
+        PostID: "",
         Content: "",
+        SubTitle: "",
         CreatedAt: new Date(),
         MainTitle: "",
         UpdatedAt: new Date()
@@ -22,13 +23,13 @@ class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>
 
     public async loadPost(): Promise<void> {
         
-        this.post.PostID = parseInt(this.props.match.params.postid);
-        const post:Post = await BlogRepo.srchPost(this.post);
+        this.post.PostID = this.props.match.params.postid;
+        const data:PostDTO = await BlogRepo.srchPost(this.post);
         const target = this.viewerEl.current;
         if(target !== null)  {
             new Viewer({
                 el: target,
-                initialValue: post.Content
+                initialValue: data.post.Content
             });
 
             var tgtIndexs = target.children[0].getElementsByTagName("h1")
@@ -50,6 +51,7 @@ class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>
     render():JSX.Element {
         return (
             <ConatinerComp width="1000">
+                <Link to={`/blog/write/${this.props.match.params.postid}`}>글쓰기</Link>
                 <div ref={this.viewerEl}></div>
             </ConatinerComp>
         )

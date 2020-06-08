@@ -24,6 +24,18 @@ a {
   text-decoration: none; 
   &:link, &:visited, &:active{ color: inherit; }
 }
+
+button {
+  text-decoration: none;
+  border-color: transparent;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  color:white;
+  padding: 0.75rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
 `
 
 class App extends React.Component {
@@ -38,6 +50,7 @@ class App extends React.Component {
               <Route exact path="/login" component={LoginComp} />
               <Route exact path="/blog" component={BlogListView} />
               <Route exact path="/blog/write" component={BlogWriteView} />
+              <Route exact path="/blog/write/:postid" component={BlogWriteView} />
               <Route exact path="/blog/:postid" component={BlogViewComp} />
             </Switch>
           </Router>

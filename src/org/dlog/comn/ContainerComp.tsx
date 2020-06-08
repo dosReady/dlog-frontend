@@ -14,22 +14,19 @@ class ConatinerComp extends React.Component<RouteComponentProps&{width: string},
 
     render():JSX.Element {
         return (
-            <div>
-                {/* header */}
-                <div>
-                    <HeaderTop>
-                        <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
-                        <HTSrchBarWrap>
-                            <i className="fas fa-search"></i>
-                            <HTSrchInput type="text" placeholder="검색어를 입력하세요."></HTSrchInput>
-                        </HTSrchBarWrap>
-                        <div>
-                            <Link to="/blog/write">글쓰기</Link>
-                        </div>
-                    </HeaderTop>
-                </div>
+            <main>
+                <HeaderTop>
+                    <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
+                    <HTSrchBarWrap>
+                        <i className="fas fa-search"></i>
+                        <HTSrchInput type="text" placeholder="검색어를 입력하세요."></HTSrchInput>
+                    </HTSrchBarWrap>
+                    <div>
+                        <Link to="/blog/write">글쓰기</Link>
+                    </div>
+                </HeaderTop>
                 <ContentsWrap width={this.props.width}>{this.props.children}</ContentsWrap>
-            </div>
+            </main>
         )
     }
 }

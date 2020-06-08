@@ -17,10 +17,24 @@ export interface AppStore {
 export interface BlogOutDTO {
     post:Post
 }
+
 export interface Post {
-	PostID: number,
-	MainTitle: string, 
+	PostID: string,
+    MainTitle: string, 
+    SubTitle: string,
 	Content: string,
     CreatedAt?: Date,
     UpdatedAt?: Date
+}
+
+export interface Tag {
+    TagMstID: string,
+    TagName: string,
+    CreatedAt?: Date,
+    UpdatedAt?: Date
+}
+
+export interface PostDTO {
+    post: Post,
+    tags: Tag[]
 }

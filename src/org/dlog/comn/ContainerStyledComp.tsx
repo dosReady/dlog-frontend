@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HeaderTop = styled.div`
+export const HeaderTop = styled.header`
 background-color: #2A3D4E;
 height: 65px;
 display: flex;
@@ -46,10 +46,11 @@ padding: 0 0.3rem 0 2rem;
 `
 
 
-export const ContentsWrap = styled.div<{width: string}>`
+export const ContentsWrap = styled.section<{width: string}>`
 box-sizing: border-box;
 max-width: ${props => props.width}px;
 margin-left: auto;
 margin-right: auto;
 margin-top: 30px;
+padding: 0 30px;
 `
