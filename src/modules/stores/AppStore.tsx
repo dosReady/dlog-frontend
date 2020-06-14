@@ -9,6 +9,9 @@ class AppStore {
     @persist @observable 
     private _user:User;
 
+    @persist @observable 
+    private _color:string = "#F1F2F4";
+
     constructor(root:RootStore) {
         this.root = root;
         this._user = {LoginID: '', Password: '', Role: ''};
@@ -37,6 +40,16 @@ class AppStore {
     @action
     public getUser():User {
         return this._user;
+    }
+
+    @action
+    public setColor(color:string):void{
+        this._color = color;
+    }
+
+    @action
+    public getColor():string{
+        return this._color;
     }
 }
 

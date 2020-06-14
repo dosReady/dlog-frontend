@@ -11,7 +11,9 @@ export interface AppStore {
     getLoginID: () => string,
     setPwd: (password:string) => void,
     getPwd: () => string,
-    getUser: () => User
+    getUser: () => User,
+    getColor: () => string,
+    setColor: (color:string) => void,
 }
 
 export interface BlogOutDTO {
@@ -22,7 +24,8 @@ export interface Post {
 	PostID: string,
     MainTitle: string, 
     SubTitle: string,
-	Content: string,
+    Content: string,
+    TagsJSON?: string,
     CreatedAt?: Date,
     UpdatedAt?: Date
 }

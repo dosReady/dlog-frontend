@@ -22,6 +22,20 @@ class BlogListComp extends React.Component<{id?:string}, {}> {
         this.loadList();
     }
 
+    public genTagComp(tagsJSONString :string | undefined):JSX.Element {
+        let tagsJSON:string[] = [];
+        tagsJSON = JSON.parse(tagsJSONString!)
+        let tagsComp = tagsJSON.map((data:string , i:any) => (
+            <span key={i}>#{data}</span>
+        ))
+
+        return (
+            <p>
+                {tagsJSON[0].length > 0 && tagsComp}
+            </p>
+        )
+    }
+
     render():JSX.Element {
         const blogList = toJS(this.list)
         return (
@@ -31,10 +45,11 @@ class BlogListComp extends React.Component<{id?:string}, {}> {
                         blogList.map(
                             (data:Post, i:any) => (
                                 <li key={i}>
-                                    <Link to={`blog/${data.PostID}`}>
+                                    <Link  to={`blog/${data.PostID}`}>
                                         <strong>{data.MainTitle}</strong>
                                         <span>{moment(data.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
                                         <p>{data.SubTitle}</p>
+                                        {this.genTagComp(data.TagsJSON)}
                                     </Link>
                                 </li>
                             )

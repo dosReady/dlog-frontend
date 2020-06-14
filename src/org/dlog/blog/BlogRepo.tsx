@@ -5,6 +5,17 @@ import { observable, action, computed } from "mobx";
 
 class BlogRepo {
     @observable private list: Post[] = [];
+    @observable private info: PostDTO = {
+        post: {
+            PostID: "",
+            Content: "",
+            SubTitle: "",
+            CreatedAt: new Date(),
+            MainTitle: "",
+            UpdatedAt: new Date()
+        },
+        tags: []
+    }
 
     @action
     public async srchList(param?: Post):Promise<void> {
@@ -12,8 +23,12 @@ class BlogRepo {
        this.list = data.list;
     }
 
-    public async srchPost(param: Post):Promise<PostDTO> {
-        const {data}:AxiosResponse<PostDTO> = await sec.post("api/get/post", {"post": {"PostID": param.PostID}});
+    public async srchPost(postID: string):Promise<PostDTO> {
+        const {data}:AxiosResponse<PostDTO> = await sec.post("api/get/post", {"post": {"PostID": postID}});
+        this.info = {
+            post: data.post,
+            tags: data.tags
+        }
         return data;
     }
 
@@ -24,6 +39,11 @@ class BlogRepo {
     @computed
     public get getList():Post[]{
         return this.list;
+    }
+
+    @computed
+    public get getInfo():PostDTO {
+        return this.info;
     }
 
 }

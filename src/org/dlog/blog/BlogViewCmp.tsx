@@ -1,35 +1,27 @@
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Post, PostDTO } from '@types';
+import { PostDTO } from '@types';
 import 'github-markdown-css';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
-import BlogRepo from 'org/dlog/blog/BlogRepo';
-import ConatinerComp from 'org/dlog/comn/ContainerComp';
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-@observer
-class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>, {}> {
+const ViewContentWrap = styled.div`
+    max-width: 1100px;
+    margin: 0 auto;
+    font-size: 16px;
+`
+
+class BlogViewComp extends React.Component<{info:PostDTO}, {}> {
     private viewerEl = React.createRef<HTMLDivElement>();
-    @observable private post:Post = {
-        PostID: "",
-        Content: "",
-        SubTitle: "",
-        CreatedAt: new Date(),
-        MainTitle: "",
-        UpdatedAt: new Date()
-    };
 
-    public async loadPost(): Promise<void> {
-        
-        this.post.PostID = this.props.match.params.postid;
-        const data:PostDTO = await BlogRepo.srchPost(this.post);
+    public async loadPost(info:PostDTO): Promise<void> {
+        const {post} = info;
         const target = this.viewerEl.current;
         if(target !== null)  {
             new Viewer({
                 el: target,
-                initialValue: data.post.Content
+                initialValue: post.Content
             });
 
             var tgtIndexs = target.children[0].getElementsByTagName("h1")
@@ -44,16 +36,16 @@ class BlogViewComp extends React.Component<RouteComponentProps<{postid: string}>
         }
     }
 
-    public componentDidMount():void {
-        this.loadPost();
+    public componentWillReceiveProps(nextProps: Readonly<{info:PostDTO}>, nexContext:any):void {
+        this.loadPost(nextProps.info);
     }
 
     render():JSX.Element {
         return (
-            <ConatinerComp width="1000">
-                <Link to={`/blog/write/${this.props.match.params.postid}`}>글쓰기</Link>
-                <div ref={this.viewerEl}></div>
-            </ConatinerComp>
+            <div>
+                <Link to={`/blog/write/${this.props.info.post.PostID}`}>글쓰기</Link>
+                <ViewContentWrap ref={this.viewerEl}></ViewContentWrap>
+            </div>
         )
     }
 }

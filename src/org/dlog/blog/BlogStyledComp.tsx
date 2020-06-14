@@ -5,9 +5,16 @@ export const BlogListWrap = styled.ul`
     padding:0;
     margin: 0;
     li {
+        :hover {
+            transform: translateX(-8px);
+            box-shadow: 1px 1px 0px 1px #999;
+        }
+        border-left: 7px solid #2A3D4E;
         margin-bottom: 15px;
         background-color:#fff;
         padding:30px;
+        box-shadow: 1px 1px 2px 0px #999;
+        transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
         a{
             display:block;
             margin-bottom: 16px;
@@ -26,14 +33,17 @@ export const BlogListWrap = styled.ul`
 
 export const BlogListViewWrap = styled.div`
     display:flex;
-        div#blogList {
-            width:800px;
-        }
-        div#tagList {
-            width:300px;
-            background-color:white;
-            margin-left: 10px;
-        }
+    div#blogList {
+        width:800px;
+    }
+    div#tagList {
+        width:300px;
+        height: 600px;
+        background-color:white;
+        margin-left: 10px;
+        box-shadow: 1px 1px 2px 0px #999;
+        padding: 0 20px;
+    }
 `;
 
 export const BlogEditorWrap = styled.div`

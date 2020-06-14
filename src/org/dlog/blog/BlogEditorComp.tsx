@@ -67,7 +67,7 @@ class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string
 
         if(parseInt(this.post.PostID) !== 0) {
             post.PostID =this.props.match.params.postid;
-            const data = await BlogRepo.srchPost(post);
+            const data = await BlogRepo.srchPost(post.PostID);
             this.post = data.post;
             this.tags = data.tags;
             this.editorComp!.setMarkdown(this.post.Content !== undefined ? this.post.Content : '');
