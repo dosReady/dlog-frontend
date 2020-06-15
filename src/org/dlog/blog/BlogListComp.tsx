@@ -4,13 +4,15 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 import { BlogListWrap } from 'org/dlog/blog/BlogStyledComp';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BlogSrvc from './BlogSrvc';
+import Logo from 'resources/img/do.svg';
+import { ReactSVG } from 'react-svg';
 
 
 
 @observer
-class BlogListComp extends React.Component<{id?:string}, {}> {
+class BlogListComp extends React.Component<RouteComponentProps & {id?:string}, {}> {
     @observable list:Post[] = []; 
 
     private async loadList():Promise<void> {
@@ -36,6 +38,11 @@ class BlogListComp extends React.Component<{id?:string}, {}> {
         )
     }
 
+    goDetailPage(postID:string): void {
+        const {history} = this.props;
+        history.push(`blog/${postID}`);
+    }
+
     render():JSX.Element {
         const blogList = toJS(this.list)
         return (
@@ -44,13 +51,12 @@ class BlogListComp extends React.Component<{id?:string}, {}> {
                     {
                         blogList.map(
                             (data:Post, i:any) => (
-                                <li key={i}>
-                                    <Link  to={`blog/${data.PostID}`}>
-                                        <strong>{data.MainTitle}</strong>
-                                        <span>{moment(data.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
-                                        <p>{data.SubTitle}</p>
-                                        {this.genTagComp(data.TagsJSON)}
-                                    </Link>
+                                <li key={i} onClick={() => this.goDetailPage(data.PostID)}>
+                                    <strong>{data.MainTitle}</strong>
+                                    <span>{moment(data.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
+                                    <ReactSVG src={Logo} className="logo"/>
+                                    <p>{data.SubTitle}</p>
+                                    {this.genTagComp(data.TagsJSON)}
                                 </li>
                             )
                         )
@@ -61,4 +67,4 @@ class BlogListComp extends React.Component<{id?:string}, {}> {
     }
 }
 
-export default BlogListComp;
+export default withRouter(BlogListComp);

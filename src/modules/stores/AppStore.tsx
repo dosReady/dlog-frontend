@@ -9,8 +9,8 @@ class AppStore {
     @persist @observable 
     private _user:User;
 
-    @persist @observable 
-    private _color:string = "#F1F2F4";
+    @observable 
+    private _srchText: string = "";
 
     constructor(root:RootStore) {
         this.root = root;
@@ -42,14 +42,14 @@ class AppStore {
         return this._user;
     }
 
-    @action
-    public setColor(color:string):void{
-        this._color = color;
+    @action 
+    public getSrchText():string {
+        return this._srchText;
     }
 
-    @action
-    public getColor():string{
-        return this._color;
+    @action 
+    public setSrchText(paramStr: string):void {
+        this._srchText = paramStr;
     }
 }
 

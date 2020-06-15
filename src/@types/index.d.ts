@@ -12,8 +12,8 @@ export interface AppStore {
     setPwd: (password:string) => void,
     getPwd: () => string,
     getUser: () => User,
-    getColor: () => string,
-    setColor: (color:string) => void,
+    getSrchText: () => string,
+    setSrchText: (paramStr: string) => void
 }
 
 export interface BlogOutDTO {

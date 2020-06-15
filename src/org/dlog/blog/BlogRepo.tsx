@@ -19,7 +19,7 @@ class BlogRepo {
 
     @action
     public async srchList(param?: Post):Promise<void> {
-       const {data}: AxiosResponse<{list: Post[]}> = await sec.post("api/get/postlist", {"info": param});
+       const {data}: AxiosResponse<{list: Post[]}> = await sec.post("api/get/postlist", {"post": param});
        this.list = data.list;
     }
 

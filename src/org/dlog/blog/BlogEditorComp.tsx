@@ -168,7 +168,7 @@ class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string
                             {
                                 tagList.map(
                                     (data:Tag, i:any) => (
-                                        <li key={i} onClick={() => {this.onClickTagDel(data.TagMstID)}}><span>#{data.TagName}</span><i className="fas fa-minus"></i></li>
+                                        <li key={i} onClick={() => {this.onClickTagDel(data.TagMstID)}}><button>#{data.TagName}</button><i className="fas fa-minus"></i></li>
                                     )
                                 )
                             }

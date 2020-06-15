@@ -3,13 +3,14 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { PostDTO } from '@types';
 import 'github-markdown-css';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ViewContentWrap = styled.div`
     max-width: 1100px;
     margin: 0 auto;
     font-size: 16px;
+    padding: 30px 20px;
+}
 `
 
 class BlogViewComp extends React.Component<{info:PostDTO}, {}> {
@@ -42,10 +43,7 @@ class BlogViewComp extends React.Component<{info:PostDTO}, {}> {
 
     render():JSX.Element {
         return (
-            <div>
-                <Link to={`/blog/write/${this.props.info.post.PostID}`}>글쓰기</Link>
-                <ViewContentWrap ref={this.viewerEl}></ViewContentWrap>
-            </div>
+            <ViewContentWrap ref={this.viewerEl}></ViewContentWrap>
         )
     }
 }

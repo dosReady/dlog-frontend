@@ -5,6 +5,8 @@ export const BlogListWrap = styled.ul`
     padding:0;
     margin: 0;
     li {
+        display:block;
+        cursor:pointer;
         :hover {
             transform: translateX(-8px);
             box-shadow: 1px 1px 0px 1px #999;
@@ -15,19 +17,28 @@ export const BlogListWrap = styled.ul`
         padding:30px;
         box-shadow: 1px 1px 2px 0px #999;
         transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-        a{
-            display:block;
-            margin-bottom: 16px;
-            strong {
-                font-size:25px;
-            }
-            span {
-                display:block;
-                font-size:14px;
-                color:#aaa;
-            }
+        strong {
+            font-size:25px;
         }
-       
+        span {
+            display:block;
+            font-size:14px;
+            color:#aaa;
+        }
+        .logo div{
+            height: 150px;
+            background-color: #2A3D4E;
+            margin: 10px 0;
+            border-radius: 4px;
+            svg {
+                width: 100%;
+                height: 100%;
+                padding: 10px;
+                path {
+                    fill: white
+                }
+            }    
+        }
     }
 `
 
@@ -38,11 +49,12 @@ export const BlogListViewWrap = styled.div`
     }
     div#tagList {
         width:300px;
-        height: 600px;
+        height: 350px;
         background-color:white;
         margin-left: 10px;
         box-shadow: 1px 1px 2px 0px #999;
         padding: 0 20px;
+        border-top: 7px solid #2A3D4E;
     }
 `;
 
@@ -50,6 +62,10 @@ export const BlogEditorWrap = styled.div`
     margin-bottom:1rem;
     .CodeMirror-wrap {
         padding:0 10px;
+    }
+
+    input {
+        font-size: 20px;
     }
     
 `
@@ -83,13 +99,12 @@ ul {
     font-size: 0.95rem;
     li {
         :hover {
-            cursor:pointer;
-            box-shadow: 4px 4px 8px -2px rgba(50,50,100,0.16), 16px 16px 24px rgba(50,50,100,0.08), 24px 24px 56px rgba(50,50,100,0.12)
+            box-shadow:2px 1px 5px 0px #0c1217;
         }
         background-color: #2A3D4E;
         border-radius: 4px;
         color: white;
-        padding: 3px 11px;
+        padding: 0 11px;
         margin-right: 5px;
         margin-bottom: 5px;
         span {
@@ -104,16 +119,13 @@ ul {
 export const EditorBtnWrap = styled.div`
     margin-top:1rem;
     button.save {
-        :hover {
-            box-shadow: 4px 4px 8px -2px rgba(50,50,100,0.16), 16px 16px 24px rgba(50,50,100,0.08), 24px 24px 56px rgba(50,50,100,0.12)
-        }
         background-color:#2A3D4E;
         margin-right:1rem;
+        :hover {
+            background-color: #456582;
+        }
     }
     button.back {
-        :hover {
-            box-shadow: 4px 4px 8px -2px rgba(50,50,100,0.16), 16px 16px 24px rgba(50,50,100,0.08), 24px 24px 56px rgba(50,50,100,0.12)
-        }
         color:#2A3D4E;
         font-weight:900;
     }

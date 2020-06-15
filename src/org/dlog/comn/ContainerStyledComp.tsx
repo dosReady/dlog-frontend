@@ -5,7 +5,7 @@ background-color: #2A3D4E;
 height: 65px;
 display: flex;
 align-items: center;
-padding: 0 400px;
+justify-content: center;
     .logo div{
         cursor:pointer;
         width: 70px;

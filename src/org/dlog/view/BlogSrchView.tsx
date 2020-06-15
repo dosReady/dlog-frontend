@@ -1,4 +1,4 @@
-import { PostDTO, Tag } from '@types';
+import { AppStore } from '@types';
 import autobind from 'autobind-decorator';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
@@ -6,16 +6,14 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled, { createGlobalStyle } from 'styled-components';
-import BlogRepo from '../blog/BlogRepo';
-import BlogViewComp from '../blog/BlogViewCmp';
-
-
+import BlogSrchListComp from '../blog/BlogSrchListComp';
 
 const BackgroundStyle = createGlobalStyle`
   body {
     background-color: #fff;
   }
 `;
+
 const HeaderTop = styled.header`
     display: flex;
     flex-direction: column;
@@ -38,7 +36,6 @@ const HeaderTop = styled.header`
             padding:2px 10px;
         }
     }
-
 `
 
 const MainTitleWrap = styled.div`
@@ -72,48 +69,27 @@ const MainTitleWrap = styled.div`
 `
 @inject('appStore') 
 @observer
-class BlogDetailView extends React.Component<RouteComponentProps<{postid: string}>,{}> {
-    public async loadPost(): Promise<void> {
-        const postID= this.props.match.params.postid;
-        await BlogRepo.srchPost(postID);
-    }
+class BlogSrchView extends React.Component<RouteComponentProps & {appStore: AppStore}, {}> {
 
     @autobind
-    onClickLogo():void {
+    onClickLogo() :void {
         this.props.history.push("/");
     }
-
-    @autobind
-    goEditPage():void {
-        this.props.history.push(`/blog/write/${this.props.match.params.postid}`);
-    }
-
-    public componentDidMount():void {
-        this.loadPost();
-    }
-
     render():JSX.Element {
-        const info:PostDTO = BlogRepo.getInfo;
+
         return (
             <div>
                 <BackgroundStyle/>
                 <HeaderTop>
                     <MainTitleWrap>
                         <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
-                        <strong>{info.post.MainTitle}</strong>
-                        <button onClick={this.goEditPage}>EDIT</button>
+                        <strong>검색어: {this.props.appStore?.getSrchText()}</strong>
                     </MainTitleWrap>
-                    <ul>
-                        {info.tags.map(
-                            (tag:Tag, i:any) => (
-                            <li key={i}># {tag.TagName}</li>
-                        ))}
-                    </ul>
                 </HeaderTop>
-                <BlogViewComp info={info}/>
+                <BlogSrchListComp srchText={this.props.appStore?.getSrchText()}/>
             </div>
         )
     }
 }
 
-export default withRouter(BlogDetailView);
+export default withRouter(BlogSrchView);
