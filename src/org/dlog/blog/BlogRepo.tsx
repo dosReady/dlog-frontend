@@ -36,6 +36,10 @@ class BlogRepo {
         await sec.post("api/mng/post", {"post": param.post, "tags": param.tags});
     }
 
+    public async delPost(param: PostDTO): Promise<void> {
+        await sec.post("api/del/post", {"post": param.post})
+    }
+
     @computed
     public get getList():Post[]{
         return this.list;

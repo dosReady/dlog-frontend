@@ -88,6 +88,11 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
         this.props.history.push(`/blog/write/${this.props.match.params.postid}`);
     }
 
+    @autobind
+    onClickDelete(): void {
+        
+    }
+
     public componentDidMount():void {
         this.loadPost();
     }
@@ -102,6 +107,7 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
                         <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
                         <strong>{info.post.MainTitle}</strong>
                         <button onClick={this.goEditPage}>EDIT</button>
+                        <button onClick={this.onClickDelete}>DELETE</button>
                     </MainTitleWrap>
                     <ul>
                         {info.tags.map(
