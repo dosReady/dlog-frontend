@@ -7,9 +7,9 @@ import { BlogListViewWrap } from 'org/dlog/blog/BlogStyledComp';
 class BlogListView extends React.Component<{}, {}>{
     render():JSX.Element {
         return (
-            <ConatinerComp width="1000">
+            <ConatinerComp width="1100">
                 <BlogListViewWrap>
-                    <BlogListComp id="blogList" />
+                    <div id="blogList"><BlogListComp  /></div>
                     <TagListComp id="tagList"/>
                 </BlogListViewWrap>
             </ConatinerComp>

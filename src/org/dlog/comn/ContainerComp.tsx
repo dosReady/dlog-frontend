@@ -1,22 +1,12 @@
 import autobind from 'autobind-decorator';
-import { ContentsWrap, HeaderTop, HTSrchBarWrap, HTSrchInput } from 'org/dlog/comn/ContainerStyledComp';
+import { ContentsWrap, HeaderTop, HTSrchBarWrap, HTSrchInput, LinkWrap } from 'org/dlog/comn/ContainerStyledComp';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
-import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import { AppStore } from '@types';
 
-const LinkWrap = styled.div`
-    margin-left: 10px;
-    color:white;
-    button {
-        :hover {
-        background-color: #456582;
-        box-shadow: 1px 1px 2px 0px #0c1217;
-    }
-`
 @inject('appStore') 
 @observer
 class ConatinerComp extends React.Component<RouteComponentProps&{width: string, appStore?: AppStore}, {}> {

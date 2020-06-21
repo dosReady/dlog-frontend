@@ -5,49 +5,40 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
-import styled, { createGlobalStyle } from 'styled-components';
-import BlogSrchListComp from '../blog/BlogSrchListComp';
-
-const BackgroundStyle = createGlobalStyle`
-  body {
-    background-color: #fff;
-  }
-`;
+import styled from 'styled-components';
+import BlogListComp from 'org/dlog/blog/BlogListComp';
 
 const HeaderTop = styled.header`
+    background-color: #2A3D4E;
+`
+
+const HeaderDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     background-color: #2A3D4E;
+    max-width: 1100px;
     height: 250px;
-    padding: 0 400px;
-    ul {
-        color: white;
-        padding: 10px;
-        li {
-            :hover {
-                background-color: #456582;
-                box-shadow: 1px 1px 2px 0px #0c1217;
-            }
-            border-radius: 4px;
-            cursor:pointer;
-            margin-bottom: 4px;
-            padding:2px 10px;
-        }
+    margin: 0 auto;
+    padding: 0 20px;
+    button:hover {
+        background-color: #456582;
+        box-shadow: 1px 1px 2px 0px #0c1217;
     }
 `
 
 const MainTitleWrap = styled.div`
     display: flex;
     align-items: center;
-        .logo div {
+    margin-bottom: 30px;
+    .logo {
+            margin-right: 10px;
+            div{
             cursor:pointer;
-            width: 70px;
+            width: 40px;
             height: 40px;
             svg {
-                width: 100%;
-                height: 100%;
                 background-color: #2A3D4E;
                 border-radius: 5px;
                 path {
@@ -55,18 +46,20 @@ const MainTitleWrap = styled.div`
                 }    
             }
         }
-        strong {
-            color: white;
-            font-size: 33px;
-            margin-bottom: 7px;
-            margin-right: 10px;
-        }
-
-        button:hover {
-            background-color: #456582;
-            box-shadow: 1px 1px 2px 0px #0c1217;
-        }
+    }
+    strong {
+        color: white;
+        font-size: 33px;
+        margin-right: 10px;
+    }
 `
+
+const BlogListWrap = styled.div`
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+`
+
 @inject('appStore') 
 @observer
 class BlogSrchView extends React.Component<RouteComponentProps & {appStore: AppStore}, {}> {
@@ -75,18 +68,28 @@ class BlogSrchView extends React.Component<RouteComponentProps & {appStore: AppS
     onClickLogo() :void {
         this.props.history.push("/");
     }
+
+    @autobind
+    onClickBack(): void {
+        this.props.history.goBack();
+    }
+
     render():JSX.Element {
 
         return (
             <div>
-                <BackgroundStyle/>
                 <HeaderTop>
-                    <MainTitleWrap>
-                        <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
-                        <strong>검색어: {this.props.appStore?.getSrchText()}</strong>
-                    </MainTitleWrap>
+                    <HeaderDiv>
+                        <MainTitleWrap>
+                            <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
+                            <strong>검색어: {this.props.appStore?.getSrchText()}</strong>
+                        </MainTitleWrap>
+                        <button onClick={this.onClickBack}>뒤로가기</button>
+                    </HeaderDiv>
                 </HeaderTop>
-                <BlogSrchListComp srchText={this.props.appStore?.getSrchText()}/>
+                <BlogListWrap>
+                    <BlogListComp srchText={this.props.appStore?.getSrchText()}/>
+                </BlogListWrap>
             </div>
         )
     }

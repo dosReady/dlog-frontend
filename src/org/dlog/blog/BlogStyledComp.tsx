@@ -7,33 +7,31 @@ export const BlogListWrap = styled.ul`
     li {
         display:block;
         cursor:pointer;
-        :hover {
-            transform: translateX(-8px);
-            box-shadow: 1px 1px 0px 1px #999;
-        }
-        border-left: 7px solid #2A3D4E;
+        border-bottom: 3px solid #2A3D4E;
         margin-bottom: 15px;
-        background-color:#fff;
-        padding:30px;
-        box-shadow: 1px 1px 2px 0px #999;
-        transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-        strong {
-            font-size:25px;
+        padding-bottom: 20px;
+        h2 {
+            margin-bottom: 8px;
         }
+        p {
+            margin-bottom:10px;
+        }
+
         span {
             display:block;
             font-size:14px;
             color:#aaa;
+            margin-bottom:8px;
         }
         .logo div{
             height: 150px;
             background-color: #2A3D4E;
             margin: 10px 0;
             border-radius: 4px;
+            padding: 10px;
             svg {
                 width: 100%;
                 height: 100%;
-                padding: 10px;
                 path {
                     fill: white
                 }
@@ -49,12 +47,15 @@ export const BlogListViewWrap = styled.div`
     }
     div#tagList {
         width:300px;
-        height: 350px;
+        height: 280px;
         background-color:white;
-        margin-left: 10px;
-        box-shadow: 1px 1px 2px 0px #999;
-        padding: 0 20px;
-        border-top: 7px solid #2A3D4E;
+        margin-left: 50px;
+        padding-right: 20px;
+        border-bottom: 3px solid #2A3D4E;
+
+        h4 {
+            margin-bottom: 8px
+        }
     }
 `;
 
@@ -77,11 +78,12 @@ export const EditorTopWrap = styled.div`
         border-left: 5px solid #2A3D4E;
         padding: 0.3rem 10px;
         margin-bottom: 10px;
+        box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
         input {
             width: 100%;
             height: 40px;
             border: none;
-            outline: none
+            outline: none;
         }
     }
 `

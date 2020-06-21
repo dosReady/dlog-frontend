@@ -8,40 +8,42 @@ import styled from 'styled-components';
 
 const ViewContainer = styled.div`
     display: flex;
-    max-width: 1100px;
+    flex-direction: column;
+    max-width: 900px;
     margin: 0 auto;
     font-size: 16px;
     padding: 30px 20px;
-    position: relative;
 }
 `;
 
 const TocContainer = styled.div`
-    position: absolute;
-    left: 100%;
+    position: relative; 
+
+    @media screen and (max-width: 1330px) {
+        display: none;
+    }
 `
+const TocDiv = styled.div`
+    position: absolute; 
+    left: 100%; 
+`
+
 const TocWrap = styled.div`
     width: 240px;
     border-left: 4px solid #2A3D4E;
     overflow-x: hidden;
     overflow-y: auto;
-
-    margin-left:3rem;
-    .h1-heading, .h2-heading, .h3-heading, .h4-heading {
+    margin-left:2rem;
+    .h1-heading, .h2-heading{
         cursor:pointer;
         color:rgb(134, 142, 150);
+        margin-bottom:10px;
     }
     .h1-heading {
         margin-left: 10px;
     }
     .h2-heading {
         margin-left: 30px;
-    }
-    .h3-heading {
-        margin-left: 50px;
-    }
-    .h4-heading {
-        margin-left: 70px;
     }
     .this {
         color: black;
@@ -78,7 +80,8 @@ class BlogViewComp extends React.Component<Props,State> {
                 // 머리글 관련된 요소를 검색한다.
                 // id값을 생성하고 state에 배열값으로 저장한다.
                 if(element instanceof HTMLHeadingElement) {
-                    if(element.nodeName === "H5" || element.nodeName === "H6" ) continue;
+                    if(element.nodeName === "H3" || element.nodeName === "H4" 
+                       || element.nodeName === "H5" || element.nodeName === "H6" ) continue;
                     element.setAttribute("id", element.innerText);
                     headingArr.push({type: element.nodeName, text: element.innerText});
                 }
@@ -165,11 +168,13 @@ class BlogViewComp extends React.Component<Props,State> {
         if(headings !== undefined) {
             headingComp = (
                 <TocContainer>
-                    <TocWrap ref={this.tocEl}>
+                    <TocDiv>
+                        <TocWrap ref={this.tocEl}>
                             {headings.map((data:{type:string, text:string}, i: any) => (
                             <div key={i} id={`h${data.text}`} className={`${data.type.toLowerCase()}-heading`} onClick={() => this.onFocusHeading(data.text)}>{data.text}</div>
                             ))}
-                    </TocWrap>
+                        </TocWrap>
+                    </TocDiv>
                 </TocContainer>
             );
     
@@ -177,8 +182,8 @@ class BlogViewComp extends React.Component<Props,State> {
 
         return (
             <ViewContainer>
-                <div ref={this.viewerEl}></div>
                 {headingComp}
+                <div ref={this.viewerEl}></div>
             </ViewContainer>
         )
     }

@@ -1,9 +1,10 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { observable, toJS } from 'mobx';
-import { Tag } from '@types';
+import { Tag, AppStore } from '@types';
 import TagRepo from './TagRepo';
 import styled from 'styled-components';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 const Tagitem = styled.div`
 display: inline-block;
@@ -20,16 +21,20 @@ cursor:pointer;
     background-color: #D5DCFF;
 }
 `
-
+@inject('appStore') 
 @observer
-class TagListComp extends React.Component<{id?:string}, {}> {
+class TagListComp extends React.Component<RouteComponentProps & {id?:string,  appStore?: AppStore}, {}> {
     @observable private list: Tag[] = [];
 
-
-    private async loadTagList(): Promise<void> {
+    async loadTagList(): Promise<void> {
         await TagRepo.srchList();
         this.list = TagRepo.getList;
     }
+
+    onClickTag(tagName:string):void {
+        this.props.appStore?.setSrchText(`#${tagName}`)
+        this.props.history.push("/blog/srch");
+    }   
 
     componentDidMount():void {
         this.loadTagList();
@@ -44,7 +49,7 @@ class TagListComp extends React.Component<{id?:string}, {}> {
                 <h4>태그목록</h4>
                 <div>
                     {tagList.map((data:Tag, i: any) => (
-                        <Tagitem key={i}>#{data.TagName}</Tagitem>
+                        <Tagitem key={i} onClick={() => this.onClickTag(data.TagName)}>#{data.TagName}</Tagitem>
                     ))}
                 </div>
             </div>
@@ -52,4 +57,4 @@ class TagListComp extends React.Component<{id?:string}, {}> {
     }
 }
 
-export default TagListComp
+export default withRouter(TagListComp);

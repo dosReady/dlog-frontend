@@ -17,16 +17,20 @@ const BackgroundStyle = createGlobalStyle`
   }
 `;
 const HeaderTop = styled.header`
+    background-color: #2A3D4E;
+`;
+
+const HeaderDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: #2A3D4E;
+    max-width: 900px;
+    padding: 0 20px;
+    margin: 0 auto;
     height: 250px;
-    padding: 0 400px;
     ul {
         color: white;
-        padding: 10px;
         li {
             :hover {
                 background-color: #456582;
@@ -35,22 +39,23 @@ const HeaderTop = styled.header`
             border-radius: 4px;
             cursor:pointer;
             margin-bottom: 4px;
-            padding:2px 10px;
+            padding:2px;
         }
     }
-
-`
+`;
 
 const MainTitleWrap = styled.div`
     display: flex;
     align-items: center;
-        .logo div {
+    margin-bottom: 10px;
+    .logo {
+        margin-right: 10px;
+        div{
             cursor:pointer;
-            width: 70px;
+            width: 40px;
             height: 40px;
+            
             svg {
-                width: 100%;
-                height: 100%;
                 background-color: #2A3D4E;
                 border-radius: 5px;
                 path {
@@ -58,24 +63,38 @@ const MainTitleWrap = styled.div`
                 }    
             }
         }
-        strong {
-            color: white;
-            font-size: 33px;
-            margin-bottom: 7px;
-            margin-right: 10px;
-        }
+    }
+    strong {
+        color: white;
+        font-size: 33px;
+        margin-right: 10px;
+    }
 
-        button:hover {
-            background-color: #456582;
-            box-shadow: 1px 1px 2px 0px #0c1217;
-        }
+    button:hover {
+        background-color: #456582;
+        box-shadow: 1px 1px 2px 0px #0c1217;
+    }
 `
+
+const HeaderButtonWrap = styled.div`
+    @media screen and (max-width: 900px) {
+        display: none;
+    }
+`
+
 @inject('appStore') 
 @observer
 class BlogDetailView extends React.Component<RouteComponentProps<{postid: string}>,{}> {
-    public async loadPost(): Promise<void> {
+    async loadPost(): Promise<void> {
         const postID= this.props.match.params.postid;
         await BlogRepo.srchPost(postID);
+    }
+
+    async delPost(): Promise<void> {
+        const postID= this.props.match.params.postid;
+        await BlogRepo.delPost(postID);
+
+        this.props.history.replace("/");
     }
 
     @autobind
@@ -90,7 +109,7 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
 
     @autobind
     onClickDelete(): void {
-        
+        this.delPost();
     }
 
     public componentDidMount():void {
@@ -103,18 +122,23 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
             <div>
                 <BackgroundStyle/>
                 <HeaderTop>
-                    <MainTitleWrap>
-                        <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
-                        <strong>{info.post.MainTitle}</strong>
-                        <button onClick={this.goEditPage}>EDIT</button>
-                        <button onClick={this.onClickDelete}>DELETE</button>
-                    </MainTitleWrap>
-                    <ul>
-                        {info.tags.map(
-                            (tag:Tag, i:any) => (
-                            <li key={i}># {tag.TagName}</li>
-                        ))}
-                    </ul>
+                    <HeaderDiv>
+                        <MainTitleWrap>
+                            <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
+                            <strong>{info.post.MainTitle}</strong>
+                            <HeaderButtonWrap>
+                                <button onClick={this.goEditPage}>EDIT</button>
+                                <button onClick={this.onClickDelete}>DELETE</button>
+                            </HeaderButtonWrap>
+                            
+                        </MainTitleWrap>
+                        <ul>
+                            {info.tags.map(
+                                (tag:Tag, i:any) => (
+                                <li key={i}># {tag.TagName}</li>
+                            ))}
+                        </ul>
+                    </HeaderDiv>
                 </HeaderTop>
                 <BlogViewComp info={info}/>
             </div>

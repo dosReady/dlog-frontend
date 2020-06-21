@@ -12,11 +12,24 @@ import { ReactSVG } from 'react-svg';
 
 
 @observer
-class BlogListComp extends React.Component<RouteComponentProps & {id?:string}, {}> {
+class BlogListComp extends React.Component<RouteComponentProps & {id?:string, srchText?: string}, {}> {
     @observable list:Post[] = []; 
 
     private async loadList():Promise<void> {
-        const postList = await BlogSrvc.srchList();
+        let param:Post = {
+            PostID: "",
+            MainTitle: "",
+            SubTitle: "",
+            Content: ""
+        }
+
+        if(this.props.srchText !== undefined) {
+            param.MainTitle = this.props.srchText;
+            param.SubTitle = this.props.srchText;
+            param.Content = this.props.srchText;
+        }
+
+        const postList = await BlogSrvc.srchList(param);
         if(postList.length > 0 ) this.list = toJS(postList);
     }
 
@@ -32,27 +45,26 @@ class BlogListComp extends React.Component<RouteComponentProps & {id?:string}, {
         ))
 
         return (
-            <p>
+            <div>
                 {tagsJSON[0].length > 0 && tagsComp}
-            </p>
+            </div>
         )
     }
 
     goDetailPage(postID:string): void {
         const {history} = this.props;
-        history.push(`blog/${postID}`);
+        history.push(`/blog/${postID}`);
     }
 
     render():JSX.Element {
         const blogList = toJS(this.list)
         return (
-            <div id={this.props.id}>
                 <BlogListWrap>
                     {
                         blogList.map(
                             (data:Post, i:any) => (
                                 <li key={i} onClick={() => this.goDetailPage(data.PostID)}>
-                                    <strong>{data.MainTitle}</strong>
+                                    <h2>{data.MainTitle}</h2>
                                     <span>{moment(data.UpdatedAt).format("YYYY년 MM월 DD일")}</span>
                                     <ReactSVG src={Logo} className="logo"/>
                                     <p>{data.SubTitle}</p>
@@ -62,7 +74,6 @@ class BlogListComp extends React.Component<RouteComponentProps & {id?:string}, {
                         )
                     }
                 </BlogListWrap>
-            </div>
         )
     }
 }
