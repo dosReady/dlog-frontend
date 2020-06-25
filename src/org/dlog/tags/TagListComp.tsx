@@ -46,11 +46,13 @@ class TagListComp extends React.Component<RouteComponentProps & {id?:string,  ap
         // #5856d6
         return (
             <div id={this.props.id}>
-                <h4>태그목록</h4>
                 <div>
-                    {tagList.map((data:Tag, i: any) => (
-                        <Tagitem key={i} onClick={() => this.onClickTag(data.TagName)}>#{data.TagName}</Tagitem>
-                    ))}
+                    <h4>태그목록</h4>
+                    <div>
+                        {tagList.map((data:Tag, i: any) => (
+                            <Tagitem key={i} onClick={() => this.onClickTag(data.TagName)}>#{data.TagName}</Tagitem>
+                        ))}
+                    </div>
                 </div>
             </div>
         )

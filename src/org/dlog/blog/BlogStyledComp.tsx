@@ -45,14 +45,14 @@ export const BlogListViewWrap = styled.div`
     div#blogList {
         width:800px;
     }
-    div#tagList {
+    div#tagList > div {
         width:300px;
-        height: 280px;
+        max-height: 280px;
         background-color:white;
         margin-left: 50px;
         padding-right: 20px;
+        padding-bottom: 20px;
         border-bottom: 3px solid #2A3D4E;
-
         h4 {
             margin-bottom: 8px
         }
@@ -60,7 +60,6 @@ export const BlogListViewWrap = styled.div`
 `;
 
 export const BlogEditorWrap = styled.div`
-    margin-bottom:1rem;
     .CodeMirror-wrap {
         padding:0 10px;
     }

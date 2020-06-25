@@ -108,12 +108,11 @@ class BlogViewComp extends React.Component<Props,State> {
     onScroll(e:any):void {
         const scrollTop = e.srcElement.scrollingElement.scrollTop;
         this.setState({ scrollTop });
-        console.log(`scrollTop ${scrollTop}`);
     }
 
     shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>): boolean {
         if(nextState.scrollTop >= 250) {
-            this.tocEl.current?.setAttribute("style", "position: fixed; top: 80px;")
+            this.tocEl.current?.setAttribute("style", "position: fixed; top: 120px;")
         } else {
             this.tocEl.current?.setAttribute("style", "");
         }
@@ -131,9 +130,8 @@ class BlogViewComp extends React.Component<Props,State> {
                 target = (conEl?.querySelector(`#${head_text}`)  as HTMLDivElement);
                 tocTarget = (tocEl?.querySelector(`#h${head_text}`)  as HTMLDivElement);
                 if(target === null || tocTarget === null) continue;
-                const hide_position = target.getBoundingClientRect().height + target.getBoundingClientRect().top;
-                if(hide_position <= 50) {
-                    if(tocTarget !== null)tocTarget.classList.add("this");
+                if(target.getBoundingClientRect().top <= 90) {
+                    tocTarget.classList.add("this");
                     break;
                 }
                 //console.log(`#${head_text} / ${target.getBoundingClientRect().height} : ${target.getBoundingClientRect().top} -> ${}`)
@@ -159,7 +157,7 @@ class BlogViewComp extends React.Component<Props,State> {
         const conEl = (this.viewerEl.current?.children[0] as HTMLDivElement);
         const target = (conEl?.querySelector(`#${text}`)  as HTMLDivElement);
         //window.scrollTo(0, target.offsetTop + target.offsetHeight + 300);
-        if(target !== null) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        if(target !== null) target.scrollIntoView({behavior: 'smooth', block: 'start' });
     }
 
     render():JSX.Element {

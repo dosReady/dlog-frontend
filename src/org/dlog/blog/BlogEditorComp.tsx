@@ -4,17 +4,53 @@ import 'github-markdown-css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import 'codemirror/lib/codemirror.css';
 import { observer } from 'mobx-react';
-import { observable, toJS } from 'mobx';
-import { Post, PostDTO, Tag } from '@types';
-import { BlogEditorWrap, EditorTopWrap, EditorBtnWrap, TagWrap } from 'org/dlog/blog/BlogStyledComp';
+import { observable } from 'mobx';
+import { Post, Tag } from '@types';
 import autobind from 'autobind-decorator';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import BlogRepo from './BlogRepo';
+import styled from 'styled-components';
+//import {toast} from 'react-toastify';
+import BlogModalComp from 'org/dlog/blog/BlogModalComp';
+
+const BlogEditorWrap = styled.div`
+    height: calc(100% - 65px);
+    .CodeMirror-wrap {
+        padding:0 10px;
+    }
+
+    input {
+        font-size: 20px;
+    }
+    
+`
+
+const EditorBtnWrap = styled.div`
+    margin-top:1rem;
+    margin-left: 1rem;
+    button.save {
+        background-color:#2A3D4E;
+        margin-right:1rem;
+        :hover {
+            background-color: #456582;
+        }
+    }
+    button.back {
+        color:#2A3D4E;
+        font-weight:900;
+    }
+`
+
 
 @observer
-class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string}>, {}> {
+class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string}>, {isSave:boolean}> {
     private editorEl = React.createRef<HTMLDivElement>();
     private editorComp: toastui | null = null;
+
+    readonly state = {
+        isSave: false
+    }
+
     @observable private post:Post = {
         PostID: "",
         MainTitle: "",
@@ -33,7 +69,7 @@ class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string
                 placeholder: "오늘 기록할 내용을 적어봐요 ~",
                 previewStyle: 'vertical',
                 initialEditType: 'markdown',
-                height: '500px',
+                height: 'inherit',
                 hideModeSwitch: true,
                 events: {
                     "change": this.onContentsChange,
@@ -74,28 +110,18 @@ class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string
         }
     }
 
-    async savePost():Promise<void> {
-        const param:PostDTO = {
-            post: this.post,
-            tags: this.tags
-        }
-        await BlogRepo.mngPost(param);
-        this.props.history.push("/blog");
-    }
-
-    @autobind
-    onClickTagDel(tagMstID:string): void {
-        for(var i=0; this.tags.length; i++) {
-            if(this.tags[i].TagMstID === tagMstID) {
-                this.tags.splice(i, 1);
-                break;
-            }
-        }
-    }
-
     @autobind
     onClickSaveBtn(event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void {
-        if(window.confirm("작성하시겠습니까?"))  this.savePost();
+        this.setState({
+            isSave: true
+        })
+        //this.savePost();
+        /*
+        toast.success("Success Notification !", {
+            position: "top-center"
+        });
+        */
+        
     }
 
     @autobind
@@ -108,80 +134,39 @@ class BlogEditorComp extends React.Component<RouteComponentProps<{postid: string
         this.post.Content = contents;
     }
 
-    @autobind
-    onChangeMainTitle(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.post.MainTitle = event.currentTarget.value;
-    }
-    @autobind
-    onChangeSubTitle(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.post.SubTitle = event.currentTarget.value;
-    }
-
-    @autobind
-    onChangeTag(event: React.ChangeEvent<HTMLInputElement>): void {
-        if(event.currentTarget.value !== ",") {
-            this.tagName = event.currentTarget.value;
-        }
-    }
-
-    @autobind
-    onKeyDownTagInput(event: React.KeyboardEvent<HTMLInputElement>):void {
-        
-        if(event.keyCode === 188) { // COMMA
-            this.tagName = "";
-            if(this.tags.length > 5)  {
-                alert("5개만 등록가능합니다."); 
-                return;
-            }
-
-            for(var i=0; i < this.tags.length; i++) {
-                if(this.tags[i].TagName ===  event.currentTarget.value) {
-                    alert(`이미 등록되어있습니다. - ${this.tags[i].TagName}`); 
-                    return;
-                }
-            }
-
-            const tag: Tag = {
-                TagMstID: "",
-                TagName: event.currentTarget.value
-            }
-            
-            if(tag.TagName.length > 0) this.tags.push(tag);
-        }
-    }
-
     componentDidMount(): void {
         this.initialize();
         this.srchPost();
     }
 
-    render():JSX.Element {
-        const tagList = toJS(this.tags);
+    @autobind
+    onCallBack():void {
+        this.setState({
+            isSave:false
+        });
+    }
 
+    @autobind
+    onEditorBodyClick():void {
+        if(this.state.isSave) {
+            this.setState({
+                isSave: false
+            });
+        }
+    }
+
+    render():JSX.Element {
         return (
-            <BlogEditorWrap>
-                <EditorTopWrap>
-                    <div><input type="text" maxLength={100} placeholder="제목을 입력하세요." onChange={this.onChangeMainTitle} value={this.post.MainTitle}/></div>
-                    <div><input type="text" maxLength={100} placeholder="요약 내용을 입력해주세요." onChange={this.onChangeSubTitle} value={this.post.SubTitle}/></div>
-                    <TagWrap>
-                        <ul>
-                            {
-                                tagList.map(
-                                    (data:Tag, i:any) => (
-                                        <li key={i} onClick={() => {this.onClickTagDel(data.TagMstID)}}><button>#{data.TagName}</button><i className="fas fa-minus"></i></li>
-                                    )
-                                )
-                            }
-                        </ul>
-                        <input type="text" maxLength={100} placeholder="태그를 입력해주세요." onKeyDown={this.onKeyDownTagInput} value={this.tagName} onChange={this.onChangeTag}/>
-                    </TagWrap>
-                </EditorTopWrap>
+            <>
+            <BlogEditorWrap onClick={this.onEditorBodyClick}>
                 <div ref={this.editorEl}></div>
                 <EditorBtnWrap>
                     <button className="save" onClick={this.onClickSaveBtn}>블로그 작성하기</button>
                     <button className="back" onClick={this.onClickBackBtn}>뒤로가기</button>
                 </EditorBtnWrap>
             </BlogEditorWrap>
+            {this.state.isSave && <BlogModalComp post={this.post} tags={this.tags} callback={this.onCallBack}/>}
+            </>
         )
     }
 }

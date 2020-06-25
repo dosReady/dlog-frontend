@@ -7,6 +7,8 @@ import BlogDetailView from 'org/dlog/view/BlogDetailView';
 import BlogSrchView from 'org/dlog/view/BlogSrchView';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle  = createGlobalStyle`
@@ -43,6 +45,18 @@ a{
     &:link, &:visited, &:active{ color: inherit; }
 }
 
+input, textarea {
+  color: inherit;
+  font-size:inherit;
+  font-weight:inherit;
+  border-style:none;
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
 button{
     border: none;
     background-color: transparent;
@@ -75,6 +89,7 @@ ol, ul {
   font-size:16px;
   margin-bottom: 100px;
   h1, h2 {
+      padding-top: 10px;
       border-bottom: none;
   }
   h1 {
@@ -109,7 +124,7 @@ class App extends React.Component<{appStore?:AppStore}, {}> {
 
   render():JSX.Element {
     return (
-      <div>
+      <>
         <GlobalStyle/>
           <Router>
             <Switch>
@@ -122,7 +137,18 @@ class App extends React.Component<{appStore?:AppStore}, {}> {
               <Route exact path="/blog/:postid" component={BlogDetailView}/>
             </Switch>
           </Router>
-      </div>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            />
+      </>
     )
   }
 }

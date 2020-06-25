@@ -82,6 +82,37 @@ const HeaderButtonWrap = styled.div`
     }
 `
 
+const FooterWrap = styled.footer`
+    
+`
+
+const EditorWrap = styled.div`
+    display:flex;
+    max-width: 900px;
+    margin: 40rem auto;
+    padding: 10px 20px;
+    background-color: #c0bfde;
+    .logo {
+        margin-right: 10px;
+        div{
+            cursor:pointer;
+            width: 60px;
+            height: 60px;
+            svg {
+                border-radius: 5px;
+                path {
+                    fill: white;
+                }    
+            }
+        }
+    }
+    strong {
+        color: white;
+        align-self: center;
+    }
+`
+
+
 @inject('appStore') 
 @observer
 class BlogDetailView extends React.Component<RouteComponentProps<{postid: string}>,{}> {
@@ -141,6 +172,12 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
                     </HeaderDiv>
                 </HeaderTop>
                 <BlogViewComp info={info}/>
+                <FooterWrap>
+                    <EditorWrap>
+                        <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
+                        <strong>개발자 DOS</strong>
+                    </EditorWrap>
+                </FooterWrap>
             </div>
         )
     }
