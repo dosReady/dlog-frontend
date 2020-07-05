@@ -7,7 +7,6 @@ class LoginSrvc {
     
     public setLocalStorage(param:User):void {
         if(param !== null) {
-            window.localStorage.removeItem(STORENAME);
             window.localStorage.setItem(STORENAME, JSON.stringify(param))
             sec.defaults.headers.common = { 'Authorization': `Bearer ${param.AccessToken}` };
         }
