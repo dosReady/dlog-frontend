@@ -13,8 +13,8 @@ class LoginSrvc {
     }
 
     public getLocalStorage():User| null {
-        const storage:string | null = window.localStorage.getItem(STORENAME);
-        if(storage != null) return JSON.parse(storage);
+        const storage:string | null= window.localStorage.getItem(STORENAME);
+        if(storage != null && storage !== "undefined") return JSON.parse(storage);
         else return null;
     }
 
