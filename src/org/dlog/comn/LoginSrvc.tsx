@@ -20,7 +20,7 @@ class LoginSrvc {
 
     public isEmpty(): boolean {
         const appstore = window.localStorage.getItem(STORENAME);
-        if(appstore !== null) return false;
+        if(appstore != null && appstore !== "undefined") return false;
         return true;
     }
 
