@@ -6,7 +6,7 @@ const STORENAME = 'appstore'
 class LoginSrvc {
     
     public setLocalStorage(param:User):void {
-        if(param !== null) {
+        if(param !== null || param !== undefined) {
             window.localStorage.setItem(STORENAME, JSON.stringify(param))
             sec.defaults.headers.common = { 'Authorization': `Bearer ${param.AccessToken}` };
         }
