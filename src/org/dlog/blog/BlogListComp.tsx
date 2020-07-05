@@ -30,7 +30,7 @@ class BlogListComp extends React.Component<RouteComponentProps & {id?:string, sr
         }
 
         const postList = await BlogSrvc.srchList(param);
-        if(postList.length > 0 ) this.list = toJS(postList);
+        if(postList !== undefined) this.list = toJS(postList);
     }
 
     public componentDidMount():void {

@@ -7,12 +7,14 @@ import { BlogListViewWrap } from 'org/dlog/blog/BlogStyledComp';
 class BlogListView extends React.Component<{}, {}>{
     render():JSX.Element {
         return (
+            <>
             <ConatinerComp width="1100">
                 <BlogListViewWrap>
                     <div id="blogList"><BlogListComp  /></div>
                     <TagListComp id="tagList"/>
                 </BlogListViewWrap>
             </ConatinerComp>
+            </>
         )
     }
 }

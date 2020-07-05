@@ -39,9 +39,9 @@ const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosRespon
 
     if(data.errormsg === AuthChek.ACCESS) {
         const user = LoginSrvc.getLocalStorage();
-        const {data}:AxiosResponse<{user:User}> = await admin.post('vaild/refresh', {"user": user});
-        LoginSrvc.setLocalStorage(data.user);
-        res.config.headers.Authorization = `Bearer ${data.user.AccessToken}`;
+        const res:AxiosResponse<{user:User}> = await admin.post('vaild/refresh', {"user": user});
+        LoginSrvc.setLocalStorage(res.data.user);
+        res.config.headers.Authorization = `Bearer ${res.data.user.AccessToken}`;
         return sec(res.config);
     } else if(data.errormsg === AuthChek.REFRESH) {
         alert("로그인 하시기 바랍니다.");
