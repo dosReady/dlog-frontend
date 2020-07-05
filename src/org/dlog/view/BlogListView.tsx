@@ -8,7 +8,7 @@ class BlogListView extends React.Component<{}, {}>{
     render():JSX.Element {
         return (
             <>
-            <ConatinerComp width="1100">
+            <ConatinerComp width="1100" marginTop="">
                 <BlogListViewWrap>
                     <div id="blogList"><BlogListComp  /></div>
                     <TagListComp id="tagList"/>

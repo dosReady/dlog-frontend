@@ -53,11 +53,11 @@ padding: 0 0.3rem 0 2rem;
 `
 
 
-export const ContentsWrap = styled.section<{width: string}>`
+export const ContentsWrap = styled.section<{width: string, marginTop: string}>`
 max-width: ${props => props.width}px;
 margin-left: auto;
 margin-right: auto;
-margin-top: 30px;
+margin-top: ${props => props.marginTop.length === 0 ? '30' : props.marginTop}px;
 padding: 0 30px;
 
 @media screen and (max-width: 1030px) {

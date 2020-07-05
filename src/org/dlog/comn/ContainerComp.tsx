@@ -9,7 +9,7 @@ import { AppStore } from '@types';
 
 @inject('appStore') 
 @observer
-class ConatinerComp extends React.Component<RouteComponentProps&{width: string, appStore?: AppStore}, {}> {
+class ConatinerComp extends React.Component<RouteComponentProps&{width: string, marginTop: string, appStore?: AppStore}, {}> {
 
     @autobind
     onClickLogo():void {
@@ -43,7 +43,7 @@ class ConatinerComp extends React.Component<RouteComponentProps&{width: string, 
                         <button onClick={this.goWritePage}>WRITE</button>
                     </LinkWrap>
                 </HeaderTop>
-                <ContentsWrap width={this.props.width}>{this.props.children}</ContentsWrap>
+                <ContentsWrap width={this.props.width} marginTop={this.props.marginTop}>{this.props.children}</ContentsWrap>
             </main>
         )
     }

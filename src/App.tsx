@@ -8,6 +8,7 @@ import { Switch,  BrowserRouter as Router, Route } from 'react-router-dom';
 import loadable from '@loadable/component';
 import ContentLoader from 'react-content-loader'
 import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
+import {ToastContainer} from 'react-toastify';
 
 
 const GlobalStyle  = createGlobalStyle`
@@ -154,6 +155,7 @@ class App extends React.Component<{appStore?:AppStore}, {}> {
               <Route exact path="/" component={BlogListPage} />
               <Route exact path="/blog" component={BlogListPage} />
               <Route exact path="/blog/write" component={BlogWritePage} />
+              <Route exact path="/blog/write/:postid" component={BlogWritePage} />
               <Route exact path="/blog/srch" component={BlogSrchPage}/>
               <Route exact path="/blog/:postid" component={BlogDetailPage}/>
               <Route exact path="/login" component={LoginPage} />
@@ -161,18 +163,17 @@ class App extends React.Component<{appStore?:AppStore}, {}> {
           </Router>
         </ErrorBoundaryComp>
 
-          {/* 
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            /> */}
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          />
       </>
     )
   }

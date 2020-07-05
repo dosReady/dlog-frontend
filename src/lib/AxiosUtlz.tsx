@@ -44,10 +44,13 @@ const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosRespon
         if(chkRes.data.user !== undefined) {
             LoginSrvc.setLocalStorage(chkRes.data.user);
             res.config.headers.Authorization = `Bearer ${chkRes.data.user.AccessToken}`;
+            return sec(res.config);
+        } else {
+            alert("로그인 하시기 바랍니다.");
+            window.location.replace("/login");
+            return res;
         }
-
-        console.log(res.config)
-        return sec(res.config);
+        
     } else if(data.errormsg === AuthChek.REFRESH) {
         alert("로그인 하시기 바랍니다.");
         window.location.replace("/login");
