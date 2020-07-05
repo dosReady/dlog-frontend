@@ -41,8 +41,8 @@ class TagListComp extends React.Component<RouteComponentProps & {id?:string,  ap
     }
 
     render():JSX.Element {
-        const tagList = toJS(this.list) 
-
+        let tagList:Tag[] = toJS(this.list);
+        if(tagList === undefined) tagList = [];
         // #5856d6
         return (
             <div id={this.props.id}>
@@ -57,6 +57,6 @@ class TagListComp extends React.Component<RouteComponentProps & {id?:string,  ap
             </div>
         )
     }
-}
+} 
 
 export default withRouter(TagListComp);

@@ -1,15 +1,14 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import { AppStore } from '@types';
 import { observer } from 'mobx-react';
-import LoginComp from 'org/dlog/comn/LoginComp';
-import { BlogListView, BlogWriteView } from 'org/dlog/view';
-import BlogDetailView from 'org/dlog/view/BlogDetailView';
-import BlogSrchView from 'org/dlog/view/BlogSrchView';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createGlobalStyle } from 'styled-components';
+import { Switch,  BrowserRouter as Router, Route } from 'react-router-dom';
+import loadable from '@loadable/component';
+import ContentLoader from 'react-content-loader'
+import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
+
 
 const GlobalStyle  = createGlobalStyle`
 
@@ -119,24 +118,50 @@ ol, ul {
   }
 
 `
+
+const LoginPage = loadable(
+  () => import('org/dlog/comn/LoginComp'),
+  {fallback: <ContentLoader/>}
+)
+
+const BlogListPage = loadable(
+  () => import('org/dlog/view/BlogListView'),
+  {fallback: <ContentLoader/>}
+)
+
+const BlogSrchPage = loadable(
+  () => import('org/dlog/view/BlogSrchView')
+)
+
+const BlogWritePage = loadable(
+  () => import('org/dlog/view/BlogWriteView')
+)
+
+const BlogDetailPage = loadable(
+  () => import('org/dlog/view/BlogDetailView')
+)
+
+
 @observer
 class App extends React.Component<{appStore?:AppStore}, {}> {
-
   render():JSX.Element {
     return (
       <>
         <GlobalStyle/>
+        <ErrorBoundaryComp>
           <Router>
             <Switch>
-              <Route exact path="/" component={BlogListView} />
-              <Route exact path="/login" component={LoginComp} />
-              <Route exact path="/blog" component={BlogListView} />
-              <Route exact path="/blog/write" component={BlogWriteView} />
-              <Route exact path="/blog/write/:postid" component={BlogWriteView} />
-              <Route exact path="/blog/srch" component={BlogSrchView}/>
-              <Route exact path="/blog/:postid" component={BlogDetailView}/>
+              <Route exact path="/" component={BlogListPage} />
+              <Route exact path="/blog" component={BlogListPage} />
+              <Route exact path="/blog/write" component={BlogWritePage} />
+              <Route exact path="/blog/srch" component={BlogSrchPage}/>
+              <Route exact path="/blog/:postid" component={BlogDetailPage}/>
+              <Route exact path="/login" component={LoginPage} />
             </Switch>
           </Router>
+        </ErrorBoundaryComp>
+
+          {/* 
           <ToastContainer
             position="bottom-right"
             autoClose={5000}
@@ -147,7 +172,7 @@ class App extends React.Component<{appStore?:AppStore}, {}> {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            />
+            /> */}
       </>
     )
   }
