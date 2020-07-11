@@ -2,11 +2,11 @@ import { AppStore, User } from '@types';
 import autobind from 'autobind-decorator';
 import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import ConatinerComp from 'org/dlog/comn/ContainerComp';
-import LoginRepo from 'org/dlog/comn/LoginRepo';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import {toast} from 'react-toastify';
 
 const LoginTitleDiv = styled.div`
     span {
@@ -23,7 +23,7 @@ const LoginTitleDiv = styled.div`
         border-left: 5px solid #2A3D4E;
         line-height: 1.25;
     }
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 `;
 
 const LoginWrapDiv = styled.div`
@@ -63,10 +63,10 @@ const LoginWrapDiv = styled.div`
 
 @inject('appStore') 
 @observer
-class LoginComp extends React.Component<{appStore?:AppStore}, {}> {
+class LoginComp extends React.Component<RouteComponentProps & {appStore?:AppStore}, {}> {
     // PART 1 변수
     // PART 2 사용자함수
-
+    
     isEmpty(value:string):boolean {
         if(value === undefined) return true
         if(value === null) return true
@@ -75,35 +75,46 @@ class LoginComp extends React.Component<{appStore?:AppStore}, {}> {
         
         return false
     }
-
-
+    
+    
     private isValidated(user:User|undefined): boolean {
         if(user === undefined) {
             toast.error("사용자 아이디와 비밀번호를 입력하십시오.");
             return false;
         }
-
+        
         if(this.isEmpty(user.LoginID)) {
             toast.error("사용자 아이디는 반드시 입력하십시오.");
             return false;
         }
-
+        
         if(this.isEmpty(user.Password)) {
             toast.error("비밀번호는 반드시 입력하십시오.");
             return false;
         }
-            
+        
         return true
     }
-
+    
     // PART 3 이벤트 함수
+    @autobind
+    onKeyDown(event: React.KeyboardEvent<HTMLDivElement>):void {
+        if(event.keyCode === 13) {
+            const {appStore} = this.props;
+            const user = toJS(appStore?.getUser())
+        
+            if(this.isValidated(user)) {
+                LoginSrvc.login(appStore!.getUser());
+            }
+        }
+    }
     @autobind
     private onLoginBtnClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
         const {appStore} = this.props;
         const user = toJS(appStore?.getUser())
-
+        
         if(this.isValidated(user)) {
-            LoginRepo.login(appStore!.getUser());
+            LoginSrvc.login(appStore!.getUser());
         }
     }
 
@@ -121,7 +132,7 @@ class LoginComp extends React.Component<{appStore?:AppStore}, {}> {
 
     public render():JSX.Element {
         return (
-            <ConatinerComp width="500" marginTop="80">
+            <>
                 <LoginTitleDiv>
                     <span>로그인</span>
                     <div>
@@ -130,16 +141,16 @@ class LoginComp extends React.Component<{appStore?:AppStore}, {}> {
                         <p>추후 신규 기능을 구현하게 되면 관리자가 초대한 사용자만 로그인 기능을 사용할 수 있을 예정입니다.</p>   
                     </div>
                 </LoginTitleDiv>
-                <LoginWrapDiv>
+                <LoginWrapDiv onKeyDown={this.onKeyDown}>
                     <span>사용자 ID</span>
                     <input type="text" placeholder="사용자 ID" onChange={this.onChangeID} />
                     <span>비밀번호</span>
                     <input type="password" placeholder="비밀번호" onChange={this.onChangePWD}/>
                     <button onClick={this.onLoginBtnClick}>로그인</button>
                 </LoginWrapDiv>
-            </ConatinerComp>
+            </>
         )
     }
 }
 
- export default LoginComp;
+ export default withRouter(LoginComp);

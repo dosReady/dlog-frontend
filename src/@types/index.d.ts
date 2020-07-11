@@ -11,6 +11,7 @@ export interface AppStore {
     getLoginID: () => string,
     setPwd: (password:string) => void,
     getPwd: () => string,
+    setUser: (param:User) => void,
     getUser: () => User,
     getSrchText: () => string,
     setSrchText: (paramStr: string) => void

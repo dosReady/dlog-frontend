@@ -46,13 +46,11 @@ const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosRespon
             res.config.headers.Authorization = `Bearer ${chkRes.data.user.AccessToken}`;
             return sec(res.config);
         } else {
-            alert("로그인 하시기 바랍니다.");
             window.location.replace("/login");
             return res;
         }
         
     } else if(data.errormsg === AuthChek.REFRESH) {
-        alert("로그인 하시기 바랍니다.");
         window.location.replace("/login");
         return res;
     } else {

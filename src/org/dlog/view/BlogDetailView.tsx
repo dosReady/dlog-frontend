@@ -6,8 +6,9 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled, { createGlobalStyle } from 'styled-components';
-import BlogRepo from '../blog/BlogRepo';
-import BlogViewComp from '../blog/BlogViewCmp';
+import BlogRepo from 'org/dlog/blog/BlogRepo';
+import BlogViewComp from 'org/dlog/blog/BlogViewCmp';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 
 
 
@@ -144,6 +145,11 @@ class BlogDetailView extends React.Component<RouteComponentProps<{postid: string
     }
 
     public componentDidMount():void {
+        const user = LoginSrvc.getLocalStorage();
+        if(user === null) {
+            this.props.history.replace("/login");
+        }
+
         this.loadPost();
     }
 

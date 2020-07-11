@@ -5,6 +5,7 @@ import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import autobind from 'autobind-decorator';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 
 const GlobalStyleComp  = createGlobalStyle`
   html, body, #root {
@@ -43,6 +44,13 @@ class BlogWriteView extends React.Component<RouteComponentProps & {},{}> {
     @autobind
     onClickLogo() :void {
       this.props.history.push("/");
+    }
+
+    componentDidMount():void {
+      const user = LoginSrvc.getLocalStorage();
+      if(user === null) {
+          this.props.history.replace("/login");
+      }
     }
 
     render():JSX.Element {

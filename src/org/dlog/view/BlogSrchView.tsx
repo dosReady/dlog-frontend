@@ -7,6 +7,7 @@ import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
 import BlogListComp from 'org/dlog/blog/BlogListComp';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 
 const HeaderTop = styled.header`
     background-color: #2A3D4E;
@@ -72,6 +73,13 @@ class BlogSrchView extends React.Component<RouteComponentProps & {appStore: AppS
     @autobind
     onClickBack(): void {
         this.props.history.goBack();
+    }
+
+    componentDidMount():void {
+        const user = LoginSrvc.getLocalStorage();
+        if(user === null) {
+            this.props.history.replace("/login");
+        }
     }
 
     render():JSX.Element {

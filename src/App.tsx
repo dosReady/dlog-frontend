@@ -1,14 +1,14 @@
 import '@fortawesome/fontawesome-free/css/all.css';
+import loadable from '@loadable/component';
 import { AppStore } from '@types';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
+import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createGlobalStyle } from 'styled-components';
-import { Switch,  BrowserRouter as Router, Route } from 'react-router-dom';
-import loadable from '@loadable/component';
-import ContentLoader from 'react-content-loader'
-import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
-import {ToastContainer} from 'react-toastify';
 
 
 const GlobalStyle  = createGlobalStyle`
@@ -121,13 +121,11 @@ ol, ul {
 `
 
 const LoginPage = loadable(
-  () => import('org/dlog/comn/LoginComp'),
-  {fallback: <ContentLoader/>}
+  () => import('org/dlog/view/LoginView'),
 )
 
 const BlogListPage = loadable(
   () => import('org/dlog/view/BlogListView'),
-  {fallback: <ContentLoader/>}
 )
 
 const BlogSrchPage = loadable(
@@ -139,12 +137,21 @@ const BlogWritePage = loadable(
 )
 
 const BlogDetailPage = loadable(
-  () => import('org/dlog/view/BlogDetailView')
+  () => import('org/dlog/view/BlogDetailView'),
+  //{fallback: <BlogDetailFakeView/>}
 )
 
-
+@inject('appStore') 
 @observer
-class App extends React.Component<{appStore?:AppStore}, {}> {
+class App extends React.Component<{appStore?: AppStore}, {}> {
+
+  componentDidMount():void {
+    const user = LoginSrvc.getLocalStorage();
+    if(user !== null) {
+      this.props.appStore?.setUser(user);
+    }
+  }
+
   render():JSX.Element {
     return (
       <>

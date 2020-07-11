@@ -3,8 +3,18 @@ import ConatinerComp from 'org/dlog/comn/ContainerComp';
 import BlogListComp from 'org/dlog/blog/BlogListComp';
 import TagListComp from 'org/dlog/tags/TagListComp';
 import { BlogListViewWrap } from 'org/dlog/blog/BlogStyledComp';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 
-class BlogListView extends React.Component<{}, {}>{
+class BlogListView extends React.Component< RouteComponentProps & {}, {}>{
+
+    componentDidMount():void {
+        const user = LoginSrvc.getLocalStorage();
+        if(user === null) {
+            this.props.history.replace("/login");
+        }
+    }
+
     render():JSX.Element {
         return (
             <>
@@ -19,4 +29,4 @@ class BlogListView extends React.Component<{}, {}>{
     }
 }
 
-export default BlogListView;
+export default withRouter(BlogListView);

@@ -21,7 +21,7 @@ justify-content: center;
 
 @media screen and (max-width: 1030px) {
     justify-content: flex-start;
-    padding-left: 30px;
+    padding: 0 30px;
 }
 
 `
@@ -69,15 +69,38 @@ padding: 0 30px;
     }
 }
 `
-export const LinkWrap = styled.div`
-    margin-left: 10px;
-    color:white;
-    button {
-        :hover {
-        background-color: #456582;
-        box-shadow: 1px 1px 2px 0px #0c1217;
+
+
+export const ContainerMenuWrap = styled.div`
+    color: white;
+    margin-left: 30px;
+    font-size: 35px;
+    position:relative;
+    i {
+        cursor: pointer;
     }
     @media screen and (max-width: 1030px) {
-        display: none;
+        margin-left: auto;
+    }
+`
+
+export const ContainerMenu = styled.div`
+    position:absolute;
+    width: 150px;
+    padding: 15px;
+    color: black;
+    font-size: 16px;
+    margin-top: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+    background-color: white;
+    z-index: 5;
+    ul {
+        li {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    }
+    @media screen and (max-width: 1030px) {
+        right: 0;
     }
 `

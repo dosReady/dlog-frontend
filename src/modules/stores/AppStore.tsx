@@ -38,6 +38,12 @@ class AppStore {
     }
 
     @action
+    public setUser(param: User):void {
+        this._user = param;
+        this._user.Password = "";
+    }
+    
+    @action
     public getUser():User {
         return this._user;
     }

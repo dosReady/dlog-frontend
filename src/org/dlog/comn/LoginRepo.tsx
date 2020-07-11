@@ -1,6 +1,5 @@
-import {User} from "@types"
+import { User } from "@types";
 import { AxiosResponse } from "axios";
-import LoginSrvc from "org/dlog/comn/LoginSrvc";
 import { sec } from "lib";
 
 interface ApiReponse {
@@ -8,13 +7,13 @@ interface ApiReponse {
 }
 
 class LoginRepo{
-    public async login(param:User):Promise<void> {
-        try {
-            const { data }: AxiosResponse<ApiReponse> = await sec.post("proc/login", { "user": param })
-            LoginSrvc.setLocalStorage(data.user);
-        } catch (error) {
-            console.error(error);
-        }
+    public async login(param:User):Promise<User> {
+        const { data }: AxiosResponse<ApiReponse> = await sec.post("proc/login", { "user": param })
+        return data.user;
+    }
+
+    public async logout(param:User):Promise<void> {
+        await sec.post("proc/logout", { "user": param })
     }
 }
 
