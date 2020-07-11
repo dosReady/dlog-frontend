@@ -1,6 +1,5 @@
 import React from 'react';
 import toastui from '@toast-ui/editor';
-import 'github-markdown-css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import 'codemirror/lib/codemirror.css';
 import { observer } from 'mobx-react';

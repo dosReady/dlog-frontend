@@ -2,7 +2,6 @@ import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { PostDTO } from '@types';
 import autobind from 'autobind-decorator';
-import 'github-markdown-css';
 import React from 'react';
 import styled from 'styled-components';
 
