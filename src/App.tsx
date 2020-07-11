@@ -157,7 +157,7 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
       <>
         <GlobalStyle/>
         <ErrorBoundaryComp>
-          <Router>
+          <Router basename={`${process.env.PUBLIC_URL}/`}>
             <Switch>
               <Route exact path="/" component={BlogListPage} />
               <Route exact path="/blog" component={BlogListPage} />
