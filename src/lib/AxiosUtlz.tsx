@@ -1,11 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import LoginSrvc from "org/dlog/comn/LoginSrvc";
 import { User } from "@types";
-
-// enum HttpStatusCode {
-//     UNAUTHORIZED = 401,
-//     FORBIDDEN = 403
-// }
+import 'dotenv/config';
+const defaultURL: string = process.env.SERVER_MODE ? "http://dveloper.me" : "http://127.0.0.1:8080";
 
 enum AuthChek {
     ACCESS = "access",
@@ -13,9 +10,7 @@ enum AuthChek {
 }
 
 const config:AxiosRequestConfig = {
-    baseURL: "http://101.101.216.250:8080",
-
-    //baseURL: "http://127.0.0.1:8080",
+    baseURL: defaultURL,
     headers: {
         "content-type": "application/json"
     },
