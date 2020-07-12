@@ -6,8 +6,8 @@ import LoginComp from '../comn/LoginComp';
 
 const LoginViewConatiner = styled.div`
     max-width: 400px;
-    margin: 100px auto;
-
+    margin: 65px auto;
+    padding: 0 10px;
     .logo {
         width: 100%;
         background-color: #2A3D4E;
