@@ -33,11 +33,11 @@ class BlogRepo {
     }
 
     public async mngPost(param: PostDTO): Promise<void> {
-        await sec.post("api/mng/post", {"post": param.post, "tags": param.tags});
+        await sec.post("mng/post", {"post": param.post, "tags": param.tags});
     }
 
     public async delPost(postID: string): Promise<void> {
-        await sec.post("api/del/post", {"post": {"PostID": postID}})
+        await sec.post("del/post", {"post": {"PostID": postID}})
     }
 
     @computed
