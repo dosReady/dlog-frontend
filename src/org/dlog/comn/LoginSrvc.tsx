@@ -9,13 +9,13 @@ class LoginSrvc {
     public async login(param:User): Promise<void> {
         const user = await LoginRepo.login(param);
         this.setLocalStorage(user);
-        window.location.replace("/blog");
+        window.location.replace("/dlog/blog");
     }
 
     public async logout(param:User): Promise<void> {
         await LoginRepo.logout(param);
         this.removeLocalStorage();
-        window.location.replace("/login");
+        window.location.replace("/dlog/login");
     }
 
     public setLocalStorage(param:User):void {

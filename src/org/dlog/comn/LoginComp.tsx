@@ -136,9 +136,9 @@ class LoginComp extends React.Component<RouteComponentProps & {appStore?:AppStor
                 <LoginTitleDiv>
                     <span>로그인</span>
                     <div>
-                        <p>* 안내문</p>
-                        <p>관리자전용 로그인 기능입니다.</p>
-                        <p>추후 신규 기능을 구현하게 되면 관리자가 초대한 사용자만 로그인 기능을 사용할 수 있을 예정입니다.</p>   
+                        <p>초대한 사용자만 이용이 가능합니다.</p>
+                        <p>추후 신규 기능을 구현하게 되면 관리자가 </p>
+                        <p>초대한 사용자만 로그인 기능을 사용할 수 있을 예정입니다.</p>   
                     </div>
                 </LoginTitleDiv>
                 <LoginWrapDiv onKeyDown={this.onKeyDown}>

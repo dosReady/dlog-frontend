@@ -26,6 +26,10 @@ const LoginViewConatiner = styled.div`
         }
        
     }
+
+    @media screen and (max-width: 1030px) {
+        margin: 10px auto;
+    }
 `;
 
 class LoginView extends React.Component<{}, {}> {

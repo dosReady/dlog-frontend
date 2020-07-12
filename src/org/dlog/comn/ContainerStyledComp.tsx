@@ -61,6 +61,7 @@ margin-top: ${props => props.marginTop.length === 0 ? '30' : props.marginTop}px;
 padding: 0 30px;
 
 @media screen and (max-width: 1030px) {
+    padding: 0 10px;
     #tagList {
         display:none;
     }
@@ -98,6 +99,9 @@ export const ContainerMenu = styled.div`
         li {
             cursor: pointer;
             margin-bottom: 20px;
+        }
+        li:last-child {
+            margin-bottom: 0;
         }
     }
     @media screen and (max-width: 1030px) {
