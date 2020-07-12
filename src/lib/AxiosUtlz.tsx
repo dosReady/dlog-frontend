@@ -42,12 +42,12 @@ const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosRespon
             res.config.headers.Authorization = `Bearer ${chkRes.data.user.AccessToken}`;
             return sec(res.config);
         } else {
-            window.location.replace("/login");
+            window.location.replace("/dlog/login");
             return res;
         }
         
     } else if(data.errormsg === AuthChek.REFRESH) {
-        window.location.replace("/login");
+        window.location.replace("/dlog/login");
         return res;
     } else {
         return res;
