@@ -55,16 +55,6 @@ const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosRespon
 }
 const resErrorCallback = async function(error:AxiosError):Promise<any> {
     console.log("resErrorCallback")
-    // console.log(error.response?.config)
-    // const httpcode: number = error.response!.status;
-    // if(httpcode === HttpStatusCode.UNAUTHORIZED) {
-
-   
-           
-    //     }
-      
-    // }
-
     return Promise.reject(error);
 }
 sec.interceptors.request.use(reqSuccessCallback, reqErrorCallback);
