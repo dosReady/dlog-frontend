@@ -4,14 +4,16 @@ import { User } from "@types";
 import 'dotenv/config';
 
 
-const serverURL: string = process.env.SERVER_MODE ? "https://dveloper.me" : "http://127.0.0.1:8080";
+//const serverURL: string = process.env.SERVER_MODE ? "https://dveloper.me" : "http://127.0.0.1:8080";
+
 enum AuthChek {
     ACCESS = "access",
     REFRESH = "refresh"
 }
 
 const config:AxiosRequestConfig = {
-    baseURL: serverURL,
+    baseURL: "https://dveloper.me",
+    //baseURL: "http://127.0.0.1:8080",
     headers: {
         "content-type": "application/json"
     },
