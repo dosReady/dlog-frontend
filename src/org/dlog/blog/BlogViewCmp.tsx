@@ -147,7 +147,7 @@ class BlogViewComp extends React.Component<Props,State> {
         window.removeEventListener('scroll', this.onScroll);
     }
 
-    componentWillReceiveProps(nextProps: Readonly<Props>, nexContext:any):void {
+    UNSAFE_componentWillReceiveProps(nextProps: Readonly<Props>, nexContext:any):void {
         this.loadPost(nextProps.info);
     }
 
