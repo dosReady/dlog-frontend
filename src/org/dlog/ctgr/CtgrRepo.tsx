@@ -9,7 +9,7 @@ class CtgrRepo {
 
     @action
     public async srchList():Promise<void>{
-        const res:AxiosResponse<{list:TbCategory[]}>  = await sec.post("api/get/categorylist");
+        const res:AxiosResponse<{list:TbCategory[]}>  = await sec.post("get/categorylist");
         if(res !== null) this.list = res.data.list;
     }
 

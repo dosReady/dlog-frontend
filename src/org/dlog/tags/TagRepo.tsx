@@ -8,7 +8,7 @@ class TagRepo {
 
     @action
     public async srchList(param?: Tag):Promise<void> {
-       const {data}: AxiosResponse<{list: Tag[]}> = await sec.post("api/get/taglist", {"info": param});
+       const {data}: AxiosResponse<{list: Tag[]}> = await sec.post("get/taglist", {"info": param});
        this.list = data.list;
     }
 
