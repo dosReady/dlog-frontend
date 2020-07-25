@@ -2,7 +2,6 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import loadable from '@loadable/component';
 import { AppStore } from '@types';
 import { inject, observer } from 'mobx-react';
-import LoginSrvc from 'org/dlog/comn/LoginSrvc';
 import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -15,6 +14,13 @@ const GlobalStyle  = createGlobalStyle`
 
 * {
   box-sizing: border-box;
+}
+
+
+#root {
+  display:flex;
+  flex-direction:column;  
+  min-height: 100vh;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -79,8 +85,10 @@ body {
    margin: 0;
    font-family: 'NanumGothic';
    user-select: none;
-   background-color: #FFFFFF;
+   background-color: #282d35;
+   color:#F3F3F3;
 }
+
 ol, ul {
    list-style: none;
 }
@@ -117,28 +125,10 @@ ol, ul {
     background-color: #E7F3FF;
     padding: 8px 15px;
   }
-
 `
 
-const LoginPage = loadable(
-  () => import('org/dlog/view/LoginView'),
-)
-
-const BlogListPage = loadable(
-  () => import('org/dlog/view/BlogListView'),
-)
-
-const BlogSrchPage = loadable(
-  () => import('org/dlog/view/BlogSrchView')
-)
-
-const BlogWritePage = loadable(
-  () => import('org/dlog/view/BlogWriteView')
-)
-
-const BlogDetailPage = loadable(
-  () => import('org/dlog/view/BlogDetailView'),
-  //{fallback: <BlogDetailFakeView/>}
+const ArticleListPage = loadable(
+  () => import('pages/public/ArticleListPage'),
 )
 
 @inject('appStore') 
@@ -146,10 +136,10 @@ const BlogDetailPage = loadable(
 class App extends React.Component<{appStore?: AppStore}, {}> {
 
   componentDidMount():void {
-    const user = LoginSrvc.getLocalStorage();
-    if(user !== null) {
-      this.props.appStore?.setUser(user);
-    }
+    // const user = LoginSrvc.getLocalStorage();
+    // if(user !== null) {
+    //   this.props.appStore?.setUser(user);
+    // }
   }
 
   render():JSX.Element {
@@ -159,13 +149,13 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
         <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path="/" component={BlogListPage} />
-              <Route exact path="/blog" component={BlogListPage} />
+              <Route exact path="/" component={ArticleListPage} />
+              {/* <Route exact path="/blog" component={BlogListPage} />
               <Route exact path="/blog/write" component={BlogWritePage} />
               <Route exact path="/blog/write/:postid" component={BlogWritePage} />
               <Route exact path="/blog/srch" component={BlogSrchPage}/>
               <Route exact path="/blog/:postid" component={BlogDetailPage}/>
-              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/login" component={LoginPage} /> */}
             </Switch>
           </Router>
         </ErrorBoundaryComp>

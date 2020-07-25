@@ -5,7 +5,8 @@ background-color: #2A3D4E;
 height: 65px;
 display: flex;
 align-items: center;
-justify-content: center;
+justify-content: flex-start;
+padding: 0 30px;
     .logo div{
         cursor:pointer;
         width: 40px;
@@ -18,12 +19,12 @@ justify-content: center;
             }    
         }
     }
-
-@media screen and (max-width: 1030px) {
-    justify-content: flex-start;
-    padding: 0 30px;
-}
-
+    span {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-left: 1rem;
+        color: white;
+    }
 `
 
 export const HTSrchBarWrap = styled.div`
@@ -80,13 +81,12 @@ export const ContainerMenuWrap = styled.div`
     i {
         cursor: pointer;
     }
-    @media screen and (max-width: 1030px) {
-        margin-left: auto;
-    }
+    margin-left: auto;
 `
 
 export const ContainerMenu = styled.div`
     position:absolute;
+    right: 0;
     width: 150px;
     padding: 15px;
     color: black;
@@ -103,8 +103,5 @@ export const ContainerMenu = styled.div`
         li:last-child {
             margin-bottom: 0;
         }
-    }
-    @media screen and (max-width: 1030px) {
-        right: 0;
     }
 `

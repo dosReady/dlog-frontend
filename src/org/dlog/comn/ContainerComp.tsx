@@ -48,10 +48,7 @@ class ConatinerComp extends React.Component<RouteComponentProps&{width: string, 
         const btnComp = event.currentTarget.firstElementChild;
         const menuComp = event.currentTarget.lastElementChild;
         if(btnComp?.nodeName === "I" && menuComp?.nodeName === "DIV") {
-            let strClass = btnComp.className;
-
-
-           
+            let strClass = btnComp.className;         
             
             if(btnComp.className.indexOf("up") > -1) {
                 strClass = strClass.replace("up", "down");
@@ -71,10 +68,11 @@ class ConatinerComp extends React.Component<RouteComponentProps&{width: string, 
             <main>
                 <HeaderTop>
                     <ReactSVG src={Logo} className="logo" onClick={this.onClickLogo}/>
-                    <HTSrchBarWrap>
+                    {/* <HTSrchBarWrap>
                         <i className="fas fa-search"></i>
                         <HTSrchInput type="text" placeholder="검색어를 입력하세요." onKeyDown={this.goSrchPage}></HTSrchInput>
-                    </HTSrchBarWrap>
+                    </HTSrchBarWrap> */}
+                    <span>오늘도.log</span>
                     <ContainerMenuWrap onClick={this.onClickMenu}>
                         <i className="fas fa-angle-down"></i> 
                         <ContainerMenu style= {{display: "none"}}>
