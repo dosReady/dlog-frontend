@@ -71,7 +71,7 @@ button{
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    color:white;
+    color:inherit;
     padding:5px 20px;
     border-radius: 4px;
     font-size: 0.9rem;
@@ -127,8 +127,11 @@ ol, ul {
   }
 `
 
-const ArticleListPage = loadable(
-  () => import('pages/public/ArticleListPage'),
+// const ArticleListPage = loadable(
+//   () => import('pages/public/ArticleListPage'),
+// )
+const ArticleWritePage = loadable(
+  () => import('pages/admin/ArticleWritePage'),
 )
 
 @inject('appStore') 
@@ -149,13 +152,7 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
         <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path="/" component={ArticleListPage} />
-              {/* <Route exact path="/blog" component={BlogListPage} />
-              <Route exact path="/blog/write" component={BlogWritePage} />
-              <Route exact path="/blog/write/:postid" component={BlogWritePage} />
-              <Route exact path="/blog/srch" component={BlogSrchPage}/>
-              <Route exact path="/blog/:postid" component={BlogDetailPage}/>
-              <Route exact path="/login" component={LoginPage} /> */}
+              <Route exact path="/" component={ArticleWritePage} />
             </Switch>
           </Router>
         </ErrorBoundaryComp>
