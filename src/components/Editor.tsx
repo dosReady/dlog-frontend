@@ -67,7 +67,7 @@ class Editor extends React.Component<RouteComponentProps<{postid: string}>, {isS
         isSave: false
     }
 
-    initialize = (): void => {
+    initialize(): void {
         const target = this.editorEl.current!;
         this.editorComp = new toastui({
             el: target,

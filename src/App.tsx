@@ -84,7 +84,6 @@ body {
    line-height: 1;
    margin: 0;
    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
-   user-select: none;
    background-color: #282d35;
    color:#F3F3F3;
 }
@@ -155,9 +154,9 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
         <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path="/write" component={PostListPage} />
+              <Route exact path="/write" component={PostWritePage} />
               <Route exact path="/detail/:postid" component={PostViewPage} />
-              <Route exact path="/" component={PostWritePage} />
+              <Route exact path="/" component={PostListPage} />
             </Switch>
           </Router>
         </ErrorBoundaryComp>

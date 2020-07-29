@@ -25,6 +25,16 @@ class PostService {
         await api.post("/mng/post", {post: param});
     }
 
+    public async getPost(postID:string):Promise<Post> {
+        const param: Post = {
+            PostID: postID
+        }
+
+        const {data} = await api.post<{post: Post}>("get/post", {post: param})
+        
+        return data.post;
+    }
+
 
 }
 

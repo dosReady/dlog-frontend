@@ -1,8 +1,8 @@
 export interface Post {
 	PostID?: string,
-    MainTitle: string, 
-    SubTitle: string,
-    Content: string,
+    MainTitle?: string, 
+    SubTitle?: string,
+    Content?: string,
     TagsJSON?: string,
     CreatedAt?: Date,
     UpdatedAt?: Date
