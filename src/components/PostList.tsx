@@ -1,9 +1,9 @@
 import React from 'react';
-import { Article } from 'api/model/postModels';
+import { Post } from 'api/model/postModels';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const ArticleUL = styled.ul`
+const PostUL = styled.ul`
     li {
         margin-bottom: 1rem;
         border-bottom: 1px solid #3a3649;
@@ -14,14 +14,14 @@ const ArticleUL = styled.ul`
     }
 `
 
-const ArticleTop = styled.div`
+const PostTop = styled.div`
     font-size: 0.8rem;
     span:not(:last-child) {
         margin-right: 1rem
     }
 `
 
-const ArticleContents = styled.div`
+const PostContents = styled.div`
     margin-top: 1rem;
     h3 {
         margin-bottom: 1.2rem;
@@ -35,10 +35,10 @@ const ArticleContents = styled.div`
 
 
 interface Props {
-    list: Article[]
+    list: Post[]
 }
 
-class ArticleList extends React.Component<Props, {}> {
+class PostList extends React.Component<Props, {}> {
 
     public isEmpty(value:any): boolean {
         
@@ -53,28 +53,28 @@ class ArticleList extends React.Component<Props, {}> {
     }
 
     render():JSX.Element {
-        let datas:Article[] = this.props.list;
+        let datas:Post[] = this.props.list;
         let renderComp = (<></>);
         if(this.isEmpty(datas)) {
             renderComp = (
-                <ArticleUL>
+                <PostUL>
                     {datas.map(
-                        (data:Article, i:any) => (
+                        (data:Post, i:any) => (
                             <li key={i}>
-                                <Link to="/">
-                                    <ArticleTop>
+                                <Link to={`/detail/${data.PostID}`}>
+                                    <PostTop>
                                         <span>#Report #Live #Love</span>
                                         <span>Jul 28 2020</span>
-                                    </ArticleTop>
-                                    <ArticleContents>
+                                    </PostTop>
+                                    <PostContents>
                                         <h3>{data.MainTitle}</h3>
                                         <p>타입스크립트(TypeScript)를 사용할 수 있도록 개츠비(Gatsby) 프로젝트를 설정했다. 바벨(Babel)로 컴파일하도록 했고, 타입 검사, 품질 검사, 형식 자동변환을 위해서 각각 타입스크립트 컴파일러, 이에스린트(ESLint), 프리티어(Prettier)를 사용했다.</p>
-                                    </ArticleContents>
+                                    </PostContents>
                                 </Link>
                             </li>
                         )
                     )}
-                </ArticleUL>
+                </PostUL>
             )
         }
         return  (
@@ -86,4 +86,4 @@ class ArticleList extends React.Component<Props, {}> {
 }
 
 
-export default ArticleList;
+export default PostList;

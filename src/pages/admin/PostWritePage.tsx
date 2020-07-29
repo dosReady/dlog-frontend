@@ -13,7 +13,7 @@ const PageConatiner = styled.div`
 `
 
 
-class ArticleWritePage extends React.Component<{},{}> {
+class PostWritePage extends React.Component<{},{}> {
 
 
     render():JSX.Element {
@@ -27,4 +27,4 @@ class ArticleWritePage extends React.Component<{},{}> {
     }
 }
 
-export default ArticleWritePage;
+export default PostWritePage;

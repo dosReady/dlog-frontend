@@ -7,7 +7,7 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import postService from 'api/service/postService';
-import { Article } from 'api/model/postModels';
+import { Post } from 'api/model/postModels';
 
 const EditorWrap = styled.div`
     height: calc(100% - 65px);
@@ -99,12 +99,12 @@ class Editor extends React.Component<RouteComponentProps<{postid: string}>, {isS
     onClickSaveBtn(event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void {
         const comp = this.editorComp!
 
-        let param:Article = {
+        let param:Post = {
             MainTitle: "",
             SubTitle: "test",
             Content: comp.getMarkdown()
         }
-        postService.saveArticle(param);
+        postService.savePost(param);
     }
 
     @autobind

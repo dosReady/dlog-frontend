@@ -127,11 +127,14 @@ ol, ul {
   }
 `
 
-const ArticleListPage = loadable(
-  () => import('pages/public/ArticleListPage'),
+const PostListPage = loadable(
+  () => import('pages/public/PostListPage'),
 )
-const ArticleWritePage = loadable(
-  () => import('pages/admin/ArticleWritePage'),
+const PostDetailPage = loadable(
+  () => import('pages/public/PostDetailPage'),
+)
+const PostWritePage = loadable(
+  () => import('pages/admin/PostWritePage'),
 )
 
 @inject('appStore') 
@@ -152,8 +155,9 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
         <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path="/write" component={ArticleWritePage} />
-              <Route exact path="/" component={ArticleListPage} />
+              <Route exact path="/write" component={PostListPage} />
+              <Route exact path="/detail/:postid" component={PostDetailPage} />
+              <Route exact path="/" component={PostWritePage} />
             </Switch>
           </Router>
         </ErrorBoundaryComp>

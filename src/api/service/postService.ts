@@ -1,10 +1,10 @@
 import {api} from 'api/core';
-import { Article, Tag } from 'api/model/postModels';
+import { Post, Tag } from 'api/model/postModels';
 
 class PostService {
 
-    public async getArticleList(): Promise<[Article[], Tag[]]> {
-        let postList: Article[] = [];
+    public async getPostList(): Promise<[Post[], Tag[]]> {
+        let postList: Post[] = [];
         let tagList: Tag[] = [];
         
         try {
@@ -22,7 +22,7 @@ class PostService {
         return [postList, tagList];
     }
 
-    public async saveArticle(param:Article): Promise<void> {
+    public async savePost(param:Post): Promise<void> {
         await api.post("/mng/post", {post: param});
     }
 

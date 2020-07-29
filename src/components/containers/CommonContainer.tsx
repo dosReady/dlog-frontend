@@ -47,6 +47,17 @@ const MainConatiner = styled.main`
     flex:1;
 `
 
+const PageConatiner = styled.div`
+    margin-top:8rem;
+    max-width:1024px;
+    margin-left: auto;
+    margin-right: auto;
+`
+
+const PageHeader = styled.header`
+    padding: 0 1rem;
+`
+
 class CommonConatiner extends React.Component<{}, {}> {
     render():JSX.Element {
         return (
@@ -58,14 +69,21 @@ class CommonConatiner extends React.Component<{}, {}> {
                             <Link to="/">오늘도.log</Link>
                         </LinkWrap>
                         <LinkWrap>
-                            <Link to="/">Article</Link>
+                            <Link to="/">Post</Link>
                             <Link to="/">Code</Link>
                             <Link to="/">Recipe</Link>
                         </LinkWrap>
                         
                     </HeaderContainer>
                 </HeaderComp>
-                <MainConatiner>{this.props.children}</MainConatiner>
+                <MainConatiner>
+                    <PageConatiner>
+                        <PageHeader>
+                            <h1>Title</h1>
+                        </PageHeader>
+                        {this.props.children}
+                    </PageConatiner>
+                </MainConatiner>
             </>
         )
     }

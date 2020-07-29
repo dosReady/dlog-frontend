@@ -34,7 +34,7 @@ const TagsWrap = styled.div`
     }
 `
 
-class ArticleAside extends React.Component<{}, {}> {
+class PostAside extends React.Component<{}, {}> {
     render():JSX.Element {
         return (
             <AsideWrap>
@@ -57,4 +57,4 @@ class ArticleAside extends React.Component<{}, {}> {
     }
 }
 
-export default ArticleAside;
+export default PostAside;
