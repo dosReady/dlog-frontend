@@ -130,8 +130,8 @@ ol, ul {
 const PostListPage = loadable(
   () => import('pages/public/PostListPage'),
 )
-const PostDetailPage = loadable(
-  () => import('pages/public/PostDetailPage'),
+const PostViewPage = loadable(
+  () => import('pages/public/PostViewPage'),
 )
 const PostWritePage = loadable(
   () => import('pages/admin/PostWritePage'),
@@ -156,7 +156,7 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
               <Route exact path="/write" component={PostListPage} />
-              <Route exact path="/detail/:postid" component={PostDetailPage} />
+              <Route exact path="/detail/:postid" component={PostViewPage} />
               <Route exact path="/" component={PostWritePage} />
             </Switch>
           </Router>

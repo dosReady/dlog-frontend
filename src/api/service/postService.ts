@@ -1,6 +1,5 @@
-import {api} from 'api/core';
-import { Post, Tag } from 'api/model/postModels';
-
+import {api} from 'api/Core'
+import {Post, Tag} from 'api/model/PostModels'
 class PostService {
 
     public async getPostList(): Promise<[Post[], Tag[]]> {

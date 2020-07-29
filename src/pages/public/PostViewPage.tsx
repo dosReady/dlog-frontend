@@ -1,7 +1,8 @@
 import React from 'react';
-import CommonConatiner from 'components/containers/CommonContainer';
+import CommonConatiner from 'components/CommonContainer';
 
-class ArticleDetailPage extends React.Component<{}, {}> {
+
+class PostViewPage extends React.Component<{}, {}> {
     render():JSX.Element {
         return (
             <CommonConatiner>
@@ -11,4 +12,4 @@ class ArticleDetailPage extends React.Component<{}, {}> {
     }
 }
 
-export default ArticleDetailPage;
+export default PostViewPage;

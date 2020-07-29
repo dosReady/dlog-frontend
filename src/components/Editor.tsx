@@ -6,8 +6,8 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import postService from 'api/service/postService';
-import { Post } from 'api/model/postModels';
+import PostService from 'api/service/PostService';
+import { Post } from 'api/model/PostModels';
 
 const EditorWrap = styled.div`
     height: calc(100% - 65px);
@@ -104,7 +104,7 @@ class Editor extends React.Component<RouteComponentProps<{postid: string}>, {isS
             SubTitle: "test",
             Content: comp.getMarkdown()
         }
-        postService.savePost(param);
+        PostService.savePost(param);
     }
 
     @autobind

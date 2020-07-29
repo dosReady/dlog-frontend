@@ -1,7 +1,8 @@
 import React from 'react';
-import { Post } from 'api/model/postModels';
+import { Post } from 'api/model/PostModels';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { StringUtlz } from 'lib/Utlz';
 
 const PostUL = styled.ul`
     li {
@@ -40,22 +41,10 @@ interface Props {
 
 class PostList extends React.Component<Props, {}> {
 
-    public isEmpty(value:any): boolean {
-        
-        if( value === "" 
-        ||  value === null 
-        ||  value === undefined 
-        || ( value !== null && typeof value === "object" && Object.keys(value).length > 0 ) ){
-            return true ;
-        }
-
-        return false;
-    }
-
     render():JSX.Element {
         let datas:Post[] = this.props.list;
         let renderComp = (<></>);
-        if(this.isEmpty(datas)) {
+        if(StringUtlz.isEmpty(datas)) {
             renderComp = (
                 <PostUL>
                     {datas.map(

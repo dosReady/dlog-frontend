@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommonConatiner from 'components/containers/CommonContainer';
+import CommonConatiner from 'components/CommonContainer';
 import Editor from 'components/Editor';
 
 

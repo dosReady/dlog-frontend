@@ -1,7 +1,7 @@
-import { Post } from 'api/model/postModels';
-import postService from 'api/service/postService';
+import { Post } from 'api/model/PostModels';
+import PostService from 'api/service/PostService';
 import PostList from 'components/PostList';
-import CommonConatiner from 'components/containers/CommonContainer';
+import CommonConatiner from 'components/CommonContainer';
 import React from 'react';
 import styled from 'styled-components';
 import PostAside from 'components/PostAside';
@@ -36,7 +36,7 @@ class PostListPage extends React.Component<{}, State> {
     }
 
     async loadData(): Promise<void> {
-        const [articles, ] = await postService.getPostList();
+        const [articles, ] = await PostService.getPostList();
         this.setState({
             list: articles
         })
