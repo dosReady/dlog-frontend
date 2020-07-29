@@ -1,8 +1,15 @@
-import React from 'react';
-import CommonConatiner from 'components/containers/CommonContainer';
+import { Article } from 'api/model/postModels';
 import postService from 'api/service/postService';
+import ArticleList from 'components/ArticleList';
+import CommonConatiner from 'components/containers/CommonContainer';
+import React from 'react';
 import styled from 'styled-components';
+import ArticleAside from 'components/ArticleAside';
 
+
+const PageHeader = styled.header`
+    padding: 0 1rem;
+`
 
 const PageConatiner = styled.div`
     margin-top:8rem;
@@ -11,15 +18,39 @@ const PageConatiner = styled.div`
     margin-right: auto;
 `
 
-const PageHeader = styled.div`
-`;
+const ArticleWrap = styled.div`
+    margin-top: 4rem;
+    display:flex;
+    justify-content:space-between;
+`
 
-class ArticleListPage extends React.Component<{}, {}> {
+const ArticleLeftWrap = styled.div`
+    max-width: 750px;
+    flex: 1 1 0%;
+    padding: 0 1rem;
+`
+
+const ArticleRightWrap = styled.div`
+    margin-left: 1.5rem;
+    padding: 0rem 1rem 0;
+    width: 300px;
+`
+
+interface State {
+    list: Article[]
+}
+
+class ArticleListPage extends React.Component<{}, State> {
+
+    readonly state = {
+        list: []
+    }
 
     async loadData(): Promise<void> {
-        const [postList, tagList] = await postService.getPostList();
-        console.log(postList);
-        console.log(tagList);
+        const [articles, ] = await postService.getArticleList();
+        this.setState({
+            list: articles
+        })
     }
 
     componentDidMount() :void {
@@ -30,9 +61,17 @@ class ArticleListPage extends React.Component<{}, {}> {
         return (
             <CommonConatiner>
                 <PageConatiner>
-                    <header>
+                    <PageHeader>
                         <h1>Article List</h1>
-                    </header>
+                    </PageHeader>
+                    <ArticleWrap>
+                        <ArticleLeftWrap>
+                            <ArticleList list={this.state.list}/>
+                        </ArticleLeftWrap>
+                        <ArticleRightWrap>
+                            <ArticleAside/>
+                        </ArticleRightWrap>
+                    </ArticleWrap>
                 </PageConatiner>
             </CommonConatiner>
         )

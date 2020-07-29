@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-export default axios.create(
+export const api =  axios.create(
     {
         baseURL: "http://127.0.0.1:8080",
         headers: {
@@ -9,6 +9,20 @@ export default axios.create(
         responseType: "json"
     }
 )
+
+export const post = async function(url:string, param:any) {
+    await api.post(url, param)
+}
+
+const reqSuccessCallback = async function(req:AxiosRequestConfig):Promise<AxiosRequestConfig> {
+    console.log("req");
+    return req;
+}
+
+const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosResponse> {
+    console.log("res");
+    return res;
+}
 
 // const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosResponse> {
 //     console.log("resSuccessCallback");
@@ -35,5 +49,5 @@ export default axios.create(
 //     }
 // }
 
-//api.interceptors.request.use(reqSuccessCallback, reqErrorCallback);
-//api.interceptors.response.use(resSuccessCallback, resErrorCallback);
+api.interceptors.request.use(reqSuccessCallback);
+api.interceptors.response.use(resSuccessCallback);

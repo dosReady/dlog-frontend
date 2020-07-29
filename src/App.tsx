@@ -83,7 +83,7 @@ button{
 body {
    line-height: 1;
    margin: 0;
-   font-family: 'NanumGothic';
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
    user-select: none;
    background-color: #282d35;
    color:#F3F3F3;
@@ -127,9 +127,9 @@ ol, ul {
   }
 `
 
-// const ArticleListPage = loadable(
-//   () => import('pages/public/ArticleListPage'),
-// )
+const ArticleListPage = loadable(
+  () => import('pages/public/ArticleListPage'),
+)
 const ArticleWritePage = loadable(
   () => import('pages/admin/ArticleWritePage'),
 )
@@ -152,7 +152,8 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
         <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-              <Route exact path="/" component={ArticleWritePage} />
+              <Route exact path="/write" component={ArticleWritePage} />
+              <Route exact path="/" component={ArticleListPage} />
             </Switch>
           </Router>
         </ErrorBoundaryComp>

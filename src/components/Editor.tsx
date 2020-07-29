@@ -6,6 +6,8 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import postService from 'api/service/postService';
+import { Article } from 'api/model/postModels';
 
 const EditorWrap = styled.div`
     height: calc(100% - 65px);
@@ -95,16 +97,14 @@ class Editor extends React.Component<RouteComponentProps<{postid: string}>, {isS
 
     @autobind
     onClickSaveBtn(event: React.MouseEvent<HTMLButtonElement, MouseEvent>):void {
-        this.setState({
-            isSave: true
-        })
-        //this.savePost();
-        /*
-        toast.success("Success Notification !", {
-            position: "top-center"
-        });
-        */
-        
+        const comp = this.editorComp!
+
+        let param:Article = {
+            MainTitle: "",
+            SubTitle: "test",
+            Content: comp.getMarkdown()
+        }
+        postService.saveArticle(param);
     }
 
     @autobind

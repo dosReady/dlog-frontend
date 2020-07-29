@@ -1,15 +1,29 @@
-import api from 'api/core';
-import Axios from 'axios';
-import { Post, Tag } from 'api/model/postModels';
-import {AxiosResponse} from 'axios';
+import {api} from 'api/core';
+import { Article, Tag } from 'api/model/postModels';
 
 class PostService {
 
-    public async getPostList(): Promise<[Post[], Tag[]]> {
-        const response = await Axios.all([api.post("/get/postlist"), api.post("/get/taglist")])
-        const postList: Post[] = response[0].data.list;
-        const tagList: Tag[] = response[1].data.list;
+    public async getArticleList(): Promise<[Article[], Tag[]]> {
+        let postList: Article[] = [];
+        let tagList: Tag[] = [];
+        
+        try {
+            const rServer1 = await api.post("/get/postlist");
+            const rServer2= await api.post("/get/taglist");
+            postList = rServer1.data.list;
+            tagList = rServer2.data.list;
+
+            
+        } catch (error) {
+            console.log(error);
+        }
+
+       
         return [postList, tagList];
+    }
+
+    public async saveArticle(param:Article): Promise<void> {
+        await api.post("/mng/post", {post: param});
     }
 
 

@@ -1,5 +1,5 @@
-export interface Post {
-	PostID: string,
+export interface Article {
+	PostID?: string,
     MainTitle: string, 
     SubTitle: string,
     Content: string,
