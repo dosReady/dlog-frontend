@@ -1,9 +1,9 @@
 import {api} from 'api/Core'
-import {Post, Tag} from 'api/model/PostModels'
+import {Post, Tag, PostModel} from 'api/model/PostModels'
 class PostService {
 
-    public async getPostList(): Promise<[Post[], Tag[]]> {
-        let postList: Post[] = [];
+    public async getPostList(): Promise<[PostModel[], Tag[]]> {
+        let postList: PostModel[] = [];
         let tagList: Tag[] = [];
         
         try {

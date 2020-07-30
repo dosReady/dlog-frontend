@@ -1,10 +1,10 @@
-import { Post } from 'api/model/PostModels';
+import { PostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
-import PostList from 'components/PostList';
 import CommonConatiner from 'components/CommonContainer';
+import PostAside from 'components/PostAside';
+import PostList from 'components/PostList';
 import React from 'react';
 import styled from 'styled-components';
-import PostAside from 'components/PostAside';
 
 
 const PostWrap = styled.div`
@@ -26,7 +26,7 @@ const PostRightWrap = styled.div`
 `
 
 interface State {
-    list: Post[]
+    list: PostModel[]
 }
 
 class PostListPage extends React.Component<{}, State> {

@@ -3,6 +3,8 @@ import { Post } from 'api/model/PostModels';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
+import Logo from 'resources/img/do.svg';
+import { ReactSVG } from 'react-svg';
 
 const ViewerWrap = styled.div`
     .tui-scrollsync , .tui-toolbar-divider{
@@ -29,6 +31,50 @@ const ViewerWrap = styled.div`
     
 `
 
+const PostWrap = styled.div`
+    margin-top: 4rem;
+    display:flex;
+    justify-content:space-between;
+`
+
+const PostLeftWrap = styled.div`
+    max-width: 750px;
+    flex: 1 1 0%;
+    padding: 0 1rem;
+`
+
+const PostRightWrap = styled.div`
+    margin-left: 1.5rem;
+    padding: 0rem 1rem 0;
+    width: 300px;
+`
+
+const FooterWrap = styled.div`
+    display:felx;
+    padding: 0 1rem;
+    margin-top: 25rem;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    border-top: 1px solid #3a3649;
+    svg {
+        width:30px;
+        background-color: #282d35   ;
+        border-radius: 5px;
+        margin-right:1rem;  
+        path {
+            fill: white;
+        }    
+    }
+`
+
+const CopyrightWrap = styled.div`
+   font-size: 0.8rem;
+`
+
+const CopyrightDomain = styled.div`
+    margin-bottom: 0.5rem;
+`
+
 
 class PostView extends React.Component<{info:Post}, {}> {
     private viewerEl = React.createRef<HTMLDivElement>();
@@ -48,9 +94,22 @@ class PostView extends React.Component<{info:Post}, {}> {
 
     render():JSX.Element {
         return (
-            <div>
-                <ViewerWrap ref={this.viewerEl}></ViewerWrap>
-            </div>
+            <>
+            <PostWrap>
+                <PostLeftWrap>
+                    <ViewerWrap ref={this.viewerEl}></ViewerWrap>
+                </PostLeftWrap>
+                <PostRightWrap>
+                </PostRightWrap>
+            </PostWrap>
+            <FooterWrap>
+                <ReactSVG src={Logo}/>
+                <CopyrightWrap>
+                    <CopyrightDomain>dosready.github.io</CopyrightDomain>
+                    <div>© 2020 DOS</div>
+                </CopyrightWrap>
+            </FooterWrap>
+            </>
         )
     }
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Post } from 'api/model/PostModels';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { PostModel } from 'api/model/PostModels';
 import { StringUtlz } from 'lib/Utlz';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const PostUL = styled.ul`
     li {
@@ -20,6 +20,9 @@ const PostTop = styled.div`
     span:not(:last-child) {
         margin-right: 1rem
     }
+    time {
+        letter-spacing: 0.07rem;
+    }
 `
 
 const PostContents = styled.div`
@@ -36,28 +39,29 @@ const PostContents = styled.div`
 
 
 interface Props {
-    list: Post[]
+    list: PostModel[]
 }
 
 class PostList extends React.Component<Props, {}> {
 
     render():JSX.Element {
-        let datas:Post[] = this.props.list;
+        let datas:PostModel[] = this.props.list;
         let renderComp = (<></>);
+        console.log(datas)
         if(StringUtlz.isEmpty(datas)) {
             renderComp = (
                 <PostUL>
                     {datas.map(
-                        (data:Post, i:any) => (
+                        (data:PostModel, i:any) => (
                             <li key={i}>
                                 <Link to={`/detail/${data.PostID}`}>
                                     <PostTop>
                                         <span>#Report #Live #Love</span>
-                                        <span>Jul 28 2020</span>
+                                        <time>{data.CreatedAt}</time>
                                     </PostTop>
                                     <PostContents>
                                         <h3>{data.MainTitle}</h3>
-                                        <p>타입스크립트(TypeScript)를 사용할 수 있도록 개츠비(Gatsby) 프로젝트를 설정했다. 바벨(Babel)로 컴파일하도록 했고, 타입 검사, 품질 검사, 형식 자동변환을 위해서 각각 타입스크립트 컴파일러, 이에스린트(ESLint), 프리티어(Prettier)를 사용했다.</p>
+                                        <p>{data.SubTitle}</p>
                                     </PostContents>
                                 </Link>
                             </li>

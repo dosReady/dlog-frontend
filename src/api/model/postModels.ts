@@ -8,6 +8,15 @@ export interface Post {
     UpdatedAt?: Date
 }
 
+export interface PostModel {
+	PostID?: string,
+    MainTitle?: string, 
+    SubTitle?: string,
+    TagsJSON?: string,
+    CreatedAt?: string,
+    UpdatedAt?: string
+}
+
 
 export interface Tag {
     TagMstID: string,

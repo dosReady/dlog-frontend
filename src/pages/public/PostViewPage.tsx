@@ -6,7 +6,6 @@ import { StringUtlz } from 'lib/Utlz'
 import { Post } from 'api/model/PostModels';
 import PostView from 'components/PostView';
 
-
 class PostViewPage extends React.Component<RouteComponentProps<{postid:string}> & {}, {post:Post}> {
 
     readonly state = {
