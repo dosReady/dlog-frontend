@@ -29,7 +29,7 @@ interface State {
     list: PostModel[]
 }
 
-class PostListPage extends React.Component<{}, State> {
+class PostListPage extends React.Component<{title:string}, State> {
 
     readonly state = {
         list: []
@@ -48,7 +48,7 @@ class PostListPage extends React.Component<{}, State> {
 
     render(): JSX.Element {
         return (
-            <CommonConatiner>
+            <CommonConatiner title={this.props.title}>
                <PostWrap>
                     <PostLeftWrap>
                         <PostList list={this.state.list}/>

@@ -43,11 +43,10 @@ interface Props {
 }
 
 class PostList extends React.Component<Props, {}> {
-
     render():JSX.Element {
         let datas:PostModel[] = this.props.list;
         let renderComp = (<></>);
-        console.log(datas)
+        
         if(StringUtlz.isEmpty(datas)) {
             renderComp = (
                 <PostUL>

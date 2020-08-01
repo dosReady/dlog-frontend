@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import Logo from 'resources/img/do.svg';
-import { ReactSVG } from 'react-svg';
 import { Link } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
+import Logo from 'resources/img/do.svg';
+import styled from 'styled-components';
+import { StringUtlz } from 'lib/Utlz';
 
-const HeaderComp = styled.header`
+export const HeaderComp = styled.header`
     position: fixed;
     z-index: 99;
     top: 0;
@@ -15,14 +16,14 @@ const HeaderComp = styled.header`
     backdrop-filter: blur(16px);
 `;
 
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
     display:flex;
     justify-content: space-between;
     max-width: 1024px;
     margin: 0 auto;
 `;
 
-const LinkWrap = styled.div`
+export const LinkWrap = styled.div`
     display: flex;
     align-items: center;   
     a {
@@ -42,23 +43,28 @@ const LinkWrap = styled.div`
 `
 
 
-const MainConatiner = styled.main`
+export const MainConatiner = styled.main`
     position:relative;
     flex:1;
 `
 
-const PageConatiner = styled.div`
+export const PageConatiner = styled.div`
     margin-top:8rem;
     max-width:1024px;
     margin-left: auto;
     margin-right: auto;
 `
 
-const PageHeader = styled.header`
+export const  PageHeader = styled.header`
     padding: 0 1rem;
+    p {
+        margin-top: 1rem;
+        border-left: 4px solid #dddddd;
+        padding: 0 15px;
+    }
 `
 
-class CommonConatiner extends React.Component<{}, {}> {
+class CommonConatiner extends React.Component<{title?:string, subTitle?:string}, {}> {
     render():JSX.Element {
         return (
             <>
@@ -79,7 +85,8 @@ class CommonConatiner extends React.Component<{}, {}> {
                 <MainConatiner>
                     <PageConatiner>
                         <PageHeader>
-                            <h1>Title</h1>
+                            <h1>{this.props.title}</h1>
+                            {!StringUtlz.isEmpty(this.props.subTitle) ? (<p>{this.props.subTitle}</p>) : ""}
                         </PageHeader>
                         {this.props.children}
                     </PageConatiner>

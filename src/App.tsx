@@ -1,6 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import loadable from '@loadable/component';
-import { inject, observer } from 'mobx-react';
+//import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -53,6 +53,7 @@ input, textarea {
   color: inherit;
   font-size:inherit;
   font-weight:inherit;
+  font-family:inherit;
   border-style:none;
   outline: none;
 }
@@ -134,8 +135,8 @@ const PostWritePage = loadable(
   () => import('pages/admin/PostWritePage'),
 )
 
-@inject('appStore') 
-@observer
+//@inject('appStore') 
+//@observer
 class App extends React.Component<{}, {}> {
 
   componentDidMount():void {
@@ -153,7 +154,7 @@ class App extends React.Component<{}, {}> {
             <Switch>
               <Route exact path="/write" component={PostWritePage} />
               <Route exact path="/detail/:postid" component={PostViewPage} />
-              <Route exact path="/" component={PostListPage} />
+              <Route exact path="/" component={() => <PostListPage title="Posts"/>}  />
             </Switch>
           </Router>
 

@@ -1,5 +1,5 @@
-import {api} from 'api/Core'
-import {Post, Tag, PostModel} from 'api/model/PostModels'
+import { api } from 'api/Core';
+import { PostModel, Tag } from 'api/model/PostModels';
 class PostService {
 
     public async getPostList(): Promise<[PostModel[], Tag[]]> {
@@ -21,16 +21,16 @@ class PostService {
         return [postList, tagList];
     }
 
-    public async savePost(param:Post): Promise<void> {
+    public async savePost(param:PostModel): Promise<void> {
         await api.post("/mng/post", {post: param});
     }
 
-    public async getPost(postID:string):Promise<Post> {
-        const param: Post = {
+    public async getPost(postID:string):Promise<PostModel> {
+        const param: PostModel = {
             PostID: postID
         }
 
-        const {data} = await api.post<{post: Post}>("get/post", {post: param})
+        const {data} = await api.post<{post: PostModel}>("get/post", {post: param})
         
         return data.post;
     }
