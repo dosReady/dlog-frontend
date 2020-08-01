@@ -95,6 +95,10 @@ const ViewerDiv = styled.div`
             background-color:#294854;
         }
     }
+
+    @media screen and (max-width: 900px) { 
+        display:none;
+    }
 `
 
 class Editor extends React.Component<
@@ -112,12 +116,19 @@ class Editor extends React.Component<
     }
 
     initialize(): void {
+        const userAgent = window.navigator.userAgent;
+        let editType = "markdown";
+        if(userAgent.indexOf("iPhone") > -1) {
+            editType =  "wysiwyg";
+        }
+
+
         const editorEl = this.editorEl.current!;
         this.editorComp = new toastui({
             el: editorEl,
             placeholder: "오늘 기록할 내용을 적어봐요 ~",
-            previewStyle: 'tab',
-            initialEditType: 'markdown', // wysiwyg
+            previewStyle: "tab",
+            initialEditType: editType, // wysiwyg
             height: '100%',
             hideModeSwitch: true,
             events: {
@@ -182,6 +193,11 @@ class Editor extends React.Component<
         });
     }
 
+    @autobind
+    onClickPrvBtn():void {
+        //this.editorEl.current?.style = "display:none";
+    }
+
     componentDidMount(): void {
         this.initialize();
     }
@@ -197,8 +213,9 @@ class Editor extends React.Component<
                 <ViewerDiv ref={this.viewerEl}/>
             </EditorMiddleDiv>
             <EditorBtnWrap>
-                <button className="save" onClick={this.onClickSaveBtn}>블로그 작성하기</button>
+                <button className="save" onClick={this.onClickSaveBtn}>작성하기</button>
                 <button className="back" onClick={this.onClickBackBtn}>뒤로가기</button>
+                <button className="back" onClick={this.onClickPrvBtn}>미리보기</button>
             </EditorBtnWrap>
             </>
         )

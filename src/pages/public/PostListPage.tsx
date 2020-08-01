@@ -17,12 +17,18 @@ const PostLeftWrap = styled.div`
     max-width: 750px;
     flex: 1 1 0%;
     padding: 0 1rem;
+    @media screen and (max-width: 900px) { 
+        width: 100%;
+    }
 `
 
 const PostRightWrap = styled.div`
     margin-left: 1.5rem;
     padding: 0rem 1rem 0;
     width: 300px;
+    @media screen and (max-width: 900px) { 
+        display:none;
+    }
 `
 
 interface State {
