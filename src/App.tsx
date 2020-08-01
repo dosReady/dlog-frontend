@@ -1,8 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import loadable from '@loadable/component';
-import { AppStore } from '@types';
 import { inject, observer } from 'mobx-react';
-import ErrorBoundaryComp from 'org/dlog/error/ErrorComp';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -138,7 +136,7 @@ const PostWritePage = loadable(
 
 @inject('appStore') 
 @observer
-class App extends React.Component<{appStore?: AppStore}, {}> {
+class App extends React.Component<{}, {}> {
 
   componentDidMount():void {
     // const user = LoginSrvc.getLocalStorage();
@@ -151,7 +149,6 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
     return (
       <>
         <GlobalStyle/>
-        <ErrorBoundaryComp>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
               <Route exact path="/write" component={PostWritePage} />
@@ -159,7 +156,6 @@ class App extends React.Component<{appStore?: AppStore}, {}> {
               <Route exact path="/" component={PostListPage} />
             </Switch>
           </Router>
-        </ErrorBoundaryComp>
 
         <ToastContainer
           position="bottom-right"
