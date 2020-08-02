@@ -139,6 +139,10 @@ const LoginPage = loadable(
   () => import('pages/public/LoginPage'),
 )
 
+const TagPage = loadable(
+  () => import('pages/public/TagPage'),
+)
+
 //@inject('appStore') 
 //@observer
 class App extends React.Component<{}, {}> {
@@ -160,6 +164,7 @@ class App extends React.Component<{}, {}> {
               <Route exact path="/detail/:postid" component={PostViewPage} />
               <Route exact path="/" component={() => <PostListPage title="Posts"/>}  />
               <Route exact path="/login" component={LoginPage}  />
+              <Route exact path="/tag" component={TagPage}  />
             </Switch>
           </Router>
 

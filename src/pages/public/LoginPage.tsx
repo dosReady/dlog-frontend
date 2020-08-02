@@ -228,7 +228,6 @@ const TxtFind = styled.span`
     color: #fff;
     font-size: 13px;
     line-height: 1.5;
-    
 `
 
 const LinkFind = styled.a`
@@ -250,7 +249,7 @@ class ArticleWritePage extends React.Component<{},{}> {
                     <HeadLine>
                         <InnerHeader>
                             <HeaderLogo>
-                                <img src={Logo} />
+                                <img src={Logo} alt=""/>
                             </HeaderLogo>
                             <HeaderJoin>
                                 <HeaderLogn>
