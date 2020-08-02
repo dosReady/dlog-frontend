@@ -135,6 +135,10 @@ const PostWritePage = loadable(
   () => import('pages/admin/PostWritePage'),
 )
 
+const LoginPage = loadable(
+  () => import('pages/public/LoginPage'),
+)
+
 //@inject('appStore') 
 //@observer
 class App extends React.Component<{}, {}> {
@@ -155,6 +159,7 @@ class App extends React.Component<{}, {}> {
               <Route exact path="/write" component={PostWritePage} />
               <Route exact path="/detail/:postid" component={PostViewPage} />
               <Route exact path="/" component={() => <PostListPage title="Posts"/>}  />
+              <Route exact path="/login" component={LoginPage}  />
             </Switch>
           </Router>
 
