@@ -138,6 +138,9 @@ const PostWritePage = loadable(
 const LoginPage = loadable(
   () => import('pages/public/LoginPage'),
 )
+const DlogLoginPage = loadable(
+  () => import('pages/public/DlogLoginPage'),
+)
 
 const TagPage = loadable(
   () => import('pages/public/TagPage'),
@@ -163,8 +166,9 @@ class App extends React.Component<{}, {}> {
               <Route exact path="/write" component={PostWritePage} />
               <Route exact path="/detail/:postid" component={PostViewPage} />
               <Route exact path="/" component={() => <PostListPage title="Posts"/>}  />
-              <Route exact path="/login" component={LoginPage}  />
-              <Route exact path="/tag" component={TagPage}  />
+              <Route exact path="/login" component={DlogLoginPage}  />
+              <Route exact path="/tmpl/login" component={LoginPage}  />
+              <Route exact path="/tmpl/tag" component={TagPage}  />
             </Switch>
           </Router>
 

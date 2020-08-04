@@ -43,15 +43,6 @@ const PostLeftWrap = styled.div`
     padding: 0 1rem;
 `
 
-const PostRightWrap = styled.div`
-    margin-left: 1.5rem;
-    padding: 0rem 1rem 0;
-    width: 300px;
-    @media screen and (max-width: 900px) { 
-        display:none;
-    }
-`
-
 const FooterWrap = styled.div`
     display:felx;
     padding: 0 1rem;
@@ -76,13 +67,6 @@ const CopyrightWrap = styled.div`
 
 const CopyrightDomain = styled.div`
     margin-bottom: 0.5rem;
-`
-
-const TocWrap = styled.div`
-    position: sticky;
-    top: 80px;
-    overflow-y: auto;
-    height: calc(100vh - 5rem);
 `
 
 
@@ -113,11 +97,6 @@ class PostView extends React.Component<{info:PostModel}, {}> {
                 <PostLeftWrap>
                     <ViewerWrap ref={this.viewerEl}></ViewerWrap>
                 </PostLeftWrap>
-                <PostRightWrap>
-                    <TocWrap>
-                            asdasd
-                    </TocWrap>
-                </PostRightWrap>
             </PostWrap>
             <FooterWrap>
                 <ReactSVG src={Logo}/>

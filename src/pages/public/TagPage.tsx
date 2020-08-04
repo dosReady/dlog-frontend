@@ -1,5 +1,3 @@
-import { PostModel } from 'api/model/PostModels';
-import PostService from 'api/service/PostService';
 import CommonContainerTypeA from 'components/CommonContainerTypeA';
 import React from 'react';
 import styled from 'styled-components';
