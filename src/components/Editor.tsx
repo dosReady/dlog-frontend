@@ -8,6 +8,8 @@ import 'codemirror/lib/codemirror.css';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import { StringUtlz } from 'lib/Utlz';
 
 const EditorBtnWrap = styled.div`
     margin-top:1rem;
@@ -73,7 +75,7 @@ const ViewerDiv = styled.div`
     border-bottom: 1px solid #e5e5e5;
     border-top: 2px solid #e5e5e5e5;
     padding: 0 25px;
-    overflow: scroll;
+    overflow: auto;
     .tui-scrollsync , .tui-toolbar-divider{
         display:none!important;
     }
@@ -116,9 +118,8 @@ class Editor extends React.Component<
     }
 
     initialize(): void {
-        const userAgent = window.navigator.userAgent;
         let editType = "markdown";
-        if(userAgent.indexOf("iPhone") > -1) {
+        if(this.isMobile()) {
             editType =  "wysiwyg";
         }
 
@@ -155,6 +156,26 @@ class Editor extends React.Component<
         });
     }
 
+    isMobile(): boolean {
+        const userAgent = window.navigator.userAgent;
+        if(userAgent.indexOf("iPhone") > -1)  return true;
+        return false;
+    }
+
+    isCheck(): boolean {
+        if(StringUtlz.isEmpty(this.state.post.MainTitle)) {
+            toast.error("제목을 입력해주세요.");
+            return false;
+        }
+
+        if(StringUtlz.isEmpty(this.state.post.Content)) {
+            toast.error("내용을 입력해주세요.");
+            return false;
+        }
+
+        return true;
+    }
+
     async procSave():Promise<void> {
         await PostService.savePost(this.state.post);
         this.props.history.replace("/");
@@ -162,7 +183,9 @@ class Editor extends React.Component<
 
     @autobind
     onClickSaveBtn():void {
-       this.procSave();
+        if(!this.isCheck()) return;
+
+        this.procSave();
     }
 
     @autobind
@@ -195,7 +218,18 @@ class Editor extends React.Component<
 
     @autobind
     onClickPrvBtn():void {
-        //this.editorEl.current?.style = "display:none";
+        const sDispaly = this.editorEl.current!.style.display;
+        
+        if(sDispaly !==  "none") {
+            this.editorEl.current!.style.display = "none";
+            this.viewerEl.current!.style.display = "block";
+            this.viewerEl.current!.style.borderLeft = "1px solid #e5e5e5";
+        } else {
+            this.editorEl.current!.style.display = "";
+            this.viewerEl.current!.style.display = "";
+            this.viewerEl.current!.style.borderLeft = "";
+        }
+       
     }
 
     componentDidMount(): void {
@@ -206,16 +240,19 @@ class Editor extends React.Component<
         return (
             <>
             <EditorTitleDiv>
-                <input type="text" placeholder="제목을 입력하세요" value={this.state.post.MainTitle || ""} onChange={this.onChangeMainTitle}/>
+                <input type="text" placeholder="제목을 입력하세요" 
+                    value={this.state.post.MainTitle || ""} 
+                    onChange={this.onChangeMainTitle}
+                />
             </EditorTitleDiv>
             <EditorMiddleDiv>
                 <EditorDiv ref={this.editorEl}/>
                 <ViewerDiv ref={this.viewerEl}/>
             </EditorMiddleDiv>
             <EditorBtnWrap>
-                <button className="save" onClick={this.onClickSaveBtn}>작성하기</button>
-                <button className="back" onClick={this.onClickBackBtn}>뒤로가기</button>
-                <button className="back" onClick={this.onClickPrvBtn}>미리보기</button>
+                <button onClick={this.onClickSaveBtn}>작성하기</button>
+                <button onClick={this.onClickBackBtn}>뒤로가기</button>
+                <button onClick={this.onClickPrvBtn}>미리보기</button>
             </EditorBtnWrap>
             </>
         )
