@@ -3,6 +3,7 @@ import styled, {createGlobalStyle} from 'styled-components';
 import bgimg from 'resources/img/bg_login.png';
 import iconimg from 'resources/img/img_top.png';
 import Logo from 'resources/img/do.svg';
+import { ReactSVG } from 'react-svg';
 
 const GlobalStyle  = createGlobalStyle`
     body {
@@ -31,9 +32,16 @@ const InnerHeader = styled.div`
 `
 const HeaderLogo = styled.h1`
     float: left;
-    margin: 40px 0 0 60px;
-    width: 24px;
-    height: 24px;
+    margin: 40px 0 0 40px;
+    width:40px;
+    cursor: pointer;
+    svg {
+        background-color: #fff;
+        border-radius: 5px;
+        path {
+            fill: #23282e;
+        }    
+    }
 `
 const HeaderJoin = styled.div`
     position: absolute;
@@ -43,6 +51,7 @@ const HeaderJoin = styled.div`
 const HeaderLogn = styled.div`
     padding: 32px 60px 0 0;
     text-align: right;
+    cursor: pointer;
     .btnLogInfo{
         color: #fff;
         border: 1px solid #23282e;
@@ -249,7 +258,8 @@ class ArticleWritePage extends React.Component<{},{}> {
                     <HeadLine>
                         <InnerHeader>
                             <HeaderLogo>
-                                <img src={Logo} alt=""/>
+                                {/* <img src={Logo} alt="" className="logoimg"/> */}
+                                <ReactSVG src={Logo}/>
                             </HeaderLogo>
                             <HeaderJoin>
                                 <HeaderLogn>
