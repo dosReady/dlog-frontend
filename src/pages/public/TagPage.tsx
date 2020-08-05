@@ -30,7 +30,7 @@ const TagTitle01 = styled.a`
     cursor: pointer;
     &.active{
         font-weight: bold;
-        color: rgb(32, 201, 151);
+        color: #f1d02e;
         
     }
 `
@@ -53,7 +53,7 @@ const TagBottomLine = styled.div`
     display: block;
     position: absolute;
     bottom: 0px;
-    background: rgb(32, 201, 151);
+    background: #f1d02e;
     transform: translateX(0rem);
     width: 50%;
 `
@@ -74,10 +74,7 @@ const TagBundle = styled.div`
     width: 25%;
     height: 12rem;
     padding: 1rem;
-    border: 1px solid #eee;
-    :hover{
-        border-color: #00C3BD;
-    }
+
    
 `
 const TagName = styled.a`
@@ -86,23 +83,20 @@ const TagName = styled.a`
     padding-right: 1rem;
     height: 2rem;
     display: inline-flex;
-    -webkit-box-align: center;
     align-items: center;
     margin-right: 0.875rem;
-    color: rgb(12, 166, 120);
+    color: #f1d02e;
     font-weight: 500;
     font-size: 1rem;
-    background: rgb(241, 243, 245);
     border-radius: 1rem;
-    text-decoration: none;
-    box-shadow: 0px 8px 15px rgb(255 255 255 / 29%);
     transition: all 0.3s ease 0s;
+    border: 1px solid #fff;
     cursor: pointer;
     :hover{
-        background-color: #2EE59D;
-        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        background-color: #f1d02e;
         color: #fff;
         transform: translateY(-7px);
+        border: 1.4px solid #f1d02e;
     }
 
 `
@@ -114,9 +108,6 @@ const TagContents =styled.p`
     line-height: 1.5;
     overflow: hidden;
     cursor: pointer;
-    :hover{
-        color: #00C3BD;
-    }
 `
 
 const TagCount = styled.div`
@@ -139,6 +130,76 @@ class TagPage extends React.Component<{},{}> {
                             </TagList>
                         </TagLine>
                         <TagBox>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
+                            <TagBundle>
+                                <div>
+                                    <TagName>HTML</TagName>
+                                    <TagContents>HTML (Hypertext Markup Language,하이퍼텍스트 마크업 언어)는 프로그래밍 언어는 아니고..</TagContents>
+                                </div>
+                                <TagCount>총 7777 개의 포스트</TagCount>
+                            </TagBundle>
                             <TagBundle>
                                 <div>
                                     <TagName>HTML</TagName>
