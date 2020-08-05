@@ -1,0 +1,75 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const LoginFormDivWrap = styled.div`
+    margin-top:18vh;
+`
+
+const LoginFormDiv = styled.div`
+    max-width: 350px;
+    margin: 0 auto;
+    strong {
+        color: #000;
+        display: block;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: -0.6px;
+        text-align: center;
+    }
+`
+const LoginButton = styled.button`
+    margin: 20px 0 0;
+    width: 100%;
+    height: 48px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #23282e;
+`
+const InputDivWrap = styled.div`
+    margin: 35px 0 0;
+    border: 1px solid #23282e;
+    border-radius: 3px;
+    background-color: #fff;
+`
+
+const InputDiv1 = styled.div`
+    padding: 18px 19px 19px;
+    color: #000;
+    font-size: 13px;
+`
+
+const InputDiv2 = styled.div`
+    padding: 18px 19px 19px;
+    color: #000;
+    font-size: 13px;
+    border-top: 1px solid #23282e;
+`
+
+
+class LoginForm extends React.Component<{
+    procLogin: () => Promise<void>
+}, {}> {
+    render():JSX.Element {
+        return  (
+            <LoginFormDivWrap>
+                <LoginFormDiv>
+                    <strong>로그인하세요</strong>
+                    <InputDivWrap>
+                        <InputDiv1>
+                            <input type="text" placeholder="ID" />
+                        </InputDiv1>
+                        <InputDiv2>
+                            <input type="text" placeholder="Password" />
+                        </InputDiv2>
+                    </InputDivWrap>
+                    <LoginButton>로그인</LoginButton>
+                </LoginFormDiv>
+            </LoginFormDivWrap>
+        )
+    }
+}
+
+export default LoginForm;
