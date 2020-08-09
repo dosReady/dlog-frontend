@@ -1,7 +1,6 @@
 import { PostModel } from 'api/model/PostModels';
 import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const PostUL = styled.ul`
@@ -53,7 +52,7 @@ class PostList extends React.Component<Props, {}> {
                     {datas.map(
                         (data:PostModel, i:any) => (
                             <li key={i}>
-                                <Link to={`/detail/${data.PostID}`}>
+                                <a href={`/detail/${data.PostID}`}>
                                     <PostTop>
                                         <span>#Report #Live #Love</span>
                                         <time>{data.CreatedAt}</time>
@@ -62,7 +61,7 @@ class PostList extends React.Component<Props, {}> {
                                         <h3>{data.MainTitle}</h3>
                                         <p>{data.SubTitle}</p>
                                     </PostContents>
-                                </Link>
+                                </a>
                             </li>
                         )
                     )}

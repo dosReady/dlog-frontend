@@ -5,11 +5,11 @@ import { PostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import 'codemirror/lib/codemirror.css';
+import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import { StringUtlz } from 'lib/Utlz';
+import styled from 'styled-components';
 
 const EditorBtnWrap = styled.div`
     margin-top:1rem;
@@ -178,7 +178,7 @@ class Editor extends React.Component<
 
     async procSave():Promise<void> {
         await PostService.savePost(this.state.post);
-        this.props.history.replace("/");
+        window.location.replace("/");
     }
 
     @autobind
@@ -190,7 +190,7 @@ class Editor extends React.Component<
 
     @autobind
     onClickBackBtn(): void {
-        this.props.history.replace("/");
+        window.location.replace("/");
     }
 
     @autobind

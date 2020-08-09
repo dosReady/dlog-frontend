@@ -11,8 +11,6 @@ class PostService {
             const rServer2= await api.post("/get/taglist");
             postList = rServer1.data.list;
             tagList = rServer2.data.list;
-
-            
         } catch (error) {
             console.log(error);
         }

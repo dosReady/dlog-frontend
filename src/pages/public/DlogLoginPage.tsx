@@ -1,9 +1,14 @@
+import { UserLoginInfo } from 'api/model/UserModels';
+import UserService from 'api/service/UserService';
+import autobind from 'autobind-decorator';
+import LoginForm from 'components/LoginForm';
+import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
+import { toast } from 'react-toastify';
 import bgimg from 'resources/img/bg_login.png';
 import Logo from 'resources/img/do.svg';
 import styled, { createGlobalStyle } from 'styled-components';
-import LoginForm from 'components/LoginForm';
 
 const GlobalStyle  = createGlobalStyle`
     body {
@@ -33,8 +38,22 @@ const HeadLine = styled.div`
 
 class DlogLoginPage extends React.Component<{},{}> {
 
-    async procLogin():Promise<void> {
-        
+    @autobind
+    async procLogin(loginInfo:UserLoginInfo):Promise<void> {
+        if(StringUtlz.isEmpty(loginInfo.LoginID)) {
+            toast.error("ID를 입력하세요");
+            return;
+        }
+
+        if(StringUtlz.isEmpty(loginInfo.LoginID)) {
+            toast.error("ID를 입력하세요");
+            return;
+        }
+
+
+        const info = await UserService.reqLogin(loginInfo);
+        UserService.setUserLocalstorage(info);
+        window.location.replace("/");
     }
 
 

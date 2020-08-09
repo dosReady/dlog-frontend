@@ -1,10 +1,9 @@
+import autobind from 'autobind-decorator';
 import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
-import autobind from 'autobind-decorator';
 
 export const HeaderComp = styled.header`
     position: fixed;
@@ -125,20 +124,20 @@ class CommonConatiner extends React.Component<{title?:string, subTitle?:string},
                 <HeaderComp>
                     <HeaderContainer>
                         <LinkWrap>
-                            <Link to="/"><ReactSVG src={Logo}/></Link>
-                            <Link to="/">오늘도.log</Link>
+                            <a href="/"><ReactSVG src={Logo}/></a>
+                            <a href="/">오늘도.log</a>
                         </LinkWrap>
                         <LinkWrap>
-                            <Link to="/">Post</Link>
-                            <Link to="/">Code</Link>
-                            <Link to="/">Recipe</Link>
+                            <a href="/">Post</a>
+                            <a href="/">Code</a>
+                            <a href="/">Recipe</a>
                             <MenuDiv>
                                 <i className="fas fa-bars" onClick={this.onClickBars}/>
                                 <SideMenu style={{display:"none"}} ref={this.sideMenuEl} >
-                                    <MenuItem><Link to="/">Post</Link></MenuItem>
-                                    <MenuItem><Link to="/">Code</Link></MenuItem>
-                                    <MenuItem><Link to="/">Recipe</Link></MenuItem>
-                                    <MenuItem><Link to="/write">Posting</Link></MenuItem>
+                                    <MenuItem><a href="/">Post</a></MenuItem>
+                                    <MenuItem><a href="/">Code</a></MenuItem>
+                                    <MenuItem><a href="/">Recipe</a></MenuItem>
+                                    <MenuItem><a href="/write">Posting</a></MenuItem>
                                 </SideMenu>
                             </MenuDiv>
                         </LinkWrap>

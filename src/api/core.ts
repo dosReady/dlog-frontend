@@ -1,4 +1,6 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import UserService from './service/UserService';
+import { toast } from 'react-toastify';
 
 export const api =  axios.create(
     {
@@ -20,34 +22,23 @@ const reqSuccessCallback = async function(req:AxiosRequestConfig):Promise<AxiosR
 }
 
 const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosResponse> {
-    console.log("res");
+    const data:{errormsg:string} = res.data;
+    if(data.errormsg === "access") {
+        const isOk = await UserService.procSettingLogin();
+        if(isOk) {
+            window.location.replace("/");
+            return api(res.config);
+        } else {
+            return res;
+        }
+        
+    } else if(data.errormsg === "refresh") {
+        toast.error("로그인정보가 만료되었습니다.");
+        window.location.replace("/");
+    }
+
     return res;
 }
-
-// const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosResponse> {
-//     console.log("resSuccessCallback");
-//     const data:{errormsg:string} = res.data;
-
-//     if(data.errormsg === AuthChek.ACCESS) {
-//         const user = LoginSrvc.getLocalStorage();
-//         const chkRes:AxiosResponse<{user:User}> = await admin.post('vaild/refresh', {"user": user});
-      
-//         if(chkRes.data.user !== undefined) {
-//             LoginSrvc.setLocalStorage(chkRes.data.user);
-//             res.config.headers.Authorization = `Bearer ${chkRes.data.user.AccessToken}`;
-//             return sec(res.config);
-//         } else {
-//             window.location.replace("login");
-//             return res;
-//         }
-        
-//     } else if(data.errormsg === AuthChek.REFRESH) {
-//         window.location.replace("login");
-//         return res;
-//     } else {
-//         return res;
-//     }
-// }
 
 api.interceptors.request.use(reqSuccessCallback);
 api.interceptors.response.use(resSuccessCallback);

@@ -1,3 +1,5 @@
+import { UserLoginInfo } from 'api/model/UserModels';
+import autobind from 'autobind-decorator';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -50,22 +52,59 @@ const InputDiv2 = styled.div`
 
 
 class LoginForm extends React.Component<{
-    procLogin: () => Promise<void>
-}, {}> {
+    procLogin: (loginInfo:UserLoginInfo) => Promise<void>
+}, {
+    loginInfo: UserLoginInfo
+}> {
+
+    readonly state = {
+        loginInfo: {} as UserLoginInfo
+    }
+
+    @autobind
+    onClickLogin():void {
+        this.props.procLogin(this.state.loginInfo);
+    }
+
+    @autobind
+    onChangeId(event: React.ChangeEvent<HTMLInputElement>):void {
+        const value = event.currentTarget.value;
+
+        this.setState({
+            loginInfo: {
+                ...this.state.loginInfo,
+                LoginID:value
+            }
+        });
+    }
+
+    @autobind
+    onChangePwd(event: React.ChangeEvent<HTMLInputElement>): void {
+        const value = event.currentTarget.value;
+        this.setState({
+            loginInfo: {
+                ...this.state.loginInfo,
+                Password:value
+            }
+        });
+    }
+
     render():JSX.Element {
         return  (
             <LoginFormDivWrap>
                 <LoginFormDiv>
                     <strong>로그인하세요</strong>
+                    <form>
                     <InputDivWrap>
                         <InputDiv1>
-                            <input type="text" placeholder="ID" />
+                            <input type="text" placeholder="ID" onChange={this.onChangeId} value={this.state.loginInfo.LoginID || ''}/>
                         </InputDiv1>
                         <InputDiv2>
-                            <input type="text" placeholder="Password" />
+                            <input type="Password" placeholder="Password" onChange={this.onChangePwd} value={this.state.loginInfo.Password || ''}/>
                         </InputDiv2>
                     </InputDivWrap>
-                    <LoginButton>로그인</LoginButton>
+                    </form>
+                    <LoginButton onClick={this.onClickLogin}>로그인</LoginButton>
                 </LoginFormDiv>
             </LoginFormDivWrap>
         )
