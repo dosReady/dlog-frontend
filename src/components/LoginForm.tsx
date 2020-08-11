@@ -2,6 +2,7 @@ import { UserLoginInfo } from 'api/model/UserModels';
 import autobind from 'autobind-decorator';
 import React from 'react';
 import styled from 'styled-components';
+import { api } from 'api/Core';
 
 const LoginFormDivWrap = styled.div`
     margin-top:18vh;
@@ -65,6 +66,10 @@ class LoginForm extends React.Component<{
     onClickLogin():void {
         this.props.procLogin(this.state.loginInfo);
     }
+    @autobind
+    onClickTest():void {
+        api.post("/echo")
+    }
 
     @autobind
     onChangeId(event: React.ChangeEvent<HTMLInputElement>):void {
@@ -105,6 +110,7 @@ class LoginForm extends React.Component<{
                     </InputDivWrap>
                     </form>
                     <LoginButton onClick={this.onClickLogin}>로그인</LoginButton>
+                    <LoginButton onClick={this.onClickTest}>테스트</LoginButton>
                 </LoginFormDiv>
             </LoginFormDivWrap>
         )

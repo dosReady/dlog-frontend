@@ -8,9 +8,9 @@ class PostService {
         
         try {
             const rServer1 = await api.post("/get/postlist");
-            const rServer2= await api.post("/get/taglist");
+            //const rServer2= await api.post("/get/taglist");
             postList = rServer1.data.list;
-            tagList = rServer2.data.list;
+            //tagList = rServer2.data.list;
         } catch (error) {
             console.log(error);
         }

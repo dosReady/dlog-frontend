@@ -9,7 +9,7 @@ class UserService {
         let userInfo = {} as LoginStrgeInfo;
 
         try {   
-            const {data} = await api.post("/proc/login", {"user": loginInfo});
+            const {data} = await api.post("/user/login", {"user": loginInfo});
             userInfo = data.user;
         } catch(error){
             console.log(error);
@@ -18,8 +18,24 @@ class UserService {
         return userInfo;
     }
 
+    public async reqLogout(): Promise<void> {
+        try {
+            const loginInfo = this.getUserLocalstorage();
+            await api.post("/user/logout", {"user": loginInfo});
+            this.removeLocalstorage();
+            api.defaults.headers.Authorization = " ";
+            window.location.replace("/");
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     public setUserLocalstorage(loginInfo:LoginStrgeInfo): void {
         window.localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
+    }
+
+    public removeLocalstorage(): void {
+        window.localStorage.removeItem("loginInfo");
     }
 
     public getUserLocalstorage(): LoginStrgeInfo {
@@ -31,24 +47,13 @@ class UserService {
         return loginInfo;
     }
 
-
-    public async vldtRefreshToken(): Promise<string> {
-        const loginInfo = this.getUserLocalstorage();
-        const chkRes: AxiosResponse<{ token: { AccessToken: string, RefreshToken: string } }> 
-                        = await api.post('vaild/refresh', { "LoginID": loginInfo.LoginID, "RefreshToken": loginInfo.RefreshToken });
-        if(!StringUtlz.isEmpty(chkRes.data.token.AccessToken)) {
-            return chkRes.data.token.AccessToken;
-        }
-        return "";
-    }
-
-    public async procSettingLogin(): Promise<boolean> {
-        const sAccessToken = await this.vldtRefreshToken();
-        if(!StringUtlz.isEmpty(sAccessToken)) {
-            api.defaults.headers.Authorization = `Bearer ${sAccessToken}`;
+    public procSettingLogin(): boolean {
+        const userInfo = this.getUserLocalstorage();
+        if(!StringUtlz.isEmpty(userInfo.AccessToken)) {
+            api.defaults.headers.Authorization = `Bearer ${userInfo.AccessToken}`;
             return true;
         } else {
-            toast.error("로그인 정보가 없습니다.");
+            toast.error("로그인 하시기 바랍니다.");
             api.defaults.headers.Authorization = "";
             return false;
         }

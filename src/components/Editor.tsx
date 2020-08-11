@@ -178,7 +178,7 @@ class Editor extends React.Component<
 
     async procSave():Promise<void> {
         await PostService.savePost(this.state.post);
-        window.location.replace("/");
+        this.props.history.replace("/");
     }
 
     @autobind
@@ -190,7 +190,7 @@ class Editor extends React.Component<
 
     @autobind
     onClickBackBtn(): void {
-        window.location.replace("/");
+        this.props.history.replace("/");
     }
 
     @autobind

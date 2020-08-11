@@ -53,7 +53,7 @@ class DlogLoginPage extends React.Component<{},{}> {
 
         const info = await UserService.reqLogin(loginInfo);
         UserService.setUserLocalstorage(info);
-        window.location.replace("/");
+        //window.location.replace("/");
     }
 
 

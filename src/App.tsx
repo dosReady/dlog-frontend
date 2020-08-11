@@ -166,8 +166,7 @@ class App extends React.Component<{}, {}> {
 
   async getComp(): Promise<void> {
     const value = await UserService.procSettingLogin();
-    console.log(value)
-    this.setIsOk(value);
+    //this.setIsOk(value);
   }
 
   render():JSX.Element {

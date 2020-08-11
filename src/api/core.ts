@@ -23,19 +23,18 @@ const reqSuccessCallback = async function(req:AxiosRequestConfig):Promise<AxiosR
 
 const resSuccessCallback = async function(res:AxiosResponse):Promise<AxiosResponse> {
     const data:{errormsg:string} = res.data;
+    console.log(data)
+    /*
     if(data.errormsg === "access") {
         const isOk = await UserService.procSettingLogin();
         if(isOk) {
-            window.location.replace("/");
             return api(res.config);
-        } else {
-            return res;
-        }
-        
+        }        
     } else if(data.errormsg === "refresh") {
         toast.error("로그인정보가 만료되었습니다.");
         window.location.replace("/");
     }
+    */
 
     return res;
 }
