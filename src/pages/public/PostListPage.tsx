@@ -42,9 +42,10 @@ class PostListPage extends React.Component<{title:string}, State> {
     }
 
     async loadData(): Promise<void> {
-        const [articles, ] = await PostService.getPostList();
+        const posts = await PostService.getPostList();
+        console.log(posts)
         this.setState({
-            list: articles
+            list: posts
         })
     }
 

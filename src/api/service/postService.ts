@@ -1,31 +1,25 @@
 import { api } from 'api/Core';
-import { PostModel, Tag } from 'api/model/PostModels';
+import { PostModel } from 'api/model/PostModels';
 class PostService {
 
-    public async getPostList(): Promise<[PostModel[], Tag[]]> {
+    public async getPostList(): Promise<PostModel[]> {
         let postList: PostModel[] = [];
-        let tagList: Tag[] = [];
-        
         try {
-            const rServer1 = await api.post("/get/postlist");
-            //const rServer2= await api.post("/get/taglist");
-            postList = rServer1.data.list;
-            //tagList = rServer2.data.list;
+            const res = await api.post("/get/postlist");
+            postList = res.data.list;
         } catch (error) {
             console.log(error);
         }
-
-       
-        return [postList, tagList];
+        return postList;
     }
 
-    public async savePost(param:PostModel): Promise<void> {
-        await api.post("/mng/post", {post: param});
+    public async addPost(param:PostModel): Promise<void> {
+        await api.post("/add/post", {...param});
     }
 
-    public async getPost(postID:string):Promise<PostModel> {
-        const param: PostModel = {
-            PostID: postID
+    public async getPost(postkey:string):Promise<PostModel> {
+        const param = {
+            PostKey: postkey
         }
 
         const {data} = await api.post<{post: PostModel}>("get/post", {post: param})

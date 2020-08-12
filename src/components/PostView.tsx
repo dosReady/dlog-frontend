@@ -78,7 +78,7 @@ class PostView extends React.Component<{info:PostModel}, {}> {
         const target = this.viewerEl.current!;
         new Viewer({
             el: target,
-            initialValue: post.Content 
+            initialValue: post.PostContent 
         })
     }
 

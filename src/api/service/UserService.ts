@@ -1,6 +1,5 @@
 import { api } from 'api/Core';
 import { LoginStrgeInfo, UserLoginInfo } from 'api/model/UserModels';
-import { AxiosResponse } from 'axios';
 import { StringUtlz } from 'lib/Utlz';
 import { toast } from 'react-toastify';
 class UserService {

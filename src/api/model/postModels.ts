@@ -9,13 +9,12 @@ export interface Post {
 }
 
 export interface PostModel {
-	PostID?: string,
-    MainTitle?: string, 
-    SubTitle?: string,
-    Content?: string,
-    TagsJSON?: string,
-    CreatedAt?: string,
-    UpdatedAt?: string
+	PostKey:      string, 
+	PostTitle:    string,
+	PostSubTitle: string, 
+	PostContent:  string, 
+    CreatedAt:    string,
+    UpdatedAt:    string
 }
 
 

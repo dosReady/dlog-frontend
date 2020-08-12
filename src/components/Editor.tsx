@@ -163,12 +163,12 @@ class Editor extends React.Component<
     }
 
     isCheck(): boolean {
-        if(StringUtlz.isEmpty(this.state.post.MainTitle)) {
+        if(StringUtlz.isEmpty(this.state.post.PostTitle)) {
             toast.error("제목을 입력해주세요.");
             return false;
         }
 
-        if(StringUtlz.isEmpty(this.state.post.Content)) {
+        if(StringUtlz.isEmpty(this.state.post.PostContent)) {
             toast.error("내용을 입력해주세요.");
             return false;
         }
@@ -177,7 +177,7 @@ class Editor extends React.Component<
     }
 
     async procSave():Promise<void> {
-        await PostService.savePost(this.state.post);
+        await PostService.addPost(this.state.post);
         this.props.history.replace("/");
     }
 
@@ -195,23 +195,23 @@ class Editor extends React.Component<
 
     @autobind
     onContentsChange(): void {
-        const contents:string = this.editorComp!.getMarkdown();
-        this.viewerComp!.setMarkdown(contents);
+        const sContents:string = this.editorComp!.getMarkdown();
+        this.viewerComp!.setMarkdown(sContents);
         this.setState({
             post: {
                 ...this.state.post,
-                Content: contents   
+                PostContent: sContents   
             }
         });
     }
 
     @autobind
     onChangeMainTitle(event: React.ChangeEvent<HTMLInputElement>): void {
-        const sMainTitle = event.currentTarget.value;
+        const sTitle = event.currentTarget.value;
         this.setState({
             post: {
                 ...this.state.post,
-                MainTitle: sMainTitle
+                PostTitle: sTitle
             }
         });
     }
@@ -241,7 +241,7 @@ class Editor extends React.Component<
             <>
             <EditorTitleDiv>
                 <input type="text" placeholder="제목을 입력하세요" 
-                    value={this.state.post.MainTitle || ""} 
+                    value={this.state.post.PostTitle || ""} 
                     onChange={this.onChangeMainTitle}
                 />
             </EditorTitleDiv>

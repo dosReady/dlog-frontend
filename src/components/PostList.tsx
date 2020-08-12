@@ -1,8 +1,7 @@
 import { PostModel } from 'api/model/PostModels';
-import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const PostUL = styled.ul`
     li {
@@ -45,22 +44,21 @@ interface Props {
 class PostList extends React.Component<Props, {}> {
     render():JSX.Element {
         let datas:PostModel[] = this.props.list;
-        let renderComp = (<></>);
-        
-        if(StringUtlz.isEmpty(datas)) {
+        let renderComp = (<div>조회된 내용이 없습니다.</div>);
+        if(datas !== undefined && datas.length > 0) {
             renderComp = (
                 <PostUL>
                     {datas.map(
                         (data:PostModel, i:any) => (
                             <li key={i}>
-                                <Link to={`/detail/${data.PostID}`}>
+                                <Link to={`/detail/${data.PostKey}`}>
                                     <PostTop>
                                         <span>#Report #Live #Love</span>
                                         <time>{data.CreatedAt}</time>
                                     </PostTop>
                                     <PostContents>
-                                        <h3>{data.MainTitle}</h3>
-                                        <p>{data.SubTitle}</p>
+                                        <h3>{data.PostTitle}</h3>
+                                        <p>{data.PostSubTitle}</p>
                                     </PostContents>
                                 </Link>
                             </li>

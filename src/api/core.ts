@@ -1,6 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import UserService from './service/UserService';
-import { toast } from 'react-toastify';
 
 export const api =  axios.create(
     {

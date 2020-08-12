@@ -29,12 +29,12 @@ class PostViewPage extends React.Component<RouteComponentProps<{postid:string}> 
     render():JSX.Element {
         const info:PostModel = this.state.post
         let PostViewJSX = (<></>)
-        if(!StringUtlz.isEmpty(info.PostID)) {
+        if(!StringUtlz.isEmpty(info.PostKey)) {
             PostViewJSX = ( <PostView info={info}/>)
         }
 
         return (
-            <CommonConatiner title={this.state.post.MainTitle} subTitle={this.state.post.SubTitle}>
+            <CommonConatiner title={this.state.post.PostTitle} subTitle={this.state.post.PostSubTitle}>
                 {PostViewJSX}
             </CommonConatiner>
         )

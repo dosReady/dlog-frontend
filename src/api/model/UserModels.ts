@@ -5,6 +5,6 @@ export interface UserLoginInfo  {
 
 export interface LoginStrgeInfo {
     LoginID:string,
-    RefreshToken?:string,
+    Role:string,
 	AccessToken?:string
 }
