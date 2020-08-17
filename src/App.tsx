@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createGlobalStyle } from 'styled-components';
-
 const GlobalStyle  = createGlobalStyle`
 
 * {
@@ -122,12 +121,15 @@ ol, ul {
     padding: 8px 15px;
   }
 `
+//const _basename = "";
+const _basename = "/dlog";
+
 class App extends React.Component<{}, {}> {
   render():JSX.Element {
     return (
       <>
         <GlobalStyle/>
-          <Router basename={process.env.PUBLIC_URL}>
+          <Router basename={_basename}>
             <Switch>
               <Route exact path="/write" component={() => <LoadPage path="write"/>} />
               <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />
