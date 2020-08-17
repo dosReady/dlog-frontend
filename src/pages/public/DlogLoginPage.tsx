@@ -20,7 +20,7 @@ const Wrap = styled.div`
     width: 100vw;
     height: 100vh;
     background-image: url(${bgimg});
-    background-position: 0 -17%;
+    background-position: 0 -10%;
     background-repeat: no-repeat;
 `
 const HeadLine = styled.div`
