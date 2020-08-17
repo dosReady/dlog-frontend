@@ -22,7 +22,7 @@ class UserService {
             await api.post("/user/logout", {"user": loginInfo});
             this.removeLocalstorage();
             api.defaults.headers.Authorization = " ";
-            window.location.replace("/");
+            window.location.replace("/dlog");
         } catch(error) {
             console.log(error);
         }

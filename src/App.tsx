@@ -121,15 +121,13 @@ ol, ul {
     padding: 8px 15px;
   }
 `
-//const _basename = "";
-const _basename = "/dlog";
 
 class App extends React.Component<{}, {}> {
   render():JSX.Element {
     return (
       <>
         <GlobalStyle/>
-          <Router basename={_basename}>
+          <Router basename="/dlog">
             <Switch>
               <Route exact path="/write" component={() => <LoadPage path="write"/>} />
               <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />
