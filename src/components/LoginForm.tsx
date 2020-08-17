@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { api } from 'api/Core';
 
 const LoginFormDivWrap = styled.div`
-    margin-top:18vh;
+    margin-top:10vh;
 `
 
 const LoginFormDiv = styled.div`
@@ -110,7 +110,6 @@ class LoginForm extends React.Component<{
                     </InputDivWrap>
                     </form>
                     <LoginButton onClick={this.onClickLogin}>로그인</LoginButton>
-                    <LoginButton onClick={this.onClickTest}>테스트</LoginButton>
                 </LoginFormDiv>
             </LoginFormDivWrap>
         )
