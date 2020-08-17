@@ -1,11 +1,13 @@
 import { api } from 'api/Core';
 import { PostModel } from 'api/model/PostModels';
+import { StringUtlz } from 'lib/Utlz';
 class PostService {
 
-    public async getPostList(): Promise<PostModel[]> {
-        let postList: PostModel[] = [];
+    public async getPostList(category: string): Promise<PostModel[] | null> {
+        let postList: PostModel[] | null = null;
         try {
-            const res = await api.post("/get/postlist");
+            if(StringUtlz.isEmpty(category)) category = "post";
+            const res = await api.post("/get/postlist", {"PostCategory": category});
             postList = res.data.list;
         } catch (error) {
             console.log(error);

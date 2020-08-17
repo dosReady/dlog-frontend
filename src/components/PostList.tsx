@@ -38,14 +38,14 @@ const PostContents = styled.div`
 
 
 interface Props {
-    list: PostModel[]
+    list: PostModel[] | null
 }
 
 class PostList extends React.Component<Props, {}> {
     render():JSX.Element {
-        let datas:PostModel[] = this.props.list;
-        let renderComp = (<div>조회된 내용이 없습니다.</div>);
-        if(datas !== undefined && datas.length > 0) {
+        let datas:PostModel[] | null = this.props.list;
+        let renderComp = (<></>);
+        if(datas !== null && datas.length > 0) {
             renderComp = (
                 <PostUL>
                     {datas.map(
@@ -66,6 +66,8 @@ class PostList extends React.Component<Props, {}> {
                     )}
                 </PostUL>
             )
+        } else if(datas !== null && datas.length === 0) {
+            renderComp =(<div>조회된 내용이 없습니다.</div>)
         }
         return  (
             <>

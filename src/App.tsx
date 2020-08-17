@@ -129,9 +129,12 @@ class App extends React.Component<{}, {}> {
         <GlobalStyle/>
           <Router basename="/dlog">
             <Switch>
-              <Route exact path="/write" component={() => <LoadPage path="write"/>} />
+              <Route exact path="/write/:category" component={() => <LoadPage path="write"/>} />
+              <Route exact path="/write/:category/:postkey" component={() => <LoadPage path="write"/>} />
               <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />
-              <Route exact path="/" component={() => <LoadPage path="/"/>}  />
+              <Route exact path="/" component={() => <LoadPage path="list"/>}  />
+              <Route exact path="/:category" component={() => <LoadPage path="list"/>}  />
+              <Route exact path="/login" component={() => <LoadPage path="login"/>}  />
               <Route exact path="/tmpl/tag" component={() => <LoadPage path="tag"/>}  />
             </Switch>
           </Router>

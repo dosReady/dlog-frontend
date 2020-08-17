@@ -28,6 +28,7 @@ class LoadPage extends React.Component< RouteComponentProps & {
        _map.set("write",{ component: <PostWritePage/>, isPublic: false});
        _map.set("detail",{ component: <PostViewPage/>, isPublic: true});
        _map.set("list",{ component: <PostListPage/>, isPublic: true});
+       _map.set("login",{ component: <DlogLoginPage/>, isPublic: true});
 
        this.state = {
            pages: _map
@@ -37,7 +38,7 @@ class LoadPage extends React.Component< RouteComponentProps & {
 
     render():JSX.Element {
         const pages = this.state.pages;
-        const pageInfo = pages.get(this.props.path === '/' ? 'list' : this.props.path);
+        const pageInfo = pages.get(this.props.path);
         const isLogin = UserService.procSettingLogin();
         let renderComp = pageInfo!.component;
         if(!pageInfo!.isPublic && !isLogin) {

@@ -1,6 +1,6 @@
-import React from 'react';
 import { HeaderComp, HeaderContainer, LinkWrap, MainConatiner } from 'components/CommonContainer';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
@@ -16,22 +16,22 @@ const PageConatiner = styled.div`
     height: calc( 100vh - 5rem );
 `
 
-class EditorConatiner extends React.Component<{}, {}> {
+class EditorConatiner extends React.Component<RouteComponentProps<{category:string}> & {}, {}> {
     render():JSX.Element {
         return (
             <>
                 <HeaderComp>
                     <HeaderContainer>
                         <LinkWrap>
-                            <Link to="/"><ReactSVG src={Logo}/></Link>
-                            <Link to="/">오늘도.log</Link>
+                            <a href="/"><ReactSVG src={Logo}/></a>
+                            <a href="/">오늘도.log</a>
                         </LinkWrap>
+                        {this.props.match.params.category}
                         <LinkWrap>
-                            <Link to="/">Post</Link>
-                            <Link to="/">Code</Link>
-                            <Link to="/">Recipe</Link>
+                            <a href="/post">Post</a>
+                            <a href="/code">Code</a>
+                            <a href="/recipe">Recipe</a>
                         </LinkWrap>
-                        
                     </HeaderContainer>
                 </HeaderComp>
                 <MainConatiner>
@@ -44,4 +44,4 @@ class EditorConatiner extends React.Component<{}, {}> {
     }
 }
 
-export default EditorConatiner;
+export default withRouter(EditorConatiner);

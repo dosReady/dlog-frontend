@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator';
 import { StringUtlz } from 'lib/Utlz';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
@@ -22,6 +22,7 @@ export const HeaderComp = styled.header`
 export const HeaderContainer = styled.div`
     display:flex;
     justify-content: space-between;
+    align-items: center;
     max-width: 1024px;
     margin: 0 auto;
 `;
@@ -111,7 +112,7 @@ export const  PageHeader = styled.header`
 `
 
 @observer
-class CommonConatiner extends React.Component<{title?:string, subTitle?:string}, {}> {
+class CommonConatiner extends React.Component<RouteComponentProps<{category:string}> &{title?:string, subTitle?:string}, {}> {
     private sideMenuEl = React.createRef<HTMLDivElement>();
 
     @autobind
@@ -133,27 +134,38 @@ class CommonConatiner extends React.Component<{title?:string, subTitle?:string},
         UserService.reqLogout();
     }
 
+    @autobind
+    getCategory(): string {
+        let category = this.props.match.params.category;
+        if(StringUtlz.isEmpty(category)) {
+            category = "post" 
+        }
+        return category;
+    }
+
     render():JSX.Element {
+        const isLogin = UserService.procSettingLogin();
         return (
             <>
                 <HeaderComp>
                     <HeaderContainer>
                         <LinkWrap>
-                            <Link to="/"><ReactSVG src={Logo}/></Link>
-                            <Link to="/">오늘도.log</Link>
+                            <a href="/dlog"><ReactSVG src={Logo}/></a>
+                            <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
                         <LinkWrap>
-                            <Link to="/">Post</Link>
-                            <Link to="/">Code</Link>
-                            <Link to="/">Recipe</Link>
+                            <a href="/post">Post</a>
+                            <a href="/code">Code</a>
+                            <a href="/recipe">Recipe</a>
                             <MenuDiv>
                                 <i className="fas fa-bars" onClick={this.onClickBars}/>
                                 <SideMenu style={{display:"none"}} ref={this.sideMenuEl} >
-                                    <MenuItem><Link to="/">Post</Link></MenuItem>
-                                    <MenuItem><Link to="/">Code</Link></MenuItem>
-                                    <MenuItem><Link to="/">Recipe</Link></MenuItem>
-                                    <MenuItem><Link to="/write">Posting</Link></MenuItem>
-                                    <MenuItem><span onClick={this.onClickLogout}>Logout</span></MenuItem>
+                                    <MenuItem><a href="/post">Post</a></MenuItem>
+                                    <MenuItem><a href="/code">Code</a></MenuItem>
+                                    <MenuItem><a href="/recipe">Recipe</a></MenuItem>
+                                    {isLogin && <MenuItem><a href={`/write/${this.getCategory()}`}>Posting</a></MenuItem>}
+                                    {isLogin && <MenuItem><span onClick={this.onClickLogout}>Logout</span></MenuItem>}
+                                    {!isLogin && <MenuItem><a href="/login">Login</a></MenuItem>}
                                 </SideMenu>
                             </MenuDiv>
                         </LinkWrap>
@@ -173,4 +185,4 @@ class CommonConatiner extends React.Component<{title?:string, subTitle?:string},
     }
 }
 
-export default CommonConatiner;
+export default withRouter(CommonConatiner);

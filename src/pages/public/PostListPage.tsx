@@ -3,10 +3,12 @@ import PostService from 'api/service/PostService';
 import CommonConatiner from 'components/CommonContainer';
 import PostAside from 'components/PostAside';
 import PostList from 'components/PostList';
+import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { inject, observer } from 'mobx-react';
-import { StoreType } from 'store';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 
 
 const PostWrap = styled.div`
@@ -33,38 +35,32 @@ const PostRightWrap = styled.div`
     }
 `
 
-interface State {
-    list: PostModel[]
-}
-
-@inject("store")
 @observer
-class PostListPage extends React.Component<{store?:StoreType}, State> {
-
-    readonly state = {
-        list: []
-    }
+class PostListPage extends React.Component<RouteComponentProps<{category:string}> & {}> {
+    @observable private list: PostModel[] | null = null;
 
     async loadData(): Promise<void> {
-        const posts = await PostService.getPostList();
-        console.log(posts)
-        this.setState({
-            list: posts
-        })
+        const posts = await PostService.getPostList(this.props.match.params.category);
+        this.list = posts;
+    }
+    componentDidMount() :void {
+        this.loadData();
     }
 
-    componentDidMount() :void {
-       this.loadData();
-
-       this.props.store!.setIsPublic(true);
+    getTitle(): string{
+        let category = this.props.match.params.category;
+        if(StringUtlz.isEmpty(category)) {
+            category = "post";
+        }
+        return category;
     }
 
     render(): JSX.Element {
         return (
-            <CommonConatiner title={"Post"}>
+            <CommonConatiner title={this.getTitle()}>
                <PostWrap>
                     <PostLeftWrap>
-                        <PostList list={this.state.list}/>
+                        <PostList list={this.list}/>
                     </PostLeftWrap>
                     <PostRightWrap>
                         <PostAside/>
@@ -76,4 +72,4 @@ class PostListPage extends React.Component<{store?:StoreType}, State> {
     
 }
 
-export default PostListPage;
+export default withRouter(PostListPage);

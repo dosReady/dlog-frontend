@@ -104,7 +104,7 @@ const ViewerDiv = styled.div`
 `
 
 class Editor extends React.Component<
-    RouteComponentProps<{postid: string}>, 
+    RouteComponentProps<{postkey: string, category:string}>, 
     {post: PostModel, title:string}
 > {
     private editorEl = React.createRef<HTMLDivElement>();
@@ -154,6 +154,7 @@ class Editor extends React.Component<
         this.viewerComp = new Viewer({
             el: viewerEl
         });
+
     }
 
     isMobile(): boolean {
@@ -177,20 +178,30 @@ class Editor extends React.Component<
     }
 
     async procSave():Promise<void> {
+        let category = this.props.match.params.category;
+        if(StringUtlz.isEmpty(category)) {
+            category = "post";
+        }
+
+        await this.setState({
+            post: {
+                ...this.state.post,
+                PostCategory: category   
+            }
+        });
         await PostService.addPost(this.state.post);
-        this.props.history.replace("/");
+        await this.props.history.replace(`/${this.state.post.PostCategory || ''}`);
     }
 
     @autobind
     onClickSaveBtn():void {
         if(!this.isCheck()) return;
-
         this.procSave();
     }
 
     @autobind
     onClickBackBtn(): void {
-        this.props.history.replace("/");
+        this.props.history.replace("/dlog");
     }
 
     @autobind
