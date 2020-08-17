@@ -154,16 +154,16 @@ class CommonConatiner extends React.Component<RouteComponentProps<{category:stri
                             <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
                         <LinkWrap>
-                            <a href="/post">Post</a>
-                            <a href="/code">Code</a>
-                            <a href="/recipe">Recipe</a>
+                            <a href="/dlog/post">Post</a>
+                            <a href="/dlog/code">Code</a>
+                            <a href="/dlog/recipe">Recipe</a>
                             <MenuDiv>
                                 <i className="fas fa-bars" onClick={this.onClickBars}/>
                                 <SideMenu style={{display:"none"}} ref={this.sideMenuEl} >
-                                    <MenuItem><a href="/post">Post</a></MenuItem>
-                                    <MenuItem><a href="/code">Code</a></MenuItem>
-                                    <MenuItem><a href="/recipe">Recipe</a></MenuItem>
-                                    {isLogin && <MenuItem><a href={`/write/${this.getCategory()}`}>Posting</a></MenuItem>}
+                                    <MenuItem><a href="/dlog/post">Post</a></MenuItem>
+                                    <MenuItem><a href="/dlog/code">Code</a></MenuItem>
+                                    <MenuItem><a href="/dlog/recipe">Recipe</a></MenuItem>
+                                    {isLogin && <MenuItem><a href={`/dlog/write/${this.getCategory()}`}>Posting</a></MenuItem>}
                                     {isLogin && <MenuItem><span onClick={this.onClickLogout}>Logout</span></MenuItem>}
                                     {!isLogin && <MenuItem><a href="/login">Login</a></MenuItem>}
                                 </SideMenu>

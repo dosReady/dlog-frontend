@@ -23,14 +23,14 @@ class EditorConatiner extends React.Component<RouteComponentProps<{category:stri
                 <HeaderComp>
                     <HeaderContainer>
                         <LinkWrap>
-                            <a href="/"><ReactSVG src={Logo}/></a>
-                            <a href="/">오늘도.log</a>
+                            <a href="/dlog"><ReactSVG src={Logo}/></a>
+                            <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
                         {this.props.match.params.category}
                         <LinkWrap>
-                            <a href="/post">Post</a>
-                            <a href="/code">Code</a>
-                            <a href="/recipe">Recipe</a>
+                            <a href="/dlog/post">Post</a>
+                            <a href="/dlog/code">Code</a>
+                            <a href="/dlog/recipe">Recipe</a>
                         </LinkWrap>
                     </HeaderContainer>
                 </HeaderComp>
