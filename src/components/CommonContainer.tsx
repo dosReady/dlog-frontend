@@ -1,11 +1,12 @@
+import UserService from 'api/service/UserService';
 import autobind from 'autobind-decorator';
 import { StringUtlz } from 'lib/Utlz';
+import { observer } from 'mobx-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
-import UserService from 'api/service/UserService';
-import { Link } from 'react-router-dom';
 
 export const HeaderComp = styled.header`
     position: fixed;
@@ -109,6 +110,7 @@ export const  PageHeader = styled.header`
     }
 `
 
+@observer
 class CommonConatiner extends React.Component<{title?:string, subTitle?:string}, {}> {
     private sideMenuEl = React.createRef<HTMLDivElement>();
 

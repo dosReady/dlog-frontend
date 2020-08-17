@@ -18,13 +18,14 @@ class PostService {
     }
 
     public async getPost(postkey:string):Promise<PostModel> {
-        const param = {
-            PostKey: postkey
+        let post: PostModel = {} as PostModel;
+        try {
+            const {data} = await api.post("get/post", {"postkey": postkey});
+            post = data.post;
+        } catch (error) {
+            console.log(error);
         }
-
-        const {data} = await api.post<{post: PostModel}>("get/post", {post: param})
-        
-        return data.post;
+        return post;
     }
 
 

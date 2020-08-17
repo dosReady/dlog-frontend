@@ -1,7 +1,6 @@
 import { api } from 'api/Core';
 import { LoginStrgeInfo, UserLoginInfo } from 'api/model/UserModels';
 import { StringUtlz } from 'lib/Utlz';
-import { toast } from 'react-toastify';
 class UserService {
 
     public async reqLogin(loginInfo:UserLoginInfo): Promise<LoginStrgeInfo> {
@@ -52,7 +51,6 @@ class UserService {
             api.defaults.headers.Authorization = `Bearer ${userInfo.AccessToken}`;
             return true;
         } else {
-            toast.error("로그인 하시기 바랍니다.");
             api.defaults.headers.Authorization = "";
             return false;
         }

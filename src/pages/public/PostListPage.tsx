@@ -5,6 +5,8 @@ import PostAside from 'components/PostAside';
 import PostList from 'components/PostList';
 import React from 'react';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
+import { StoreType } from 'store';
 
 
 const PostWrap = styled.div`
@@ -35,7 +37,9 @@ interface State {
     list: PostModel[]
 }
 
-class PostListPage extends React.Component<{title:string}, State> {
+@inject("store")
+@observer
+class PostListPage extends React.Component<{store?:StoreType}, State> {
 
     readonly state = {
         list: []
@@ -51,11 +55,13 @@ class PostListPage extends React.Component<{title:string}, State> {
 
     componentDidMount() :void {
        this.loadData();
+
+       this.props.store!.setIsPublic(true);
     }
 
     render(): JSX.Element {
         return (
-            <CommonConatiner title={this.props.title}>
+            <CommonConatiner title={"Post"}>
                <PostWrap>
                     <PostLeftWrap>
                         <PostList list={this.state.list}/>

@@ -1,8 +1,5 @@
 import '@fortawesome/fontawesome-free/css/all.css';
-import loadable from '@loadable/component';
-import UserService from 'api/service/UserService';
-import { action, computed, observable } from "mobx";
-import { observer } from 'mobx-react';
+import LoadPage from 'components/LoadPage';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -125,65 +122,19 @@ ol, ul {
     padding: 8px 15px;
   }
 `
-
-const PostListPage = loadable(
-  () => import('pages/public/PostListPage'),
-)
-const PostViewPage = loadable(
-  () => import('pages/public/PostViewPage'),
-)
-const PostWritePage = loadable(
-  () => import('pages/admin/PostWritePage'),
-)
-const DlogLoginPage = loadable(
-  () => import('pages/public/DlogLoginPage'),
-)
-const TagPage = loadable(
-  () => import('pages/public/TagPage'),
-)
-
-//@inject('appStore') 
-@observer
 class App extends React.Component<{}, {}> {
-  @observable private _isOk: boolean = false;
-
-  @action setIsOk(value:boolean): void {
-    this._isOk = value;
-  }
-  @computed get isOk():boolean {
-    return this._isOk;
-  }
-
-  constructor(props:any) {
-    super(props);
-    this.getComp();
-  }
-
-  async getComp(): Promise<void> {
-    const value = await UserService.procSettingLogin();
-    this.setIsOk(value);
-  }
-
   render():JSX.Element {
-    let renderComp = (<></>);
-    if(this.isOk) {
-      renderComp = (
-        <Router basename={process.env.PUBLIC_URL}>
-          <Switch>
-            <Route exact path="/write" component={PostWritePage} />
-            <Route exact path="/detail/:postid" component={PostViewPage} />
-            <Route exact path="/" component={() => <PostListPage title="Posts"/>}  />
-            <Route exact path="/tmpl/tag" component={TagPage}  />
-          </Switch>
-        </Router>
-      )
-    } else {
-      renderComp = (<DlogLoginPage/>);
-    }
     return (
       <>
         <GlobalStyle/>
-        {renderComp}
+          <Router basename={process.env.PUBLIC_URL}>
+            <Switch>
+              <Route exact path="/write" component={() => <LoadPage path="write"/>} />
+              <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />
+              <Route exact path="/" component={() => <LoadPage path="/"/>}  />
+              <Route exact path="/tmpl/tag" component={() => <LoadPage path="tag"/>}  />
+            </Switch>
+          </Router>
         <ToastContainer
           position="top-right"
           autoClose={5000}

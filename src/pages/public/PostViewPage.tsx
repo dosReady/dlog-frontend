@@ -6,16 +6,16 @@ import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-class PostViewPage extends React.Component<RouteComponentProps<{postid:string}> & {}, {post:PostModel}> {
+class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}> & {}, {post:PostModel}> {
 
     readonly state = {
         post: {} as PostModel
     }
 
     async initialize():Promise<void> {
-        const postID:string = this.props.match.params.postid
-        if(!StringUtlz.isEmpty(postID)) {
-            const data = await PostService.getPost(postID)
+        const postkey:string = this.props.match.params.postkey;
+        if(!StringUtlz.isEmpty(postkey)) {
+            const data = await PostService.getPost(postkey)
             this.setState({
                 post: data
             })
@@ -27,7 +27,7 @@ class PostViewPage extends React.Component<RouteComponentProps<{postid:string}> 
     }
 
     render():JSX.Element {
-        const info:PostModel = this.state.post
+        const info:PostModel = this.state.post;
         let PostViewJSX = (<></>)
         if(!StringUtlz.isEmpty(info.PostKey)) {
             PostViewJSX = ( <PostView info={info}/>)
