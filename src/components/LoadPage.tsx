@@ -6,6 +6,7 @@ import PostViewPage from 'pages/public/PostViewPage';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { StoreType } from 'store';
+import PostManagementPage from 'pages/admin/PostManagementPage';
 
 interface PageInfo {
     component: any,
@@ -26,6 +27,7 @@ class LoadPage extends React.Component< RouteComponentProps & {
 
        let _map = new Map<string, PageInfo>();
        _map.set("write",{ component: <PostWritePage/>, isPublic: false});
+       _map.set("mng",{ component: <PostManagementPage/>, isPublic: false});
        _map.set("detail",{ component: <PostViewPage/>, isPublic: true});
        _map.set("list",{ component: <PostListPage/>, isPublic: true});
        _map.set("login",{ component: <DlogLoginPage/>, isPublic: true});

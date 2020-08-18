@@ -1,9 +1,46 @@
-import { HeaderComp, HeaderContainer, LinkWrap, MainConatiner } from 'components/CommonContainer';
+import { HeaderComp, MainConatiner } from 'components/CommonContainer';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
+
+
+const HeaderContainer = styled.div`
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1024px;
+    margin: 0 auto;
+`;
+
+const LinkWrap = styled.div`
+    display: flex;
+    align-items: center;   
+    flex: 1;
+    a {
+        font-size: 13.5px;
+        margin-right: 20px;
+        div {
+            svg {
+                width:30px;
+                background-color: #282d35   ;
+                border-radius: 5px;
+                path {
+                    fill: white;
+                }    
+            }
+        }
+        :hover {
+            text-decoration: underline;
+        }
+    }
+`
+
+const EditorTitle = styled.span`
+    flex:1;
+    font-weight:bold;
+`
 
 
 const PageConatiner = styled.div`
@@ -26,12 +63,7 @@ class EditorConatiner extends React.Component<RouteComponentProps<{category:stri
                             <a href="/dlog"><ReactSVG src={Logo}/></a>
                             <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
-                        {this.props.match.params.category}
-                        <LinkWrap>
-                            <a href="/dlog/post">Post</a>
-                            <a href="/dlog/code">Code</a>
-                            <a href="/dlog/recipe">Recipe</a>
-                        </LinkWrap>
+                        <EditorTitle>{this.props.match.params.category}</EditorTitle>
                     </HeaderContainer>
                 </HeaderComp>
                 <MainConatiner>

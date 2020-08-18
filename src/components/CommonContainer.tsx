@@ -163,6 +163,7 @@ class CommonConatiner extends React.Component<RouteComponentProps<{category:stri
                                     <MenuItem><a href="/dlog/post">Post</a></MenuItem>
                                     <MenuItem><a href="/dlog/code">Code</a></MenuItem>
                                     <MenuItem><a href="/dlog/recipe">Recipe</a></MenuItem>
+                                    {isLogin && <MenuItem><a href="/dlog/post/mng">Post Mng</a></MenuItem>}
                                     {isLogin && <MenuItem><a href={`/dlog/write/${this.getCategory()}`}>Posting</a></MenuItem>}
                                     {isLogin && <MenuItem><span onClick={this.onClickLogout}>Logout</span></MenuItem>}
                                     {!isLogin && <MenuItem><a href="/dlog/common/login">Login</a></MenuItem>}

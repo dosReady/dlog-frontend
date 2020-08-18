@@ -130,6 +130,7 @@ class App extends React.Component<{}, {}> {
           <Router basename="/dlog">
             <Switch>
               <Route exact path="/common/login" component={() => <LoadPage path="login"/>}  />
+              <Route exact path="/post/mng" component={() => <LoadPage path="mng"/>}  />
               <Route exact path="/write/:category" component={() => <LoadPage path="write"/>} />
               <Route exact path="/write/:category/:postkey" component={() => <LoadPage path="write"/>} />
               <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />

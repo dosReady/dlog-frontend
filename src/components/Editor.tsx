@@ -28,26 +28,26 @@ const EditorDiv = styled.div`
     .tui-scrollsync , .tui-toolbar-divider{
         display:none!important;
     }
-    .tui-editor-contents * {
-            
-    }
-    .CodeMirror,
-    .tui-editor-contents {
-        blockquote {
-            background-color: transparent; 
+    .te-editor-section {
+        background-color:#fff;
+        .tui-editor {
+            padding-left: 10px;
         }
-
-        h1,h2,h3{
-            border:none;
-        }
-
-        pre {
-            overflow-y:scroll;
-            background-color:#294854;
-            padding-left: 25px!important;
-            padding-right: 25px!important;
+        .te-ww-container {
+            pre {
+                color:#fff;
+                background-color:#294854;
+            }
+            blockquote {
+                background-color: transparent;
+                border-left: 4px solid #f1d02e;
+            }
         }
     }
+    .tui-popup-body {
+        color:#3a3649;
+    }
+
     .te-markdown-tab-section { display:none!important; }
 `
 
@@ -74,7 +74,7 @@ const ViewerDiv = styled.div`
     border-right: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
     border-top: 2px solid #e5e5e5e5;
-    padding: 0 25px;
+    padding: 10px 25px;
     overflow: auto;
     .tui-scrollsync , .tui-toolbar-divider{
         display:none!important;
@@ -85,7 +85,8 @@ const ViewerDiv = styled.div`
 
     .tui-editor-contents {
         blockquote {
-            background-color: transparent; 
+            background-color: transparent;
+            border-left: 4px solid #f1d02e;
         }
 
         h1,h2,h3{
@@ -127,7 +128,6 @@ class Editor extends React.Component<
         const editorEl = this.editorEl.current!;
         this.editorComp = new toastui({
             el: editorEl,
-            placeholder: "오늘 기록할 내용을 적어봐요 ~",
             previewStyle: "tab",
             initialEditType: editType, // wysiwyg
             height: '100%',
@@ -136,7 +136,7 @@ class Editor extends React.Component<
                 "change": this.onContentsChange,
                 //"command": (arg:string) => {console.log(arg)}
             },
-            toolbarItems: ["heading", "bold", "link", "image", "code", "ul", "ol"]
+            toolbarItems: ["heading", "bold", "quote", "codeblock", "ul", "ol"]
             // toolbarItems: [{
             //     type: "button",
             //     options: {

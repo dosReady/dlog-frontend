@@ -1,7 +1,6 @@
 import React from 'react';
-import EditorConatiner from 'components/EditorContainer';
 import Editor from 'components/Editor';
-
+import EditorConatiner from 'components/EditorContainer';
 
 class PostWritePage extends React.Component<{},{}> {
 
