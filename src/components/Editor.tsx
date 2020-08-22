@@ -6,9 +6,11 @@ import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import 'codemirror/lib/codemirror.css';
 import { StringUtlz } from 'lib/Utlz';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { PostStore } from 'store';
 import styled from 'styled-components';
 
 const EditorBtnWrap = styled.div`
@@ -103,9 +105,12 @@ const ViewerDiv = styled.div`
         display:none;
     }
 `
-
+@inject('poststore')
+@observer
 class Editor extends React.Component<
-    RouteComponentProps<{postkey: string, category:string}>, 
+    RouteComponentProps & {
+        poststore?:PostStore
+    }, 
     {post: PostModel, title:string}
 > {
     private editorEl = React.createRef<HTMLDivElement>();
@@ -154,7 +159,20 @@ class Editor extends React.Component<
         this.viewerComp = new Viewer({
             el: viewerEl
         });
+    }
 
+    async loadData(): Promise<void> {
+        const {poststore} = this.props;
+        const postkey = poststore?.postkey;
+        if(!StringUtlz.isEmpty(postkey)) {
+            const data = await PostService.getPost(postkey || '');
+            this.setState({
+                post: data
+            })
+
+            this.editorComp!.setMarkdown(data.PostContent);
+            this.viewerComp!.setMarkdown(data.PostContent);
+        }
     }
 
     isMobile(): boolean {
@@ -178,19 +196,20 @@ class Editor extends React.Component<
     }
 
     async procSave():Promise<void> {
-        let category = this.props.match.params.category;
+        const category = this.props.poststore?.category;
         if(StringUtlz.isEmpty(category)) {
-            category = "post";
+            toast.error("카테고리 정보가 없습니다.");
+            return;
         }
 
         await this.setState({
             post: {
                 ...this.state.post,
-                PostCategory: category   
+                PostCategory: category || ''
             }
         });
-        await PostService.addPost(this.state.post);
-        await this.props.history.replace(`/${this.state.post.PostCategory || ''}`);
+        await PostService.inputPost(this.state.post);
+        this.props.history.replace('/');
     }
 
     @autobind
@@ -201,7 +220,7 @@ class Editor extends React.Component<
 
     @autobind
     onClickBackBtn(): void {
-        this.props.history.replace("/dlog");
+        this.props.history.replace("/");
     }
 
     @autobind
@@ -245,6 +264,7 @@ class Editor extends React.Component<
 
     componentDidMount(): void {
         this.initialize();
+        this.loadData();
     }
 
     render():JSX.Element {

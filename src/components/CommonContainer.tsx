@@ -1,11 +1,11 @@
 import UserService from 'api/service/UserService';
 import autobind from 'autobind-decorator';
 import { StringUtlz } from 'lib/Utlz';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
+import { PostStore } from 'store';
 import styled from 'styled-components';
 
 export const HeaderComp = styled.header`
@@ -111,8 +111,13 @@ export const  PageHeader = styled.header`
     }
 `
 
+@inject('poststore')
 @observer
-class CommonConatiner extends React.Component<RouteComponentProps<{category:string}> &{title?:string, subTitle?:string}, {}> {
+class CommonConatiner extends React.Component<{
+    title?:string, 
+    subTitle?:string,
+    poststore?:PostStore
+}, {}> {
     private sideMenuEl = React.createRef<HTMLDivElement>();
 
     @autobind
@@ -135,12 +140,8 @@ class CommonConatiner extends React.Component<RouteComponentProps<{category:stri
     }
 
     @autobind
-    getCategory(): string {
-        let category = this.props.match.params.category;
-        if(StringUtlz.isEmpty(category)) {
-            category = "post" 
-        }
-        return category;
+    onClickPosting():void{
+        this.props.poststore?.setPostkey("");
     }
 
     render():JSX.Element {
@@ -154,17 +155,10 @@ class CommonConatiner extends React.Component<RouteComponentProps<{category:stri
                             <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
                         <LinkWrap>
-                            <a href="/dlog/post">Post</a>
-                            <a href="/dlog/code">Code</a>
-                            <a href="/dlog/recipe">Recipe</a>
                             <MenuDiv>
                                 <i className="fas fa-bars" onClick={this.onClickBars}/>
                                 <SideMenu style={{display:"none"}} ref={this.sideMenuEl} >
-                                    <MenuItem><a href="/dlog/post">Post</a></MenuItem>
-                                    <MenuItem><a href="/dlog/code">Code</a></MenuItem>
-                                    <MenuItem><a href="/dlog/recipe">Recipe</a></MenuItem>
-                                    {isLogin && <MenuItem><a href="/dlog/post/mng">Post Mng</a></MenuItem>}
-                                    {isLogin && <MenuItem><a href={`/dlog/write/${this.getCategory()}`}>Posting</a></MenuItem>}
+                                    {isLogin && <MenuItem><a href="/dlog/post/write" onClick={this.onClickPosting}>Posting</a></MenuItem>}
                                     {isLogin && <MenuItem><span onClick={this.onClickLogout}>Logout</span></MenuItem>}
                                     {!isLogin && <MenuItem><a href="/dlog/common/login">Login</a></MenuItem>}
                                 </SideMenu>
@@ -186,4 +180,4 @@ class CommonConatiner extends React.Component<RouteComponentProps<{category:stri
     }
 }
 
-export default withRouter(CommonConatiner);
+export default CommonConatiner;

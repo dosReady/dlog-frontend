@@ -1,5 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import LoadPage from 'components/LoadPage';
+import TagPage from 'pages/public/TagPage';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -130,13 +131,12 @@ class App extends React.Component<{}, {}> {
           <Router basename="/dlog">
             <Switch>
               <Route exact path="/common/login" component={() => <LoadPage path="login"/>}  />
-              <Route exact path="/post/mng" component={() => <LoadPage path="mng"/>}  />
-              <Route exact path="/write/:category" component={() => <LoadPage path="write"/>} />
-              <Route exact path="/write/:category/:postkey" component={() => <LoadPage path="write"/>} />
+              <Route exact path="/post" component={() => <LoadPage path="list"/>}  />
+              <Route exact path="/post/write" component={() => <LoadPage path="write"/>} />
+              <Route exact path="/post/:postkey" component={() => <LoadPage path="write"/>} />
               <Route exact path="/detail/:postkey" component={() => <LoadPage path="detail"/>} />
+              <Route exact path="/tmpl/tag" component={TagPage}  />
               <Route exact path="/" component={() => <LoadPage path="list"/>}  />
-              <Route exact path="/:category" component={() => <LoadPage path="list"/>}  />
-              <Route exact path="/tmpl/tag" component={() => <LoadPage path="tag"/>}  />
             </Switch>
           </Router>
         <ToastContainer

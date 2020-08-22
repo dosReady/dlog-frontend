@@ -1,75 +1,60 @@
 import { PostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
+import autobind from 'autobind-decorator';
+import Category from 'components/Category';
 import CommonConatiner from 'components/CommonContainer';
-import PostAside from 'components/PostAside';
 import PostList from 'components/PostList';
 import { StringUtlz } from 'lib/Utlz';
-import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
 import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import React from 'react';
+import styled from 'styled-components';
+import UserService from 'api/service/UserService';
+import PostMngList from 'components/PostMngList';
+import { PostStore } from 'store';
 
+
+const PostContainer = styled.div`
+    padding: 0 1rem;
+`
 
 const PostWrap = styled.div`
-    margin-top: 4rem;
-    display:flex;
-    justify-content:space-between;
+    margin-top: 2rem;
+   
 `
 
-const PostLeftWrap = styled.div`
-    max-width: 750px;
-    flex: 1 1 0%;
-    padding: 0 1rem;
-    @media screen and (max-width: 900px) { 
-        width: 100%;
-    }
-`
-
-const PostRightWrap = styled.div`
-    margin-left: 1.5rem;
-    padding: 0rem 1rem 0;
-    width: 300px;
-    @media screen and (max-width: 900px) { 
-        display:none;
-    }
-`
-
+@inject('poststore')
 @observer
-class PostListPage extends React.Component<RouteComponentProps<{category:string}> & {}> {
+class PostListPage extends React.Component<{poststore?:PostStore}, {}> {
     @observable private list: PostModel[] | null = null;
 
+    @autobind
     async loadData(): Promise<void> {
-        const posts = await PostService.getPostList(this.props.match.params.category);
+        const category = this.props.poststore?.category;
+        if(StringUtlz.isEmpty(category)) return;
+        const posts = await PostService.getPostList(category || '');
         this.list = posts;
     }
-    componentDidMount() :void {
+
+    componentDidMount(): void {
         this.loadData();
     }
 
-    getTitle(): string{
-        let category = this.props.match.params.category;
-        if(StringUtlz.isEmpty(category)) {
-            category = "post";
-        }
-        return category;
-    }
-
     render(): JSX.Element {
+        const isLogin = UserService.procSettingLogin();
         return (
-            <CommonConatiner title={this.getTitle()}>
-               <PostWrap>
-                    <PostLeftWrap>
-                        <PostList list={this.list}/>
-                    </PostLeftWrap>
-                    <PostRightWrap>
-                        <PostAside/>
-                    </PostRightWrap>
-                </PostWrap>
+            <CommonConatiner title="Post">
+                <PostContainer>
+                    <Category loadFunc={this.loadData}/>
+                    <PostWrap>
+                        {!isLogin && <PostList list={this.list}/>}
+                        {isLogin && <PostMngList list={this.list} loadFunc={this.loadData}/>}
+                    </PostWrap>
+                </PostContainer>
             </CommonConatiner>
         )
     }
     
 }
 
-export default withRouter(PostListPage);
+export default PostListPage;

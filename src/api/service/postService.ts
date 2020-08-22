@@ -15,8 +15,17 @@ class PostService {
         return postList;
     }
 
+    public async inputPost(param:PostModel): Promise<void> {
+        await api.post("/input/post", {...param});
+    }
+
+
     public async addPost(param:PostModel): Promise<void> {
         await api.post("/add/post", {...param});
+    }
+
+    public async removePost(postkey: string): Promise<void> {
+        await api.post("/remove/post", {"PostKey": postkey});
     }
 
     public async getPost(postkey:string):Promise<PostModel> {

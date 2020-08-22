@@ -1,9 +1,11 @@
 import { HeaderComp, MainConatiner } from 'components/CommonContainer';
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
+import { inject, observer } from 'mobx-react';
+import { PostStore } from 'store';
+import { StringUtlz } from 'lib/Utlz';
 
 
 const HeaderContainer = styled.div`
@@ -52,9 +54,16 @@ const PageConatiner = styled.div`
     margin-right: auto;
     height: calc( 100vh - 5rem );
 `
-
-class EditorConatiner extends React.Component<RouteComponentProps<{category:string}> & {}, {}> {
+@inject('poststore')
+@observer
+class EditorConatiner extends React.Component<{
+    poststore?:PostStore
+}, {}> {
     render():JSX.Element {
+        let title = this.props.poststore?.category;
+        if(!StringUtlz.isEmpty(title)) {
+            title = title?.toUpperCase();
+        }
         return (
             <>
                 <HeaderComp>
@@ -63,7 +72,7 @@ class EditorConatiner extends React.Component<RouteComponentProps<{category:stri
                             <a href="/dlog"><ReactSVG src={Logo}/></a>
                             <a href="/dlog">오늘도.log</a>
                         </LinkWrap>
-                        <EditorTitle>{this.props.match.params.category}</EditorTitle>
+                        <EditorTitle>{title}</EditorTitle>
                     </HeaderContainer>
                 </HeaderComp>
                 <MainConatiner>
@@ -76,4 +85,4 @@ class EditorConatiner extends React.Component<RouteComponentProps<{category:stri
     }
 }
 
-export default withRouter(EditorConatiner);
+export default EditorConatiner;
