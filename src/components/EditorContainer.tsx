@@ -4,8 +4,8 @@ import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
-import { PostStore } from 'store';
 import { StringUtlz } from 'lib/Utlz';
+import PostService from 'api/service/PostService';
 
 
 const HeaderContainer = styled.div`
@@ -54,13 +54,13 @@ const PageConatiner = styled.div`
     margin-right: auto;
     height: calc( 100vh - 5rem );
 `
-@inject('poststore')
+@inject('postservice')
 @observer
 class EditorConatiner extends React.Component<{
-    poststore?:PostStore
+    postservice?:PostService
 }, {}> {
     render():JSX.Element {
-        let title = this.props.poststore?.category;
+        let title = this.props.postservice?.category;
         if(!StringUtlz.isEmpty(title)) {
             title = title?.toUpperCase();
         }

@@ -14,3 +14,8 @@ export interface Tag {
     CreatedAt?: Date,
     UpdatedAt?: Date
 }
+
+export interface IPostStore {
+    postkey?:string,
+    category?:string,
+}

@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
-import { PostStore } from 'store';
 import styled from 'styled-components';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import PostService from 'api/service/PostService';
 
 export const HeaderComp = styled.header`
     position: fixed;
@@ -111,12 +112,13 @@ export const  PageHeader = styled.header`
     }
 `
 
-@inject('poststore')
+@inject('postservice', 'userservice')
 @observer
-class CommonConatiner extends React.Component<{
-    title?:string, 
-    subTitle?:string,
-    poststore?:PostStore
+class CommonConatiner extends React.Component<RouteComponentProps & {
+    title?:string
+    subTitle?:string
+    postservice?:PostService
+    userservice?:UserService
 }, {}> {
     private sideMenuEl = React.createRef<HTMLDivElement>();
 
@@ -136,16 +138,16 @@ class CommonConatiner extends React.Component<{
 
     @autobind
     onClickLogout(event: React.MouseEvent<HTMLElement, MouseEvent>): void {
-        UserService.reqLogout();
+        this.props.userservice?.reqLogout();
     }
 
     @autobind
     onClickPosting():void{
-        this.props.poststore?.setPostkey("");
+        this.props.postservice?.setPostkey("");
     }
 
     render():JSX.Element {
-        const isLogin = UserService.procSettingLogin();
+        const isLogin = this.props.userservice?.isLogin;
         return (
             <>
                 <HeaderComp>
@@ -180,4 +182,4 @@ class CommonConatiner extends React.Component<{
     }
 }
 
-export default CommonConatiner;
+export default withRouter(CommonConatiner);

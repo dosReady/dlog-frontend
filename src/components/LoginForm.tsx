@@ -1,4 +1,4 @@
-import { UserLoginInfo } from 'api/model/UserModels';
+import { ILoginInfo } from 'api/model/UserModels';
 import autobind from 'autobind-decorator';
 import React from 'react';
 import styled from 'styled-components';
@@ -53,13 +53,13 @@ const InputDiv2 = styled.div`
 
 
 class LoginForm extends React.Component<{
-    procLogin: (loginInfo:UserLoginInfo) => Promise<void>
+    procLogin: (loginInfo:ILoginInfo) => Promise<void>
 }, {
-    loginInfo: UserLoginInfo
+    loginInfo: ILoginInfo
 }> {
 
     readonly state = {
-        loginInfo: {} as UserLoginInfo
+        loginInfo: {} as ILoginInfo
     }
 
     @autobind

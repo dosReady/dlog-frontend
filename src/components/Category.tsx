@@ -1,8 +1,8 @@
+import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import styled from 'styled-components';
-import { PostStore } from 'store';
 
 const PostCategoryWrap = styled.div`
     margin-top: 20px;
@@ -19,10 +19,10 @@ const PostCategoryWrap = styled.div`
         border-left
     }
 `
-@inject('poststore')
+@inject('postservice')
 @observer
 class Category extends React.Component<{
-    poststore?:PostStore
+    postservice?:PostService
     loadFunc: () => Promise<void>
 }, {}> {
 
@@ -35,14 +35,14 @@ class Category extends React.Component<{
             }
             e.currentTarget.classList.add("selected");
             const category = (e.currentTarget.textContent || '').toLocaleLowerCase();
-            this.props.poststore?.setCategory(category);
+            this.props.postservice?.setCategory(category);
             this.props.loadFunc();
         }
     }
 
     componentDidMount():void {
         // default
-        this.props.poststore?.setCategory("post");
+        this.props.postservice?.setCategory("post");
     }
 
     render(): JSX.Element {

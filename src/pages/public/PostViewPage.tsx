@@ -5,8 +5,13 @@ import PostView from 'components/PostView';
 import { StringUtlz } from 'lib/Utlz';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 
-class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}> & {}, {post:PostModel}> {
+@inject("postservice")
+@observer
+class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}> & {
+    postservice?:PostService
+}, {post:PostModel}> {
 
     readonly state = {
         post: {} as PostModel
@@ -15,7 +20,7 @@ class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}>
     async initialize():Promise<void> {
         const postkey:string = this.props.match.params.postkey;
         if(!StringUtlz.isEmpty(postkey)) {
-            const data = await PostService.getPost(postkey)
+            const data = await this.props.postservice!.getPost(postkey)
             this.setState({
                 post: data
             })

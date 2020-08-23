@@ -10,7 +10,6 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { PostStore } from 'store';
 import styled from 'styled-components';
 
 const EditorBtnWrap = styled.div`
@@ -105,11 +104,11 @@ const ViewerDiv = styled.div`
         display:none;
     }
 `
-@inject('poststore')
+@inject('postservice')
 @observer
 class Editor extends React.Component<
     RouteComponentProps & {
-        poststore?:PostStore
+        postservice?:PostService
     }, 
     {post: PostModel, title:string}
 > {
@@ -162,10 +161,10 @@ class Editor extends React.Component<
     }
 
     async loadData(): Promise<void> {
-        const {poststore} = this.props;
-        const postkey = poststore?.postkey;
+        const {postservice} = this.props;
+        const postkey = postservice?.postkey;
         if(!StringUtlz.isEmpty(postkey)) {
-            const data = await PostService.getPost(postkey || '');
+            const data = await postservice!.getPost(postkey || '');
             this.setState({
                 post: data
             })
@@ -196,7 +195,7 @@ class Editor extends React.Component<
     }
 
     async procSave():Promise<void> {
-        const category = this.props.poststore?.category;
+        const category = this.props.postservice?.category;
         if(StringUtlz.isEmpty(category)) {
             toast.error("카테고리 정보가 없습니다.");
             return;
@@ -208,7 +207,7 @@ class Editor extends React.Component<
                 PostCategory: category || ''
             }
         });
-        await PostService.inputPost(this.state.post);
+        await this.props.postservice?.inputPost(this.state.post);
         this.props.history.replace('/');
     }
 

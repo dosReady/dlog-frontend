@@ -4,7 +4,6 @@ import autobind from 'autobind-decorator';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { PostStore } from 'store';
 import styled from 'styled-components';
 
 const PostUL = styled.ul`
@@ -69,23 +68,23 @@ const PostRightPanel = styled.div`
 
 interface Props {
     list: PostModel[] | null
-    poststore?:PostStore
+    postservice?:PostService
     loadFunc: () => Promise<void>
 }
 
-@inject('poststore')
+@inject('postservice')
 @observer
 class PostMngList extends React.Component<RouteComponentProps & Props, {}> {
 
     async procDelete(postkey: string):Promise<void> {
-        await PostService.removePost(postkey);
+        await this.props.postservice?.removePost(postkey);
         await this.props.loadFunc();
     }
 
     @autobind
     onUpdateClick(postkey: string): void {
-        const {history, poststore} = this.props;
-        poststore?.setPostkey(postkey);
+        const {history, postservice} = this.props;
+        postservice?.setPostkey(postkey);
         history.push(`/post/write`);
     }
 

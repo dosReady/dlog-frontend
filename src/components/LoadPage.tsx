@@ -1,11 +1,11 @@
 import UserService from 'api/service/UserService';
+import { inject, observer } from 'mobx-react';
 import PostWritePage from 'pages/admin/PostWritePage';
 import DlogLoginPage from 'pages/public/DlogLoginPage';
 import PostListPage from 'pages/public/PostListPage';
 import PostViewPage from 'pages/public/PostViewPage';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { StoreType } from 'store';
 
 interface PageInfo {
     component: any,
@@ -16,9 +16,11 @@ interface State {
     pages : Map<string, PageInfo>
 }
 
+@inject("userservice")
+@observer
 class LoadPage extends React.Component< RouteComponentProps & {
     path: string,
-    store?:StoreType
+    userservice?:UserService
 }, State> {
 
    constructor(props: any) {
@@ -39,7 +41,7 @@ class LoadPage extends React.Component< RouteComponentProps & {
     render():JSX.Element {
         const pages = this.state.pages;
         const pageInfo = pages.get(this.props.path);
-        const isLogin = UserService.procSettingLogin();
+        const isLogin = this.props.userservice?.isLogin;
         let renderComp = pageInfo!.component;
         if(!pageInfo!.isPublic && !isLogin) {
             renderComp = <DlogLoginPage/>;

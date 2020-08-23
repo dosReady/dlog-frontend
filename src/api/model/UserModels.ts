@@ -1,10 +1,9 @@
-export interface UserLoginInfo  {
+export interface ILoginInfo  {
 	LoginID:string,
     Password:string
 }
 
-export interface LoginStrgeInfo {
+export interface ILoginStore {
     LoginID:string,
-    Role:string,
 	AccessToken?:string
 }

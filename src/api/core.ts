@@ -1,4 +1,6 @@
 import axios from 'axios';
+import PostService from 'api/service/PostService';
+import UserService from 'api/service/UserService';
 
 export const api =  axios.create(
     {
@@ -10,3 +12,14 @@ export const api =  axios.create(
         responseType: "json"
     }
 )
+
+class RootStore {
+    postservice:PostService;
+    userservice:UserService;
+    constructor() {
+      this.postservice = new PostService();
+      this.userservice = new UserService();
+    }
+}
+  
+export const store =  new RootStore();

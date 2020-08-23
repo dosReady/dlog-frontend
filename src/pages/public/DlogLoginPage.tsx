@@ -1,9 +1,11 @@
-import { UserLoginInfo } from 'api/model/UserModels';
+import { ILoginInfo } from 'api/model/UserModels';
 import UserService from 'api/service/UserService';
 import autobind from 'autobind-decorator';
 import LoginForm from 'components/LoginForm';
 import { StringUtlz } from 'lib/Utlz';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import { toast } from 'react-toastify';
 import bgimg from 'resources/img/bg_login.png';
@@ -34,12 +36,14 @@ const HeadLine = styled.div`
         }
     }
 `
-
-
-class DlogLoginPage extends React.Component<{},{}> {
+@inject("userservice")
+@observer
+class DlogLoginPage extends React.Component<RouteComponentProps & {
+    userservice?:UserService
+},{}> {
 
     @autobind
-    async procLogin(loginInfo:UserLoginInfo):Promise<void> {
+    async procLogin(loginInfo:ILoginInfo):Promise<void> {
         if(StringUtlz.isEmpty(loginInfo.LoginID)) {
             toast.error("ID를 입력하세요");
             return;
@@ -50,10 +54,7 @@ class DlogLoginPage extends React.Component<{},{}> {
             return;
         }
 
-
-        const info = await UserService.reqLogin(loginInfo);
-        UserService.setUserLocalstorage(info);
-        window.location.replace("/dlog");
+        this.props.userservice?.reqLogin(loginInfo, this.props);
     }
 
 
@@ -72,4 +73,4 @@ class DlogLoginPage extends React.Component<{},{}> {
     }
 }
 
-export default DlogLoginPage;
+export default withRouter(DlogLoginPage);
