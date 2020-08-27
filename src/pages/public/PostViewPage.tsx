@@ -1,4 +1,4 @@
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import CommonConatiner from 'components/CommonContainer';
 import PostView from 'components/PostView';
@@ -11,18 +11,18 @@ import { observer, inject } from 'mobx-react';
 @observer
 class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}> & {
     postservice?:PostService
-}, {post:PostModel}> {
+}, {post:IPostModel}> {
 
     readonly state = {
-        post: {} as PostModel
+        post: {} as IPostModel
     }
 
     async initialize():Promise<void> {
         const postkey:string = this.props.match.params.postkey;
         if(!StringUtlz.isEmpty(postkey)) {
-            const data = await this.props.postservice!.getPost(postkey)
+            const [postdata, ] = await this.props.postservice!.getPost(postkey)
             this.setState({
-                post: data
+                post: postdata
             })
         }
     }
@@ -32,7 +32,7 @@ class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}>
     }
 
     render():JSX.Element {
-        const info:PostModel = this.state.post;
+        const info:IPostModel = this.state.post;
         let PostViewJSX = (<></>)
         if(!StringUtlz.isEmpty(info.PostKey)) {
             PostViewJSX = ( <PostView info={info}/>)

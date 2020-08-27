@@ -1,4 +1,4 @@
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -38,18 +38,18 @@ const PostContents = styled.div`
 
 
 interface Props {
-    list: PostModel[] | null
+    list: IPostModel[] | null
 }
 
 class PostList extends React.Component<Props, {}> {
     render():JSX.Element {
-        let datas:PostModel[] | null = this.props.list;
+        let datas:IPostModel[] | null = this.props.list;
         let renderComp = (<></>);
         if(datas !== null && datas.length > 0) {
             renderComp = (
                 <PostUL>
                     {datas.map(
-                        (data:PostModel, i:any) => (
+                        (data:IPostModel, i:any) => (
                             <li key={i}>
                                 <Link to={`/detail/${data.PostKey}`}>
                                     <PostTop>

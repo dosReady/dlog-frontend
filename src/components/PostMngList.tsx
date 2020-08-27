@@ -1,4 +1,4 @@
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import { inject, observer } from 'mobx-react';
@@ -67,7 +67,7 @@ const PostRightPanel = styled.div`
 `
 
 interface Props {
-    list: PostModel[] | null
+    list: IPostModel[] | null
     postservice?:PostService
     loadFunc: () => Promise<void>
 }
@@ -94,13 +94,13 @@ class PostMngList extends React.Component<RouteComponentProps & Props, {}> {
     }
 
     render():JSX.Element {
-        let datas:PostModel[] | null = this.props.list;
+        let datas:IPostModel[] | null = this.props.list;
         let renderComp = (<></>);
         if(datas !== null && datas.length > 0) {
             renderComp = (
                 <PostUL>
                     {datas.map(
-                        (data:PostModel, i:any) => (
+                        (data:IPostModel, i:any) => (
                             <li key={i}>
                                 <PostLeftPanel>
                                     <Link to={`/detail/${data.PostKey}`}>

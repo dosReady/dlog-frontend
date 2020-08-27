@@ -1,5 +1,5 @@
 import { api } from 'api/Core';
-import { PostModel, IPostStore } from 'api/model/PostModels';
+import { IPostModel, IPostStore, ITagModel } from 'api/model/PostModels';
 import { StringUtlz } from 'lib/Utlz';
 import { observable, action, computed } from 'mobx';
 class PostService {
@@ -67,8 +67,8 @@ class PostService {
     /*
     ====== API =======
     */
-    public async getPostList(category: string): Promise<PostModel[] | null> {
-        let postList: PostModel[] | null = null;
+    public async getPostList(category: string): Promise<IPostModel[] | null> {
+        let postList: IPostModel[] | null = null;
         try {
             if(StringUtlz.isEmpty(category)) category = "post";
             const res = await api.post("/get/postlist", {"PostCategory": category});
@@ -79,12 +79,12 @@ class PostService {
         return postList;
     }
 
-    public async inputPost(param:PostModel): Promise<void> {
+    public async inputPost(param:IPostModel): Promise<void> {
         await api.post("/input/post", {...param});
     }
 
 
-    public async addPost(param:PostModel): Promise<void> {
+    public async addPost(param:IPostModel): Promise<void> {
         await api.post("/add/post", {...param});
     }
 
@@ -92,13 +92,15 @@ class PostService {
         await api.post("/remove/post", {"PostKey": postkey});
     }
 
-    public async getPost(postkey:string):Promise<PostModel> {
-        let post: PostModel = {} as PostModel;
+    public async getPost(postkey:string):Promise<[IPostModel,ITagModel[]]> {
+        let post = {} as IPostModel;
+        let tag = [] as ITagModel[];
         try {
             const {data} = await api.post("get/post", {"postkey": postkey});
             post = data.post;
+            tag = data.tag;
         } catch (error) {}
-        return post;
+        return [post, tag];
     }
 
 

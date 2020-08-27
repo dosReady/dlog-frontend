@@ -53,6 +53,7 @@ const PageConatiner = styled.div`
     margin-left: auto;
     margin-right: auto;
     height: calc( 100vh - 5rem );
+    padding: 0 10px;
 `
 @inject('postservice')
 @observer

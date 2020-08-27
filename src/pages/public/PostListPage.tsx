@@ -1,4 +1,4 @@
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import autobind from 'autobind-decorator';
 import Category from 'components/Category';
 import CommonConatiner from 'components/CommonContainer';
@@ -28,7 +28,7 @@ class PostListPage extends React.Component<{
     postservice?:PostService
     userservice?:UserService
 }, {}> {
-    @observable private list: PostModel[] | null = null;
+    @observable private list: IPostModel[] | null = null;
 
     @autobind
     async loadData(): Promise<void> {

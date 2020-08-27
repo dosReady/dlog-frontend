@@ -1,7 +1,7 @@
 import toastui from '@toast-ui/editor';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel, ITagModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import 'codemirror/lib/codemirror.css';
@@ -44,7 +44,13 @@ const EditorDiv = styled.div`
                 border-left: 4px solid #f1d02e;
             }
         }
+        
     }
+
+    .tui-editor-defaultUI-toolbar {
+        padding: 0 12px;
+    }
+
     .tui-popup-body {
         color:#3a3649;
     }
@@ -53,12 +59,27 @@ const EditorDiv = styled.div`
 `
 
 const EditorTitleDiv = styled.div`
-    padding: 18px 25px;
     background-color: #fff;
+    color: #181818!important;
+`
+
+const EditorTitleWrap = styled.div`
+    border-bottom: 1px solid #e5e5e5;
+    padding: 18px 12px;
     input {
-        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif!important;
-        color: #181818!important;
         width: 100%;
+    }
+`
+
+const EditorTagWrap = styled.div`
+    padding: 10px 12px;
+    overflow-y: scroll;
+    ul {
+        display:flex;
+        align-items: center;
+        li:not(:last-child) {
+            margin-right: 4px;
+        }
     }
 `
 
@@ -104,13 +125,34 @@ const ViewerDiv = styled.div`
         display:none;
     }
 `
+
+const TagItem = styled.div`
+    display: inline-block;
+    background-color: #282d35;
+    color: white;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    cursor:pointer;
+    transition: all 0.3s ease 0s;
+    :hover {
+        transform: translateY(-7px);
+    }
+    span:nth-child(1) {
+        margin-right: 8px;
+    }
+    span:nth-child(2) {
+        font-size:0.85rem;
+        font-weight:bold;
+    }
+`
+
 @inject('postservice')
 @observer
 class Editor extends React.Component<
     RouteComponentProps & {
         postservice?:PostService
     }, 
-    {post: PostModel, title:string}
+    {post: IPostModel, title:string, tags:ITagModel[]}
 > {
     private editorEl = React.createRef<HTMLDivElement>();
     private viewerEl = React.createRef<HTMLDivElement>();
@@ -118,8 +160,9 @@ class Editor extends React.Component<
     private viewerComp: Viewer | null = null;
 
     readonly state = {
-        post: {} as PostModel,
-        title: ""
+        post: {} as IPostModel,
+        title: "",
+        tags: [] as ITagModel[]
     }
 
     initialize(): void {
@@ -164,13 +207,15 @@ class Editor extends React.Component<
         const {postservice} = this.props;
         const postkey = postservice?.postkey;
         if(!StringUtlz.isEmpty(postkey)) {
-            const data = await postservice!.getPost(postkey || '');
-            this.setState({
-                post: data
-            })
+            const [postdata, tagdata] = await postservice!.getPost(postkey || '');
 
-            this.editorComp!.setMarkdown(data.PostContent);
-            this.viewerComp!.setMarkdown(data.PostContent);
+            this.setState({
+                post: postdata,
+                tags: tagdata
+            });
+
+            this.editorComp!.setMarkdown(postdata.PostContent);
+            this.viewerComp!.setMarkdown(postdata.PostContent);
         }
     }
 
@@ -204,9 +249,11 @@ class Editor extends React.Component<
         await this.setState({
             post: {
                 ...this.state.post,
-                PostCategory: category || ''
+                PostCategory: category || '',
+                Tags: this.state.tags
             }
         });
+
         await this.props.postservice?.inputPost(this.state.post);
         this.props.history.replace('/');
     }
@@ -261,6 +308,58 @@ class Editor extends React.Component<
        
     }
 
+    @autobind
+    onUpdateTags(event: React.KeyboardEvent<HTMLInputElement>):void {
+        const keycode = event.keyCode;
+        const postvalue =  event.currentTarget.value.replace(",", "");
+        let copyTags = [...this.state.tags];
+        if(keycode === 188 && !StringUtlz.isEmpty(postvalue)) {
+            const index = copyTags.findIndex((value:ITagModel) => postvalue === value.TagName);
+            if(index === -1) {
+                copyTags.push({TagName:  postvalue} as ITagModel);
+            } else {
+               if(copyTags[index].IsDel === "Y") {
+                    copyTags[index].IsDel = "N";
+               }
+            }
+
+            this.setState({
+                tags: copyTags
+            });
+            event.currentTarget.value = "";
+        }
+        if(keycode === 8 
+        && StringUtlz.isEmpty(postvalue)
+        && copyTags.length > 0) {
+            let index = -1;
+            for(let i= copyTags.length -1; i >= 0; i--) {
+                if(copyTags[i].IsDel === "N" 
+                || StringUtlz.isEmpty(copyTags[i].IsDel)) {
+                    index = i;
+                    break;
+                }
+            }
+            if(index > -1) {
+                copyTags[index].IsDel = "Y";
+                this.setState({
+                    tags: copyTags
+                });
+            }
+        }
+    }
+
+    @autobind
+    onRemoveTag(target:ITagModel):void {
+        let copyTags = [...this.state.tags];
+        const index = copyTags.findIndex((value:ITagModel) => target.TagName === value.TagName);
+        if(index > -1) {
+            copyTags[index].IsDel = "Y";
+            this.setState({
+                tags: copyTags
+            })
+        }
+    }
+
     componentDidMount(): void {
         this.initialize();
         this.loadData();
@@ -270,10 +369,29 @@ class Editor extends React.Component<
         return (
             <>
             <EditorTitleDiv>
-                <input type="text" placeholder="제목을 입력하세요" 
+                <EditorTitleWrap>
+                    <input type="text" placeholder="제목을 입력하세요" 
                     value={this.state.post.PostTitle || ""} 
                     onChange={this.onChangeMainTitle}
-                />
+                    />
+                </EditorTitleWrap>
+                <EditorTagWrap>
+                   <ul>
+                       {this.state.tags.map( (value:ITagModel, i:any) => value.IsDel !== "Y" && (
+                            <li key = {i}>
+                                <TagItem onClick={() => this.onRemoveTag(value)}> 
+                                    <span>{value.TagName}</span>
+                                    <span>X</span>
+                                </TagItem>
+                            </li>
+                       ))}
+                       <li> 
+                            <input type="text" placeholder="태그를입력하세요" 
+                            onKeyUp={this.onUpdateTags}
+                            />
+                        </li>
+                   </ul>
+                </EditorTagWrap>
             </EditorTitleDiv>
             <EditorMiddleDiv>
                 <EditorDiv ref={this.editorEl}/>

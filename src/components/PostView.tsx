@@ -1,6 +1,6 @@
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { PostModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
@@ -70,11 +70,11 @@ const CopyrightDomain = styled.div`
 `
 
 
-class PostView extends React.Component<{info:PostModel}, {}> {
+class PostView extends React.Component<{info:IPostModel}, {}> {
     private viewerEl = React.createRef<HTMLDivElement>();
 
     initialize():void {
-        const post:PostModel = this.props.info;
+        const post:IPostModel = this.props.info;
         const target = this.viewerEl.current!;
         new Viewer({
             el: target,
