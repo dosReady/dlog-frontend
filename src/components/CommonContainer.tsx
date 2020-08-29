@@ -1,13 +1,12 @@
+import PostService from 'api/service/PostService';
 import UserService from 'api/service/UserService';
 import autobind from 'autobind-decorator';
-import { StringUtlz } from 'lib/Utlz';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import Logo from 'resources/img/do.svg';
 import styled from 'styled-components';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import PostService from 'api/service/PostService';
 
 export const HeaderComp = styled.header`
     position: fixed;
@@ -116,7 +115,6 @@ export const  PageHeader = styled.header`
 @observer
 class CommonConatiner extends React.Component<RouteComponentProps & {
     title?:string
-    subTitle?:string
     postservice?:PostService
     userservice?:UserService
 }, {}> {
@@ -172,7 +170,6 @@ class CommonConatiner extends React.Component<RouteComponentProps & {
                     <PageConatiner>
                         <PageHeader>
                             <h1>{this.props.title}</h1>
-                            {!StringUtlz.isEmpty(this.props.subTitle) ? (<p>{this.props.subTitle}</p>) : ""}
                         </PageHeader>
                         {this.props.children}
                     </PageConatiner>

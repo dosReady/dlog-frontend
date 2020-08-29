@@ -1,4 +1,4 @@
-import { IPostModel } from 'api/model/PostModels';
+import { IPostListModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import { inject, observer } from 'mobx-react';
@@ -21,11 +21,9 @@ const PostUL = styled.ul`
 
 const PostTop = styled.div`
     font-size: 0.8rem;
-    span:not(:last-child) {
-        margin-right: 1rem
-    }
     time {
         letter-spacing: 0.07rem;
+        margin-right: 1rem;
     }
 `
 
@@ -67,7 +65,7 @@ const PostRightPanel = styled.div`
 `
 
 interface Props {
-    list: IPostModel[] | null
+    list: IPostListModel[] | null
     postservice?:PostService
     loadFunc: () => Promise<void>
 }
@@ -94,23 +92,22 @@ class PostMngList extends React.Component<RouteComponentProps & Props, {}> {
     }
 
     render():JSX.Element {
-        let datas:IPostModel[] | null = this.props.list;
+        let datas:IPostListModel[] | null = this.props.list;
         let renderComp = (<></>);
         if(datas !== null && datas.length > 0) {
             renderComp = (
                 <PostUL>
                     {datas.map(
-                        (data:IPostModel, i:any) => (
+                        (data:IPostListModel, i:any) => (
                             <li key={i}>
                                 <PostLeftPanel>
                                     <Link to={`/detail/${data.PostKey}`}>
                                         <PostTop>
-                                            <span>#Report #Live #Love</span>
                                             <time>{data.CreatedAt}</time>
+                                            <span>{data.Tags}</span>
                                         </PostTop>
                                         <PostContents>
                                             <h3>{data.PostTitle}</h3>
-                                            <p>{data.PostSubTitle}</p>
                                         </PostContents>
                                     </Link>
                                 </PostLeftPanel>

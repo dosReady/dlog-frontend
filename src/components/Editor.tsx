@@ -1,7 +1,7 @@
 import toastui from '@toast-ui/editor';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { IPostModel, ITagModel } from 'api/model/PostModels';
+import { IPostModel } from 'api/model/PostModels';
 import PostService from 'api/service/PostService';
 import autobind from 'autobind-decorator';
 import 'codemirror/lib/codemirror.css';
@@ -152,7 +152,7 @@ class Editor extends React.Component<
     RouteComponentProps & {
         postservice?:PostService
     }, 
-    {post: IPostModel, title:string, tags:ITagModel[]}
+    {post: IPostModel, title:string, tags:string[]}
 > {
     private editorEl = React.createRef<HTMLDivElement>();
     private viewerEl = React.createRef<HTMLDivElement>();
@@ -162,7 +162,7 @@ class Editor extends React.Component<
     readonly state = {
         post: {} as IPostModel,
         title: "",
-        tags: [] as ITagModel[]
+        tags: [] as string[]
     }
 
     initialize(): void {
@@ -208,7 +208,6 @@ class Editor extends React.Component<
         const postkey = postservice?.postkey;
         if(!StringUtlz.isEmpty(postkey)) {
             const [postdata, tagdata] = await postservice!.getPost(postkey || '');
-
             this.setState({
                 post: postdata,
                 tags: tagdata
@@ -249,7 +248,6 @@ class Editor extends React.Component<
         await this.setState({
             post: {
                 ...this.state.post,
-                PostCategory: category || '',
                 Tags: this.state.tags
             }
         });
@@ -314,46 +312,32 @@ class Editor extends React.Component<
         const postvalue =  event.currentTarget.value.replace(",", "");
         let copyTags = [...this.state.tags];
         if(keycode === 188 && !StringUtlz.isEmpty(postvalue)) {
-            const index = copyTags.findIndex((value:ITagModel) => postvalue === value.TagName);
+            const index = copyTags.indexOf(postvalue);
             if(index === -1) {
-                copyTags.push({TagName:  postvalue} as ITagModel);
-            } else {
-               if(copyTags[index].IsDel === "Y") {
-                    copyTags[index].IsDel = "N";
-               }
+                copyTags.push(postvalue);
             }
-
             this.setState({
                 tags: copyTags
             });
             event.currentTarget.value = "";
         }
+
         if(keycode === 8 
         && StringUtlz.isEmpty(postvalue)
         && copyTags.length > 0) {
-            let index = -1;
-            for(let i= copyTags.length -1; i >= 0; i--) {
-                if(copyTags[i].IsDel === "N" 
-                || StringUtlz.isEmpty(copyTags[i].IsDel)) {
-                    index = i;
-                    break;
-                }
-            }
-            if(index > -1) {
-                copyTags[index].IsDel = "Y";
-                this.setState({
-                    tags: copyTags
-                });
-            }
+            copyTags.pop();
+            this.setState({
+                tags: copyTags
+            });
         }
     }
 
     @autobind
-    onRemoveTag(target:ITagModel):void {
+    onRemoveTag(value:string):void {
         let copyTags = [...this.state.tags];
-        const index = copyTags.findIndex((value:ITagModel) => target.TagName === value.TagName);
+        const index = copyTags.indexOf(value);
         if(index > -1) {
-            copyTags[index].IsDel = "Y";
+            copyTags.splice(index, 1);
             this.setState({
                 tags: copyTags
             })
@@ -377,10 +361,10 @@ class Editor extends React.Component<
                 </EditorTitleWrap>
                 <EditorTagWrap>
                    <ul>
-                       {this.state.tags.map( (value:ITagModel, i:any) => value.IsDel !== "Y" && (
+                       {this.state.tags.map( (value:string, i:any) => (
                             <li key = {i}>
                                 <TagItem onClick={() => this.onRemoveTag(value)}> 
-                                    <span>{value.TagName}</span>
+                                    <span>{value}</span>
                                     <span>X</span>
                                 </TagItem>
                             </li>

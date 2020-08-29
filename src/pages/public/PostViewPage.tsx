@@ -39,7 +39,7 @@ class PostViewPage extends React.Component<RouteComponentProps<{postkey:string}>
         }
 
         return (
-            <CommonConatiner title={this.state.post.PostTitle} subTitle={this.state.post.PostSubTitle}>
+            <CommonConatiner title={this.state.post.PostTitle}>
                 {PostViewJSX}
             </CommonConatiner>
         )

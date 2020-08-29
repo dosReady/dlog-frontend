@@ -1,12 +1,18 @@
 export interface IPostModel {
 	PostKey:      string, 
 	PostTitle:    string,
-	PostSubTitle: string, 
     PostContent:  string, 
-    PostCategory: string, 
-    Tags:         ITagModel[],   
+    Tags:         string[],   
     CreatedAt:    string,
     UpdatedAt:    string
+}
+
+export interface IPostListModel {
+	PostKey:      string, 
+	PostTitle:    string,
+    PostContent:  string, 
+    Tags:         string,   
+    CreatedAt:    string,
 }
 
 export interface ITagModel {

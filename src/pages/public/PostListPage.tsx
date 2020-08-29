@@ -1,16 +1,15 @@
-import { IPostModel } from 'api/model/PostModels';
+import { IPostListModel } from 'api/model/PostModels';
+import PostService from 'api/service/PostService';
+import UserService from 'api/service/UserService';
 import autobind from 'autobind-decorator';
 import Category from 'components/Category';
 import CommonConatiner from 'components/CommonContainer';
 import PostList from 'components/PostList';
 import PostMngList from 'components/PostMngList';
-import { StringUtlz } from 'lib/Utlz';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import styled from 'styled-components';
-import UserService from 'api/service/UserService';
-import PostService from 'api/service/PostService';
 
 
 const PostContainer = styled.div`
@@ -28,13 +27,11 @@ class PostListPage extends React.Component<{
     postservice?:PostService
     userservice?:UserService
 }, {}> {
-    @observable private list: IPostModel[] | null = null;
+    @observable private list: IPostListModel[] | null = null;
 
     @autobind
     async loadData(): Promise<void> {
-        const category = this.props.postservice?.category;
-        if(StringUtlz.isEmpty(category)) return;
-        const posts = await this.props.postservice!.getPostList(category || '');
+        const posts = await this.props.postservice!.getPostList();
         this.list = posts;
     }
 
