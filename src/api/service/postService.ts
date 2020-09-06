@@ -14,7 +14,7 @@ class PostService {
     @action 
     public setPostkey(value:string):void {
       const data:IPostStore = {
-        ...this.postdata,
+        ...this._postdata,
         postkey: value
       }
 
@@ -24,9 +24,9 @@ class PostService {
 
     @computed 
     public get postkey():string {
-      const data: IPostStore = this.postdata;
-      if(data.postkey !== undefined) {
-        this._postkey = data.postkey;
+      const data: IPostStore = this._postdata;
+      if(!StringUtlz.isEmpty(data.postkey)) {
+        this._postkey = data.postkey || '';
       }
 
       return this._postkey;
@@ -35,7 +35,7 @@ class PostService {
     @action 
     public setCategory(value:string):void {
       const data:IPostStore = {
-        ...this.postdata,
+        ...this._postdata,
         category: value
       }
       window.localStorage.setItem(this.KEY, JSON.stringify(data));
@@ -44,7 +44,7 @@ class PostService {
 
     @computed 
     public get category():string {
-      const data: IPostStore = this.postdata;
+      const data: IPostStore = this._postdata;
       if(data.category !== undefined) {
         this._category = data.category;
       }
@@ -52,7 +52,7 @@ class PostService {
       return this._category;
     }
 
-    private get postdata(): IPostStore {
+    private get _postdata(): IPostStore {
       let data = {} as IPostStore;
       try {
         const value = window.localStorage.getItem(this.KEY);
@@ -67,14 +67,12 @@ class PostService {
     /*
     ====== API =======
     */
-    public async getPostList(): Promise<IPostListModel[] | null> {
+    public async getPostList(tagkey:string): Promise<IPostListModel[] | null> {
         let postList: IPostListModel[] | null = null;
         try {
-            const res = await api.post("/get/postlist");
+            const res = await api.post("/get/postlist", {"tagkey": tagkey});
             postList = res.data.list;
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) {}
         return postList;
     }
 

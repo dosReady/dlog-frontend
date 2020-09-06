@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import TagService from 'api/service/TagService';
 
 const PostUL = styled.ul`
     li {
@@ -67,16 +68,20 @@ const PostRightPanel = styled.div`
 interface Props {
     list: IPostListModel[] | null
     postservice?:PostService
-    loadFunc: () => Promise<void>
+    tagservice?:TagService
+    loadFunc: (tagkey: string) => Promise<void>
 }
 
-@inject('postservice')
+@inject('postservice', 'tagservice')
 @observer
 class PostMngList extends React.Component<RouteComponentProps & Props, {}> {
 
     async procDelete(postkey: string):Promise<void> {
         await this.props.postservice?.removePost(postkey);
-        await this.props.loadFunc();
+
+        const tagkey = this.props.tagservice!.tagkey;
+
+        await this.props.loadFunc(tagkey);
     }
 
     @autobind

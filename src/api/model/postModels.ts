@@ -15,12 +15,6 @@ export interface IPostListModel {
     CreatedAt:    string,
 }
 
-export interface ITagModel {
-    TagKey:  string,
-    TagName: string,
-    IsDel:   string
-}
-
 export interface IPostStore {
     postkey?:string,
     category?:string,

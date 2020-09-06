@@ -1,6 +1,7 @@
 import axios from 'axios';
 import PostService from 'api/service/PostService';
 import UserService from 'api/service/UserService';
+import TagService from 'api/service/TagService';
 
 export const api =  axios.create(
     {
@@ -16,9 +17,11 @@ export const api =  axios.create(
 class RootStore {
     postservice:PostService;
     userservice:UserService;
+    tagservice:TagService;
     constructor() {
       this.postservice = new PostService();
       this.userservice = new UserService();
+      this.tagservice = new TagService();
     }
 }
   
