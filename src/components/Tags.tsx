@@ -6,11 +6,11 @@ import styled from "styled-components";
 
 const TagContainer = styled.div`
     margin-top: 20px;
-    overflow: scroll;
     padding: 20px 0;
     button {
         border: 1px solid #F3F3F3;
         margin-right:1rem;
+        margin-bottom:8px;
         :hover {
             background-color: #456582;
         }
